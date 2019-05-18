@@ -1,10 +1,6 @@
 #ifndef CP_INFO_H
 #define CP_INFO_H
-#include <stdio.h>
-#include <stdlib.h>
-#include "./data_types.h"
-//#include <string.h>
-// declaração de tipos e funções
+#include "data_types.h"
 
 typedef enum tag {
     CONSTANT_Class = 7,

@@ -3,28 +3,28 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "./types/cp_info.h"
-#include "./types/field_info.h"
-#include "./types/method_info.h"
+#include "types/cp_info.h"
+#include "types/field_info.h"
+#include "types/method_info.h"
 //#include <string.h>
 // declaração de tipos e funções
 
 typedef struct classFile {
-    uint32_t magic;          // cafebabe
-    uint16_t minor_version;  // formato da versão M.m
-    uint16_t major_version;
-    uint16_t constant_pool_count;  // contador da constant pool
-    cp_info *constant_pool;        // constantpool sendo ponteiro p/ cp_info
-    uint16_t access_flags;
-    uint16_t this_class;
-    uint16_t super_class;
-    uint16_t interfaces_count;
-    uint16_t *interfaces;
-    uint16_t fields_count;
+    u4 magic;          // cafebabe
+    u2 minor_version;  // formato da versão M.m
+    u2 major_version;
+    u2 constant_pool_count;  // contador da constant pool
+    cp_info *constant_pool;  // constantpool sendo ponteiro p/ cp_info
+    u2 access_flags;
+    u2 this_class;
+    u2 super_class;
+    u2 interfaces_count;
+    u2 *interfaces;
+    u2 fields_count;
     field_info *fields;
-    uint16_t methods_count;
+    u2 methods_count;
     method_info *methods;
-    uint16_t attributes_count;
+    u2 attributes_count;
     attribute_info *attributes;
 } classFile;
 
