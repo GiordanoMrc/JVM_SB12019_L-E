@@ -24,36 +24,62 @@ typedef struct cp_info {
     u1 tag;
     union info {
         struct CONSTANT_Class_info;
+        struct CONSTANT_Fieldref_info;
     };
 } cp_info;
 
-typedef struct CONSTANT_Class_info {
-    u1 tag;
+struct CONSTANT_Class_info {
     u2 name_index;
-} CONSTANT_Class_info;
+};
 
-typedef struct CONSTANT_Fieldref_info {
-    u1 tag;
+struct CONSTANT_Fieldref_info {
     u2 class_index;
     u2 name_and_type_index;
-} CONSTANT_Fieldref_info;
+};
 
-typedef struct CONSTANT_NameAndType_info {
-    u1 tag;
+struct CONSTANT_NameAndType_info {
     u2 name_index;
     u2 descriptor_index;
-} CONSTANT_NameAndType_info;
+};
 
-typedef struct CONSTANT_Utf8_info {
-    u1 tag;
+struct CONSTANT_Utf8_info {
     u2 length;
     u1 *bytes;
-} CONSTANT_Utf8_info;
+};
 
-typedef struct CONSTANT_Methodref_info {
-    u1 tag;
+struct CONSTANT_Methodref_info {
     u2 class_index;
     u2 name_and_type_index;
-} CONSTANT_Methodref_info;
+};
 
+struct CONSTANT_InterfaceMethodref_info {
+    u2 class_index;
+    u2 name_and_type_index;
+};
+
+struct CONSTANT_String_info {
+    u2 string_index;
+};
+
+struct CONSTANT_Integer_info {
+    u4 bytes;
+};
+
+struct CONSTANT_Integer_info {
+    u4 bytes;
+};
+
+struct CONSTANT_Float_info {
+    u4 bytes;
+};
+
+struct CONSTANT_Long_info {
+    u4 high_bytes;
+    u4 low_bytes;
+};
+
+struct CONSTANT_Double_info {
+    u4 high_bytes;
+    u4 low_bytes;
+};
 #endif
