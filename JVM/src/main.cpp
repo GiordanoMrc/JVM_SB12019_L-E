@@ -4,24 +4,28 @@
 #include <iostream>
 #include <string>
 
-//#include "leitor.h"
-//#include "exibidor.h"
+#include "exibidor.hpp"
+#include "leitor.hpp"
+#include "types/class_file.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    string mode, name;
+    // string mode, name;
 
-    if (argc < 3) {
-        cout << "numero de args invalido";
+    // if (argc < 3) {
+    //     cout << "numero de args invalido";
 
-    } else {
-        mode = argv[1];
-        name = argv[2];
-    }
+    // } else {
+    //     mode = argv[1];
+    //     name = argv[2];
+    // }
 
-    if (mode == "-le") {
-        cout << mode << "\n" << name;
-    }
-    return 0;
+    // if (mode == "-le") {
+    //     cout << mode << "\n" << name;
+    // }
+    Reader rd = Reader();
+    ClassFile cf = rd.getClassFile(std::string(""));
+    Printer::showClassFile(cf);
+    return EXIT_SUCCESS;
 }

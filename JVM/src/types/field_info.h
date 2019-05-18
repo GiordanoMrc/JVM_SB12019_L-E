@@ -4,7 +4,8 @@
 #include "attribute_info.h"
 #include "data_types.h"
 
-typedef enum field_access_flags {
+namespace FieldAcessFlags {
+enum {
     ACC_PUBLIC = 0x0001,
     ACC_PRIVATE = 0x0002,
     ACC_PROTECTED = 0x0004,
@@ -13,8 +14,9 @@ typedef enum field_access_flags {
     ACC_VOLATILE = 0x0040,
     ACC_TRANSIENT = 0x0080
 };
+}
 
-typedef struct field_info {
+struct field_info {
     u2 access_flags;
     u2 name_index;
     u2 descriptor_index;

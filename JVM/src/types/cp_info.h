@@ -2,7 +2,7 @@
 #define CP_INFO_H
 #include "data_types.h"
 
-typedef enum tag {
+enum tag {
     CONSTANT_Class = 7,
     CONSTANT_Fieldref = 9,
     CONSTANT_Methodref = 10,
@@ -16,7 +16,7 @@ typedef enum tag {
     CONSTANT_Utf8 = 1
 };
 
-typedef struct cp_info {
+struct cp_info {
     u1 tag;
     union info {
         struct CONSTANT_Class_info {
