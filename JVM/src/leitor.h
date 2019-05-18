@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./types/cp_info.h"
+#include "./types/field_info.h"
+#include "./types/method_info.h"
 //#include <string.h>
 // declaração de tipos e funções
 

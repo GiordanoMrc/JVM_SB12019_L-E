@@ -18,7 +18,7 @@ typedef enum tag {
     CONSTANT_Double = 6,
     CONSTANT_NameAndType = 12,
     CONSTANT_Utf8 = 1
-} tag;
+};
 
 typedef struct cp_info {
     u1 tag;
@@ -74,6 +74,6 @@ typedef struct cp_info {
             u4 low_bytes;
         } CONSTANT_Double_info;
     } info;
-} cp_info;
+};
 
 #endif
