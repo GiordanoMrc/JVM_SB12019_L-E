@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
     // }
     Reader rd = Reader();
     ClassFile cf = rd.getClassFile(std::string(""));
-    Printer::showClassFile(cf);
+    std::cout << "Foi";
+    // Printer::showClassFile(cf);
     return EXIT_SUCCESS;
 }
