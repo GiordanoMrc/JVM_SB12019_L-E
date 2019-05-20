@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include "types/class_file.h"
 #include "types/cp_info.h"
@@ -19,7 +20,7 @@ class Reader {
 
    private:
     std::ifstream input;
-    void read_magic(ClassFile cf);
+    void read_magic(ClassFile* cf);
     void read_minor_version();
     void read_major_version();
     void read_constant_pool();

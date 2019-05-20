@@ -25,8 +25,9 @@ int main(int argc, char *argv[]) {
     //     cout << mode << "\n" << name;
     // }
     Reader rd = Reader();
-    ClassFile cf = rd.getClassFile(std::string(""));
-    std::cout << "Foi";
-    // Printer::showClassFile(cf);
+    ClassFile cf =
+        rd.getClassFile(std::string("/home/santosdanilo/workspace-unb/sb/"
+                                    "JVM_SB12019/JVM/examples/MainOnly.class"));
+    Printer::showClassFile(cf);
     return EXIT_SUCCESS;
 }
