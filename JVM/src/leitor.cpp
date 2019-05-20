@@ -3,6 +3,7 @@
 ClassFile Reader::getClassFile(std::string name) {
     std::cout << name << '\n';
     std::ifstream input(name, std::ios::binary);
+
     if (input.is_open()) {
         ClassFile cf = ClassFile();
         this->read_magic(&cf);
