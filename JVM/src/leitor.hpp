@@ -13,14 +13,15 @@
 #define LEITOR_H
 // declaração de tipos e funções
 
+using namespace std;
+
 class Reader {
    public:
-    ClassFile getClassFile(std::string name);
+    ClassFile getClassFile(string);
     Reader() {}
 
    private:
-    std::ifstream input;
-    void read_magic(ClassFile* cf);
+    void read_magic(ifstream&, ClassFile);
     void read_minor_version();
     void read_major_version();
     void read_constant_pool();

@@ -15,20 +15,20 @@
 
 class Printer {
    public:
-    static void showClassFile(ClassFile cf);
+    static void showClassFile(ClassFile);
 
    private:
-    static void print_magic(ClassFile cf);
-    static void print_minor_version();
-    static void print_major_version();
-    static void print_constant_pool();
-    static void print_access_flags();
-    static void print_this_class();
-    static void print_super_class();
-    static void print_interfaces();
-    static void print_fields();
-    static void print_methods();
-    static void print_attributes();
+    static void print_magic(ClassFile);
+    static void print_minor_version(ClassFile);
+    static void print_major_version(ClassFile);
+    static void print_constant_pool(ClassFile);
+    static void print_access_flags(ClassFile);
+    static void print_this_class(ClassFile);
+    static void print_super_class(ClassFile);
+    static void print_interfaces(ClassFile);
+    static void print_fields(ClassFile);
+    static void print_methods(ClassFile);
+    static void print_attributes(ClassFile);
 };
 
 #endif

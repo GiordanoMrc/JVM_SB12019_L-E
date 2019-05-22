@@ -1,4 +1,4 @@
 JVM/src/*.exe
 .vscode
 
-JVM/build
+build
