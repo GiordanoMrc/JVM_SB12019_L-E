@@ -31,6 +31,21 @@ void Reader::read_major_version(ifstream &file, ClassFile *cf) {
     cf->major_version = htobe16(cf->major_version);
 }
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
+    u1 tag_reader = 0;
     file.read((char *)&cf->constant_pool_count, sizeof(u2));
     cf->constant_pool_count = htobe16(cf->constant_pool_count);
+    cf->constant_pool =
+        (cp_info *)calloc(sizeof(cp_info), cf->constant_pool_count - 1);
+    for (int i = 0; i < cf->constant_pool_count; i++) {
+        file.read((char *)&tag_reader, sizeof(u1));
+        cf->constant_pool[i].tag = tag_reader;
+        switch (tag_reader) {
+            case CONSTANT_Methodref:
+                file.read((char *)&cf->constant_pool[0].info,
+                          sizeof(CONSTANT_Methodref_info));
+                break;
+            default:
+                break;
+        }
+    }
 }

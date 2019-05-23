@@ -8,7 +8,7 @@ void Printer::showClassFile(ClassFile cf) {
 
 void Printer::print_magic(ClassFile cf) {
     std::cout << "Magic: \t0x";
-    std::cout << std::hex << cf.magic << std::endl;
+    printf("%x\n", cf.magic);
 }
 
 void Printer::print_minor_version(ClassFile cf) {

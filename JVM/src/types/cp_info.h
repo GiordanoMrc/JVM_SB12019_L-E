@@ -38,10 +38,7 @@ struct cp_info {
             u1 *bytes;
         } CONSTANT_Utf8_info;
 
-        struct CONSTANT_Methodref_info {
-            u2 class_index;
-            u2 name_and_type_index;
-        } CONSTANT_Methodref_info;
+        struct CONSTANT_Methodref_info;
 
         struct CONSTANT_InterfaceMethodref_info {
             u2 class_index;
@@ -71,5 +68,10 @@ struct cp_info {
         } CONSTANT_Double_info;
     } info;
 };
+
+typedef struct CONSTANT_Methodref_info {
+    u2 class_index;
+    u2 name_and_type_index;
+} CONSTANT_Methodref_info;
 
 #endif
