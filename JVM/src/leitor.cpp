@@ -21,7 +21,7 @@ ClassFile Reader::getClassFile(std::string name) {
 
 void Reader::read_magic(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->magic, sizeof(u4));
-    cf->magic = htobe32(cf->magic);
+    cf->magic = CorrectEndian::t_u4(cf->magic);
 }
 
 void Reader::read_minor_version(ifstream &file, ClassFile *cf) {
