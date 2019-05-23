@@ -4,10 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "types/class_file.h"
-#include "types/cp_info.h"
-#include "types/field_info.h"
-#include "types/method_info.h"
+#include "class_file.h"
+#include "cp_info.h"
+#include "field_info.h"
+#include "method_info.h"
 
 #ifndef EXIBIDOR_H
 #define EXIBIDOR_H

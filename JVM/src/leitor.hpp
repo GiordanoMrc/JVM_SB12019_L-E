@@ -5,11 +5,11 @@
 #include <iostream>
 #include <string>
 
-#include "types/class_file.h"
-#include "types/cp_info.h"
-#include "types/endian.hpp"
-#include "types/field_info.h"
-#include "types/method_info.h"
+#include "class_file.h"
+#include "correct_endian.hpp"
+#include "cp_info.h"
+#include "field_info.h"
+#include "method_info.h"
 
 #ifndef LEITOR_H
 #define LEITOR_H

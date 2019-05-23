@@ -1,4 +1,4 @@
-#include "endian.hpp"
+#include "correct_endian.hpp"
 
 u2 CorrectEndian::t_u2(u2 byte) { return (byte << 8) | (byte >> 8); }
 
