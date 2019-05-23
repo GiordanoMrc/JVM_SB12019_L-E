@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -13,17 +15,17 @@
 
 #ifndef LEITOR_H
 #define LEITOR_H
-// declaração de tipos e funções
 
 using namespace std;
 
 class Reader {
    public:
     ClassFile getClassFile(string);
+    static FILE* file;
     Reader() {}
 
    private:
-    void read_magic(ifstream&, ClassFile*);
+    void read_magic(ClassFile*);
     void read_minor_version(ifstream&, ClassFile*);
     void read_major_version(ifstream&, ClassFile*);
     void read_constant_pool(ifstream&, ClassFile*);

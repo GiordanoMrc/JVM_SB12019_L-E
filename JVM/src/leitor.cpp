@@ -3,24 +3,25 @@
 long int getSizeofConstant(int tag);
 
 ClassFile Reader::getClassFile(std::string name) {
+    file = fopen(name.c_str(), "rb");
     std::cout << name << '\n';
-    ifstream input(name, std::ios::binary);
 
-    if (input.is_open()) {
+    if (file == NULL) {
         ClassFile cf = ClassFile();
-        read_magic(input, &cf);
-        read_minor_version(input, &cf);
-        read_major_version(input, &cf);
-        read_constant_pool(input, &cf);
-        input.close();
+        read_magic(&cf);
+        // read_minor_version(input, &cf);
+        // read_major_version(input, &cf);
+        // read_constant_pool(input, &cf);
+        fclose(file);
         return cf;
     } else {
         exit(EXIT_FAILURE);
     }
 }
 
-void Reader::read_magic(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->magic, sizeof(u4));
+void Reader::read_magic(ClassFile *cf) {
+    fread((char *)&cf->magic, sizeof(u4), 1, file);
+    // file.read((char *)&cf->magic, sizeof(u4));
     cf->magic = CorrectEndian::t_u4(cf->magic);
 }
 
