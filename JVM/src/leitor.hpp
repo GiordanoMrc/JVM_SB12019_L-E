@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+
+#include "endian.h"
 #include "types/class_file.h"
 #include "types/cp_info.h"
 #include "types/field_info.h"
