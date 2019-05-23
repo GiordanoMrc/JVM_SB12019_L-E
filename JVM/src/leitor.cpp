@@ -1,5 +1,7 @@
 #include "leitor.hpp"
 
+long int getSizeofConstant(int tag);
+
 ClassFile Reader::getClassFile(std::string name) {
     std::cout << name << '\n';
     ifstream input(name, std::ios::binary);
@@ -39,13 +41,18 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     for (int i = 0; i < cf->constant_pool_count; i++) {
         file.read((char *)&tag_reader, sizeof(u1));
         cf->constant_pool[i].tag = tag_reader;
-        switch (tag_reader) {
-            case CONSTANT_Methodref:
-                file.read((char *)&cf->constant_pool[0].info,
-                          sizeof(CONSTANT_Methodref_info));
-                break;
-            default:
-                break;
-        }
+        file.read((char *)&cf->constant_pool[0].info,
+                  getSizeofConstant(tag_reader));
+    }
+}
+
+long int getSizeofConstant(int tag) {
+    switch (tag) {
+        case CONSTANT_Methodref:
+            return sizeof(CONSTANT_Methodref_info);
+            break;
+        default:
+            exit(EXIT_FAILURE);
+            break;
     }
 }
