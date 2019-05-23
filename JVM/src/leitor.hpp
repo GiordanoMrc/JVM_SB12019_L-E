@@ -23,17 +23,17 @@ class Reader {
     Reader() {}
 
    private:
-    void read_magic(ifstream&, ClassFile);
-    void read_minor_version();
-    void read_major_version();
-    void read_constant_pool();
-    void read_access_flags();
-    void read_this_class();
-    void read_super_class();
-    void read_interfaces();
-    void read_fields();
-    void read_methods();
-    void read_attributes();
+    void read_magic(ifstream&, ClassFile*);
+    void read_minor_version(ifstream&, ClassFile*);
+    void read_major_version(ifstream&, ClassFile*);
+    void read_constant_pool(ifstream&, ClassFile*);
+    void read_access_flags(ifstream&, ClassFile*);
+    void read_this_class(ifstream&, ClassFile*);
+    void read_super_class(ifstream&, ClassFile*);
+    void read_interfaces(ifstream&, ClassFile*);
+    void read_fields(ifstream&, ClassFile*);
+    void read_methods(ifstream&, ClassFile*);
+    void read_attributes(ifstream&, ClassFile*);
 };
 
 #endif
