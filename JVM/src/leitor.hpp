@@ -20,23 +20,22 @@ using namespace std;
 
 class Reader {
    public:
-    ClassFile getClassFile(string);
-    //static FILE* file;
-    Reader() {}
+    static ClassFile getClassFile(string);
 
    private:
-    void read_magic(ifstream&, ClassFile *cf);
-    void read_minor_version(ifstream&, ClassFile*);
-    void read_major_version(ifstream&, ClassFile*);
-    void read_cpool_count(ifstream&, ClassFile*);
-    void read_constant_pool(ifstream&, ClassFile*);
-    void read_access_flags(ifstream&, ClassFile*);
-    void read_this_class(ifstream&, ClassFile*);
-    void read_super_class(ifstream&, ClassFile*);
-    void read_interfaces(ifstream&, ClassFile*);
-    void read_fields(ifstream&, ClassFile*);
-    void read_methods(ifstream&, ClassFile*);
-    void read_attributes(ifstream&, ClassFile*);
+    Reader() {}
+    static void read_magic(ifstream &, ClassFile *);
+    static void read_minor_version(ifstream &, ClassFile *);
+    static void read_major_version(ifstream &, ClassFile *);
+    static void read_cpool_count(ifstream &, ClassFile *);
+    static void read_constant_pool(ifstream &, ClassFile *);
+    static void read_access_flags(ifstream &, ClassFile *);
+    static void read_this_class(ifstream &, ClassFile *);
+    static void read_super_class(ifstream &, ClassFile *);
+    static void read_interfaces(ifstream &, ClassFile *);
+    static void read_fields(ifstream &, ClassFile *);
+    static void read_methods(ifstream &, ClassFile *);
+    static void read_attributes(ifstream &, ClassFile *);
 };
 
 #endif

@@ -24,10 +24,8 @@ int main(int argc, char *argv[]) {
     // if (mode == "-le") {
     //     cout << mode << "\n" << name;
     // }
-    Reader rd = Reader();
-    ClassFile cf =
-        rd.getClassFile(std::string("/home/marcelo/Projects/JVM/"
-                                    "JVM_SB12019/JVM/examples/MainOnly.class"));
+    string fileName = std::string("./examples/MainOnly.java");
+    ClassFile cf = Reader::getClassFile(fileName);
     Printer::showClassFile(cf);
     return EXIT_SUCCESS;
 }

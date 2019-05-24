@@ -9,18 +9,19 @@ ClassFile Reader::getClassFile(std::string name) {
 
     if (input.is_open()) {
         ClassFile cf = ClassFile();
-        read_magic(input,&cf);
-        read_minor_version(input, &cf);
-        read_major_version(input, &cf);
-        read_cpool_count(input, &cf);
+        read_magic(input, &cf);
+        // read_minor_version(input, &cf);
+        // read_major_version(input, &cf);
+        // read_cpool_count(input, &cf);
         input.close();
         return cf;
     } else {
+        printf("Não foi possível abrir o arquivo\n");
         exit(EXIT_FAILURE);
     }
 }
 
-void Reader::read_magic(ifstream &file, ClassFile *cf){
+void Reader::read_magic(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->magic, sizeof(u4));
     cf->magic = CorrectEndian::t_u4(cf->magic);
 }
@@ -34,8 +35,8 @@ void Reader::read_major_version(ifstream &file, ClassFile *cf) {
     cf->major_version = CorrectEndian::t_u2(cf->major_version);
 }
 
-void Reader::read_cpool_count(ifstream &file, ClassFile *cf){
-    file.read((char *)&cf->cp_count,sizeof(u2));
+void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
+    file.read((char *)&cf->cp_count, sizeof(u2));
     cf->cp_count = CorrectEndian::t_u2(cf->cp_count);
 }
 /*void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
