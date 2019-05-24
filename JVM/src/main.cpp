@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "class_file.h"
+#include "class_file.hpp"
 #include "exibidor.hpp"
 #include "leitor.hpp"
 

@@ -1,4 +1,5 @@
 JVM/src/*.exe
 .vscode
+.idea
 
 build

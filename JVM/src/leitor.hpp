@@ -1,5 +1,6 @@
-#include <stdint.h>
-#include <stdio.h>
+#ifndef LEITOR_H
+#define LEITOR_H
+
 #include <stdlib.h>
 #include <cstdio>
 #include <cstring>
@@ -7,14 +8,11 @@
 #include <iostream>
 #include <string>
 
-#include "class_file.h"
+#include "class_file.hpp"
 #include "correct_endian.hpp"
 #include "cp_info.h"
 #include "field_info.h"
 #include "method_info.h"
-
-#ifndef LEITOR_H
-#define LEITOR_H
 
 using namespace std;
 

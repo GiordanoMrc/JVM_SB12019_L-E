@@ -1,17 +1,15 @@
-#include <stdint.h>
+#ifndef EXIBIDOR_H
+#define EXIBIDOR_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "class_file.h"
+#include "class_file.hpp"
 #include "cp_info.h"
 #include "field_info.h"
 #include "method_info.h"
-
-#ifndef EXIBIDOR_H
-#define EXIBIDOR_H
-// declaração de tipos e funções
 
 class Printer {
    public:
