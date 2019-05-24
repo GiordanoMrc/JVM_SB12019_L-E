@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "access_flags.hpp"
 #include "class_file.hpp"
 #include "cp_info.h"
 #include "field_info.h"
@@ -20,6 +21,7 @@ class Printer {
     static void print_minor_version(ClassFile);
     static void print_major_version(ClassFile);
     static void print_cpool_count(ClassFile);
+    static void print_cpool(ClassFile);
     static void print_access_flags(ClassFile);
     static void print_this_class(ClassFile);
     static void print_super_class(ClassFile);
