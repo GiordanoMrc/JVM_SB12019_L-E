@@ -57,6 +57,16 @@ void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
     cf->access_flags = CorrectEndian::t_u2(cf->access_flags);
 }
 
+void Reader::read_this_class(ifstream &file, ClassFile *cf) {
+    file.read((char *)&cf->this_class, sizeof(u2));
+    cf->this_class = CorrectEndian::t_u2(cf->this_class);
+}
+
+void Reader::read_super_class(ifstream &file, ClassFile *cf) {
+    file.read((char *)&cf->super_class, sizeof(u2));
+    cf->super_class = CorrectEndian::t_u2(cf->super_class);
+}
+
 long int getSizeofConstant(int tag) {
     switch (tag) {
         case CONSTANT_Methodref:

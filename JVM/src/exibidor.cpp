@@ -35,6 +35,8 @@ void Printer::print_cpool_count(ClassFile cf) {
     std::cout << std::dec << cf.cp_count << std::endl;
 }
 
+void Printer::print_cpool(ClassFile cf) {}
+
 void Printer::print_access_flags(ClassFile cf) {
     std::cout << "Access Flags: \t";
     std::cout << std::hex << cf.cp_count << " ";
@@ -72,4 +74,34 @@ void Printer::print_access_flags(ClassFile cf) {
             break;
     };
     std::cout << std::endl;
+}
+
+void Printer::print_this_class(ClassFile cf) {
+    int cp_info_index = cf.this_class;
+    int name_index =
+        cf.constant_pool[cp_info_index].info.CONSTANT_Class_info.name_index;
+    char *thisName =
+        (char *)cf.constant_pool[name_index].info.CONSTANT_Utf8_info.bytes;
+    std::cout << "This class: \t";
+    std::cout << "cp_info #";
+    std::cout << std::dec << cp_info_index;
+    std::cout << "<" << thisName << ">>" << std::endl;
+}
+
+void Printer::print_super_class(ClassFile cf) {
+    int cp_info_index = cf.super_class;
+    if (cp_info_index == 0) {
+        std::cout << "Super class: \t";
+        std::cout << "cp_info #-1";
+        std::cout << "<Object>" << std::endl;
+        return;
+    }
+    int name_index =
+        cf.constant_pool[cp_info_index].info.CONSTANT_Class_info.name_index;
+    char *thisName =
+        (char *)cf.constant_pool[name_index].info.CONSTANT_Utf8_info.bytes;
+    std::cout << "Super class: \t";
+    std::cout << "cp_info #";
+    std::cout << std::dec << cp_info_index;
+    std::cout << "<" << thisName << ">>" << std::endl;
 }
