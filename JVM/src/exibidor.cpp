@@ -4,6 +4,15 @@ void Printer::showClassFile(ClassFile cf) {
     print_minor_version(cf);
     print_major_version(cf);
     print_cpool_count(cf);
+    /*
+    print_cpool(cf);
+    print_access_flags(cf);
+    print_this_class(cf);
+    print_super_class(cf);
+    print_interfaces(cf);
+    print_fields(cf);
+    print_methods(cf);
+    print_attributes(cf);*/
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -24,4 +33,43 @@ void Printer::print_major_version(ClassFile cf) {
 void Printer::print_cpool_count(ClassFile cf) {
     std::cout << "Constant Pool Count: \t";
     std::cout << std::dec << cf.cp_count << std::endl;
+}
+
+void Printer::print_access_flags(ClassFile cf) {
+    std::cout << "Access Flags: \t";
+    std::cout << std::hex << cf.cp_count << " ";
+    switch (cf.cp_count) {
+        case AccessFlags::ACC_PUBLIC:
+            std::cout << "[public]";
+            break;
+
+        case AccessFlags::ACC_PRIVATE:
+            std::cout << "[private]";
+            break;
+
+        case AccessFlags::ACC_PROTECTED:
+            std::cout << "[protected]";
+            break;
+
+        case AccessFlags::ACC_STATIC:
+            std::cout << "[static]";
+            break;
+
+        case AccessFlags::ACC_FINAL:
+            std::cout << "[final]";
+            break;
+
+        case AccessFlags::ACC_VOLATILE:
+            std::cout << "[volatile]";
+            break;
+
+        case AccessFlags::ACC_TRANSIENT:
+            std::cout << "[transient]";
+            break;
+
+        default:
+            std::cout << "[error]";
+            break;
+    };
+    std::cout << std::endl;
 }

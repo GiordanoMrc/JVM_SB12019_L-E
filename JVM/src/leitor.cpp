@@ -52,6 +52,11 @@ void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
      }
 */
 
+void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
+    file.read((char *)&cf->access_flags, sizeof(u2));
+    cf->access_flags = CorrectEndian::t_u2(cf->access_flags);
+}
+
 long int getSizeofConstant(int tag) {
     switch (tag) {
         case CONSTANT_Methodref:
