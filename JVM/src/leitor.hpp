@@ -21,13 +21,14 @@ using namespace std;
 class Reader {
    public:
     ClassFile getClassFile(string);
-    static FILE* file;
+    //static FILE* file;
     Reader() {}
 
    private:
-    void read_magic(ClassFile*);
+    void read_magic(ifstream&, ClassFile *cf);
     void read_minor_version(ifstream&, ClassFile*);
     void read_major_version(ifstream&, ClassFile*);
+    void read_cpool_size(ifstream&, ClassFile*);
     void read_constant_pool(ifstream&, ClassFile*);
     void read_access_flags(ifstream&, ClassFile*);
     void read_this_class(ifstream&, ClassFile*);

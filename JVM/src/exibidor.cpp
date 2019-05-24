@@ -3,7 +3,7 @@ void Printer::showClassFile(ClassFile cf) {
     print_magic(cf);
     print_minor_version(cf);
     print_major_version(cf);
-    print_constant_pool(cf);
+    print_cpool_size(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -21,7 +21,7 @@ void Printer::print_major_version(ClassFile cf) {
     std::cout << std::dec << cf.major_version << std::endl;
 }
 
-void Printer::print_constant_pool(ClassFile cf) {
+void Printer::print_cpool_size(ClassFile cf) {
     std::cout << "Constant Pool Count: \t";
-    std::cout << std::dec << cf.constant_pool_count << std::endl;
+    std::cout << std::dec << cf.cp_size << std::endl;
 }

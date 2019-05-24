@@ -26,7 +26,6 @@ compile: $(OBJ)
 	@echo "Compilação concluída!"
 
 clean :
-	@echo "Removendo arquivo..."
 	@rm -rf build
 	@mkdir build
 	@echo "Arquivos removidos!"

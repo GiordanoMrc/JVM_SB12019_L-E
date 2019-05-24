@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     // }
     Reader rd = Reader();
     ClassFile cf =
-        rd.getClassFile(std::string("/home/santosdanilo/workspace-unb/sb/"
+        rd.getClassFile(std::string("/home/marcelo/Projects/JVM/"
                                     "JVM_SB12019/JVM/examples/MainOnly.class"));
     Printer::showClassFile(cf);
     return EXIT_SUCCESS;
