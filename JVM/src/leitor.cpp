@@ -3,20 +3,19 @@
 long int getSizeofConstant(int tag);
 
 ClassFile Reader::getClassFile(std::string name) {
-    ifstream input;
-    input.open(name, ios::in | ios::binary);
-    std::cout << name << '\n';
+    ifstream input(name, ios::binary);
+    std::cout << name << std::endl;
 
     if (input.is_open()) {
         ClassFile cf = ClassFile();
         read_magic(input, &cf);
-        // read_minor_version(input, &cf);
-        // read_major_version(input, &cf);
-        // read_cpool_count(input, &cf);
+        read_minor_version(input, &cf);
+        read_major_version(input, &cf);
+        read_cpool_count(input, &cf);
         input.close();
         return cf;
     } else {
-        printf("Não foi possível abrir o arquivo\n");
+        std::cout << "Não foi possível abrir o arquivo" << std::endl;
         exit(EXIT_FAILURE);
     }
 }
