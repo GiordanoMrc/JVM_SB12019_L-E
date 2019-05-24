@@ -28,7 +28,7 @@ class Reader {
     void read_magic(ifstream&, ClassFile *cf);
     void read_minor_version(ifstream&, ClassFile*);
     void read_major_version(ifstream&, ClassFile*);
-    void read_cpool_size(ifstream&, ClassFile*);
+    void read_cpool_count(ifstream&, ClassFile*);
     void read_constant_pool(ifstream&, ClassFile*);
     void read_access_flags(ifstream&, ClassFile*);
     void read_this_class(ifstream&, ClassFile*);

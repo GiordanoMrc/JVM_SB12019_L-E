@@ -12,7 +12,7 @@ ClassFile Reader::getClassFile(std::string name) {
         read_magic(input,&cf);
         read_minor_version(input, &cf);
         read_major_version(input, &cf);
-        read_cpool_size(input, &cf);
+        read_cpool_count(input, &cf);
         input.close();
         return cf;
     } else {
@@ -20,8 +20,7 @@ ClassFile Reader::getClassFile(std::string name) {
     }
 }
 
-void Reader::read_magic(ifstream &file, ClassFile *cf) {
-    //fread((char *)&cf->magic, sizeof(u4), 1, file);
+void Reader::read_magic(ifstream &file, ClassFile *cf){
     file.read((char *)&cf->magic, sizeof(u4));
     cf->magic = CorrectEndian::t_u4(cf->magic);
 }
@@ -35,10 +34,9 @@ void Reader::read_major_version(ifstream &file, ClassFile *cf) {
     cf->major_version = CorrectEndian::t_u2(cf->major_version);
 }
 
-void Reader::read_cpool_size(ifstream &file, ClassFile *cf){
-    //fread((char *)&cf->magic, sizeof(u4), 1, file);
-    file.read((char *)&cf->cp_size, sizeof(u2));
-    cf->cp_size = CorrectEndian::t_u2(cf->cp_size);
+void Reader::read_cpool_count(ifstream &file, ClassFile *cf){
+    file.read((char *)&cf->cp_count,sizeof(u2));
+    cf->cp_count = CorrectEndian::t_u2(cf->cp_count);
 }
 /*void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     u1 tag_reader = 0;
@@ -46,13 +44,13 @@ void Reader::read_cpool_size(ifstream &file, ClassFile *cf){
     cf->constant_pool_count = CorrectEndian::t_u2(cf->constant_pool_count);
     cf->constant_pool =
          (cp_info *)calloc(sizeof(cp_info), cf->constant_pool_count - 1);
-     for (int i = 0; i < cf->constant_pool_count; i++) {
+    for (int i = 0; i < cf->constant_pool_count; i++) {
          file.read((char *)&tag_reader, sizeof(u1));
          cf->constant_pool[i].tag = tag_reader;
          file.read((char *)&cf->constant_pool[0].info,
                    getSizeofConstant(tag_reader));
      }
-}*/
+*/
 
 long int getSizeofConstant(int tag) {
     switch (tag) {
