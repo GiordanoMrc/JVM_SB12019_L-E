@@ -2,26 +2,26 @@
 
 long int getSizeofConstant(int tag);
 
-#define readFile(type , tam)\
+#define readFile(type, tam)
 
-u1 readf_u1(u1* pointer,ifstream &file, int n_count){
-    file.read((char*)pointer,n_count);
+u1 readf_u1(u1 *pointer, ifstream &file, int n_count) {
+    file.read((char *)pointer, n_count);
     return *pointer;
 }
 
 #define readf_(type, tam)                                           \
-    type readf_##type(type* pointer,ifstream &file, int n_count){    \
+    type readf_##type(type *pointer, ifstream &file, int n_count) { \
         type aux;                                                   \
-        for(int i=0; i<n_count; i++){                               \
-            file.read((char*)&aux, tam);                            \
+        for (int i = 0; i < n_count; i++) {                         \
+            file.read((char *)&aux, tam);                           \
             aux = CorrectEndian::t_##type(aux);                     \
-            *(pointer+i) = aux;                                     \
+            *(pointer + i) = aux;                                   \
         }                                                           \
         return (aux);                                               \
     }
-readf_(u2,2);
-readf_(u4,4);
-readf_(u8,8);
+readf_(u2, 2);
+readf_(u4, 4);
+readf_(u8, 8);
 
 ClassFile Reader::getClassFile(std::string name) {
     ifstream input(name, ios::binary);
@@ -59,70 +59,65 @@ void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
     cf->cp_count = CorrectEndian::t_u2(cf->cp_count);
 }
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
-  u2  cp_size = cf->cp_count -1;
-  cf->constant_pool = (cp_info*) malloc (sizeof(cp_info) * cp_size);
+    u2 cp_size = cf->cp_count - 1;
+    cf->constant_pool = (cp_info *)malloc(sizeof(cp_info) * cp_size);
+    CONSTANT_Class_info aux;
+    for (u2 i = 0; i < cp_size; i++) {
+        readf_u1(&cf->constant_pool[i].tag, file, 1);
+        // std::cout << tag;
 
-  for(u2 i=0; i < cp_size; i++){
-      readf_u1(&cf->constant_pool[i].tag,file,1);
-      //std::cout << tag;
-
-      switch (cf->constant_pool[i].tag){
-          case CONSTANT_Class:
-              CONSTANT_Class_info aux;
-              cf->constant_pool[i].info.class_info = readf_u2(&aux.name_index,file,1);
-              break;
-          /*case CONSTANT_Fieldref:
-              constant_pool[i].info.fieldref_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Methodref:
-              constant_pool[i].info.class_methodref_info = getConstantClassInfo();
-              break;
-          case CONSTANT_String:
-              constant_pool[i].info.class_string_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Utf8:
-              constant_pool[i].info.class_uft8_info = getConstantClassInfo();
-              break;
-          case CONSTANT_NameAndType:
-              constant_pool[i].info.class_nameAndType_info = getConstantClassInfo();
-              break;
-          case CONSTANT_InterfaceMethodref:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Integer:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Float:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-              case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;
-          case CONSTANT_Long:
-              //constant_pool[i].info.class_info = getConstantClassInfo();
-              break;*/
-          default:
-              exit(1);
-      }
-
-  }
+        switch (cf->constant_pool[i].tag) {
+            case ConstantPoolTags::CONSTANT_Class:
+                readf_u2(&aux.name_index, file, 1);
+                cf->constant_pool[i].info.class_info = aux;
+                break;
+            /*case CONSTANT_Fieldref:
+                constant_pool[i].info.fieldref_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Methodref:
+                constant_pool[i].info.class_methodref_info =
+            getConstantClassInfo(); break; case CONSTANT_String:
+                constant_pool[i].info.class_string_info =
+            getConstantClassInfo(); break; case CONSTANT_Utf8:
+                constant_pool[i].info.class_uft8_info = getConstantClassInfo();
+                break;
+            case CONSTANT_NameAndType:
+                constant_pool[i].info.class_nameAndType_info =
+            getConstantClassInfo(); break; case CONSTANT_InterfaceMethodref:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Integer:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Float:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+                case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;
+            case CONSTANT_Long:
+                //constant_pool[i].info.class_info = getConstantClassInfo();
+                break;*/
+            default:
+                exit(1);
+        }
+    }
 }
-
 
 void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->access_flags, sizeof(u2));
@@ -141,7 +136,7 @@ void Reader::read_super_class(ifstream &file, ClassFile *cf) {
 
 long int getSizeofConstant(int tag) {
     switch (tag) {
-        case CONSTANT_Methodref:
+        case ConstantPoolTags::CONSTANT_Methodref:
             return sizeof(CONSTANT_Methodref_info);
             break;
         default:

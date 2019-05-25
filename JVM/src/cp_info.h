@@ -1,8 +1,8 @@
 #ifndef CP_INFO_H
 #define CP_INFO_H
 #include "data_types.h"
-
-enum tag {
+namespace ConstantPoolTags {
+enum {
     CONSTANT_Class = 7,
     CONSTANT_Fieldref = 9,
     CONSTANT_Methodref = 10,
@@ -15,11 +15,11 @@ enum tag {
     CONSTANT_NameAndType = 12,
     CONSTANT_Utf8 = 1
 };
-struct CONSTANT_Class_info {
+}
+typedef struct CONSTANT_Class_info {
     u1 tag;
     u2 name_index;
-}CONSTANT_Class_info;
-
+} CONSTANT_Class_info;
 
 struct cp_info {
     u1 tag;
@@ -70,8 +70,6 @@ struct cp_info {
         } CONSTANT_Double_info;
     } info;
 };
-
-
 
 typedef struct CONSTANT_Methodref_info {
     u2 class_index;
