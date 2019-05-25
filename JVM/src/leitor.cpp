@@ -181,3 +181,9 @@ void Reader::read_super_class(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->super_class, sizeof(u2));
     cf->super_class = CorrectEndian::t_u2(cf->super_class);
 }
+
+void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->interfaces_count, file, 1);
+    cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
+    readf_u2(cf->interfaces, file, cf->interfaces_count);
+}
