@@ -80,8 +80,9 @@ CONSTANT_NameAndType_info getConstantNameAndTypeInfo(ifstream &file) {
 CONSTANT_Utf8_info getConstantUtf8Info(ifstream &file) {
     CONSTANT_Utf8_info aux;
     readf_u2(&aux.length, file, 1);
-    aux.bytes = (u1 *)malloc(sizeof(u1) * aux.length);
+    aux.bytes = (u1 *)malloc(sizeof(u1) * aux.length + 1);
     readf_u1(aux.bytes, file, aux.length);
+    aux.bytes[aux.length] = '\0';
     return aux;
 }
 

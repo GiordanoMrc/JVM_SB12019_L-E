@@ -36,39 +36,32 @@ void Printer::print_cpool_count(ClassFile cf) {
 void Printer::print_access_flags(ClassFile cf) {
     std::cout << "Access Flags: \t";
     std::cout << std::hex << std::showbase << cf.access_flags << " ";
-    switch (cf.access_flags) {
-        case AccessFlags::ACC_PUBLIC:
-            std::cout << "[public]";
-            break;
-
-        case AccessFlags::ACC_PRIVATE:
-            std::cout << "[private]";
-            break;
-
-        case AccessFlags::ACC_PROTECTED:
-            std::cout << "[protected]";
-            break;
-
-        case AccessFlags::ACC_STATIC:
-            std::cout << "[static]";
-            break;
-
-        case AccessFlags::ACC_FINAL:
-            std::cout << "[final]";
-            break;
-
-        case AccessFlags::ACC_VOLATILE:
-            std::cout << "[volatile]";
-            break;
-
-        case AccessFlags::ACC_TRANSIENT:
-            std::cout << "[transient]";
-            break;
-
-        default:
-            std::cout << "[error]";
-            break;
-    };
+    std::cout << "[";
+    if (cf.access_flags & AccessFlags::PUBLIC) {
+        std::cout << " public ";
+    }
+    if (cf.access_flags >> 1 & AccessFlags::FINAL >> 1) {
+        std::cout << " final ";
+    }
+    if (cf.access_flags >> 1 & AccessFlags::SUPER >> 1) {
+        std::cout << " super ";
+    }
+    if (cf.access_flags >> 2 & AccessFlags::INTERFACE >> 2) {
+        std::cout << " interface ";
+    }
+    if (cf.access_flags & AccessFlags::ABSTRACT) {
+        std::cout << " abstract ";
+    }
+    if (cf.access_flags & AccessFlags::SYNTHETIC) {
+        std::cout << " synthetic ";
+    }
+    if (cf.access_flags & AccessFlags::ANNOTATION) {
+        std::cout << " annotation ";
+    }
+    if (cf.access_flags & AccessFlags::ENUM) {
+        std::cout << " enum ";
+    }
+    std::cout << "]";
     std::cout << std::endl;
 }
 
