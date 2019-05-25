@@ -15,14 +15,16 @@ enum tag {
     CONSTANT_NameAndType = 12,
     CONSTANT_Utf8 = 1
 };
+struct CONSTANT_Class_info {
+    u1 tag;
+    u2 name_index;
+}CONSTANT_Class_info;
+
 
 struct cp_info {
     u1 tag;
     union info {
-        struct CONSTANT_Class_info {
-            u2 name_index;
-        } CONSTANT_Class_info;
-
+        struct CONSTANT_Class_info class_info;
         struct CONSTANT_Fieldref_info {
             u2 class_index;
             u2 name_and_type_index;
@@ -68,6 +70,8 @@ struct cp_info {
         } CONSTANT_Double_info;
     } info;
 };
+
+
 
 typedef struct CONSTANT_Methodref_info {
     u2 class_index;
