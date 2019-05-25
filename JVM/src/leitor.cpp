@@ -247,6 +247,19 @@ void read_attribute(ifstream &file, attribute_info *attribute) {
 void Reader::read_methods(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->methods_count, file, 1);
     // Read methods
+    cf->methods =
+        (method_info *)malloc(sizeof(method_info) * cf->methods_count);
+    for (u1 i = 0; i < cf->methods_count; i++) {
+        readf_u2(&cf->methods[i].access_flags, file, 1);
+        readf_u2(&cf->methods[i].name_index, file, 1);
+        readf_u2(&cf->methods[i].descriptor_index, file, 1);
+        readf_u2(&cf->methods[i].attributes_count, file, 1);
+        cf->methods[i].attributes = (attribute_info *)malloc(
+            sizeof(attribute_info) * cf->methods[i].attributes_count);
+        for (u1 j = 0; j < cf->methods[i].attributes_count; j++) {
+            read_attribute(file, &cf->methods[i].attributes[j]);
+        }
+    }
 }
 
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
