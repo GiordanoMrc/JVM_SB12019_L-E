@@ -211,33 +211,37 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
 
+void read_field(ifstream &, field_info *);
+void read_attribute(ifstream &, attribute_info *);
+
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
     cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
     for (u1 i = 0; i < cf->fields_count - 1; i++) {
-        readf_u2(&cf->fields[i].access_flags, file, 1);
-        readf_u2(&cf->fields[i].name_index, file, 1);
-        readf_u2(&cf->fields[i].descriptor_index, file, 1);
-        readf_u2(&cf->fields[i].attributes_count, file, 1);
+        read_field(file, &cf->fields[i]);
     }
-    // Read attributes
-    cf->attributes =
-        (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
-    for (u1 i = 0; i < cf->fields_count - 1; i++) {
-        for (u1 j = 0; j < cf->attributes_count; i++) {
-            readf_u2(&cf->fields[i].attributes[j].attribute_name_index, file,
-                     1);
-            readf_u4(&cf->fields[i].attributes[j].attribute_length, file, 1);
-            cf->fields[i].attributes[j].info =
-                (u1 *)malloc(sizeof(u1) * cf->attributes_count);
-            for (u1 k = 0; k < cf->attributes_count; k++) {
-                readf_u1(&cf->fields[i].attributes[j].info[k], file, 1);
-            }
-        }
+}
+
+void read_field(ifstream &file, field_info *field) {
+    readf_u2(&field->access_flags, file, 1);
+    readf_u2(&field->name_index, file, 1);
+    readf_u2(&field->descriptor_index, file, 1);
+    readf_u2(&field->attributes_count, file, 1);
+    field->attributes = (attribute_info *)malloc(sizeof(attribute_info) *
+                                                 field->attributes_count);
+    for (u1 j = 0; j < field->attributes_count; j++) {
+        read_attribute(file, &field->attributes[j]);
     }
-    // Read info
-    // Implementar read_info
+}
+
+void read_attribute(ifstream &file, attribute_info *attribute) {
+    readf_u2(&attribute->attribute_name_index, file, 1);
+    readf_u4(&attribute->attribute_length, file, 1);
+    attribute->info = (u1 *)malloc(sizeof(u1) * attribute->attribute_length);
+    for (u1 k = 0; k < attribute->attribute_length; k++) {
+        readf_u1(&attribute->info[k], file, 1);
+    }
 }
 
 void Reader::read_methods(ifstream &file, ClassFile *cf) {
