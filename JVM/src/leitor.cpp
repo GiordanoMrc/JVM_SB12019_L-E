@@ -36,7 +36,7 @@ ClassFile Reader::getClassFile(std::string name) {
         read_interfaces(input, &cf);
         read_fields(input, &cf);
         read_methods(input, &cf);
-        // read_attributes(input, &cf);
+        read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -264,4 +264,10 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
 
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->attributes_count, file, 1);
+    // Read attributes
+    cf->attributes =
+        (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
+    for (u1 i = 0; i < cf->attributes_count; i++) {
+        read_attribute(file, &cf->attributes[i]);
+    }
 }
