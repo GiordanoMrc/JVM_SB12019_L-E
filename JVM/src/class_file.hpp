@@ -10,7 +10,7 @@ class ClassFile {
     u4 magic = 0x00;       // cafebabe
     u2 minor_version = 0;  // formato da versão M.m
     u2 major_version = 0;
-    u2 cp_count = 0;                // contador da constant pool
+    u2 cp_count = 0;
     cp_info *constant_pool = NULL;  // constantpool sendo ponteiro p/ cp_info
     u2 access_flags = 0x00;
     u2 this_class = 0;

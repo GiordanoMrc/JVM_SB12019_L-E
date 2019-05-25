@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdint>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -16,11 +18,14 @@ class Printer {
    public:
     static void showClassFile(ClassFile);
 
+
    private:
+    static void getIndex_Utf8_Ref(cp_info*, u2);
     static void print_magic(ClassFile);
     static void print_minor_version(ClassFile);
     static void print_major_version(ClassFile);
     static void print_cpool_count(ClassFile);
+    static void print_constant_pool(ClassFile);
     static void print_access_flags(ClassFile);
     static void print_this_class(ClassFile);
     static void print_super_class(ClassFile);
