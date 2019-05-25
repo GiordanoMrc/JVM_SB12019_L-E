@@ -24,9 +24,13 @@ class Printer {
     static void print_access_flags(ClassFile);
     static void print_this_class(ClassFile);
     static void print_super_class(ClassFile);
+    static void print_interfaces_count(ClassFile);
     static void print_interfaces(ClassFile);
+    static void print_fields_count(ClassFile);
     static void print_fields(ClassFile);
     static void print_methods(ClassFile);
+    static void print_methods_count(ClassFile);
+    static void print_attributes_count(ClassFile);
     static void print_attributes(ClassFile);
 };
 

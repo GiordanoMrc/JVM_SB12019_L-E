@@ -31,9 +31,12 @@ ClassFile Reader::getClassFile(std::string name) {
         read_cpool_count(input, &cf);
         read_constant_pool(input, &cf);
         read_access_flags(input, &cf);
-        // read_this_class(input, &cf);
-        // read_interfaces(input, &cf);
-        // read_fields(input, &cf);
+        read_this_class(input, &cf);
+        read_super_class(input, &cf);
+        read_interfaces(input, &cf);
+        read_fields(input, &cf);
+        read_methods(input, &cf);
+        read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -80,8 +83,9 @@ CONSTANT_NameAndType_info getConstantNameAndTypeInfo(ifstream &file) {
 CONSTANT_Utf8_info getConstantUtf8Info(ifstream &file) {
     CONSTANT_Utf8_info aux;
     readf_u2(&aux.length, file, 1);
-    aux.bytes = (u1 *)malloc(sizeof(u1) * aux.length);
+    aux.bytes = (u1 *)malloc(sizeof(u1) * aux.length + 1);
     readf_u1(aux.bytes, file, aux.length);
+    aux.bytes[aux.length] = '\0';
     return aux;
 }
 
@@ -207,28 +211,63 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
 
+void read_field(ifstream &, field_info *);
+void read_attribute(ifstream &, attribute_info *);
+
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
     cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
-    for (u1 i = 0; i < cf->fields_count - 1; i++) {
-        readf_u2(&cf->fields[i].access_flags, file, 1);
-        readf_u2(&cf->fields[i].name_index, file, 1);
-        readf_u2(&cf->fields[i].descriptor_index, file, 1);
-        readf_u2(&cf->fields[i].attributes_count, file, 1);
+    for (u1 i = 0; i < cf->fields_count; i++) {
+        read_field(file, &cf->fields[i]);
     }
+}
+
+void read_field(ifstream &file, field_info *field) {
+    readf_u2(&field->access_flags, file, 1);
+    readf_u2(&field->name_index, file, 1);
+    readf_u2(&field->descriptor_index, file, 1);
+    readf_u2(&field->attributes_count, file, 1);
+    field->attributes = (attribute_info *)malloc(sizeof(attribute_info) *
+                                                 field->attributes_count);
+    for (u1 j = 0; j < field->attributes_count; j++) {
+        read_attribute(file, &field->attributes[j]);
+    }
+}
+
+void read_attribute(ifstream &file, attribute_info *attribute) {
+    readf_u2(&attribute->attribute_name_index, file, 1);
+    readf_u4(&attribute->attribute_length, file, 1);
+    attribute->info = (u1 *)malloc(sizeof(u1) * attribute->attribute_length);
+    for (u1 k = 0; k < attribute->attribute_length; k++) {
+        readf_u1(&attribute->info[k], file, 1);
+    }
+}
+
+void Reader::read_methods(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->methods_count, file, 1);
+    // Read methods
+    cf->methods =
+        (method_info *)malloc(sizeof(method_info) * cf->methods_count);
+    for (u1 i = 0; i < cf->methods_count; i++) {
+        readf_u2(&cf->methods[i].access_flags, file, 1);
+        readf_u2(&cf->methods[i].name_index, file, 1);
+        readf_u2(&cf->methods[i].descriptor_index, file, 1);
+        readf_u2(&cf->methods[i].attributes_count, file, 1);
+        cf->methods[i].attributes = (attribute_info *)malloc(
+            sizeof(attribute_info) * cf->methods[i].attributes_count);
+        for (u1 j = 0; j < cf->methods[i].attributes_count; j++) {
+            read_attribute(file, &cf->methods[i].attributes[j]);
+        }
+    }
+}
+
+void Reader::read_attributes(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->attributes_count, file, 1);
     // Read attributes
     cf->attributes =
         (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
-    for (u1 i = 0; i < cf->fields_count - 1; i++) {
-        for (u1 j = 0; j < cf->attributes_count; i++) {
-            readf_u2(&cf->fields[i].attributes[j].attribute_name_index, file,
-                     1);
-            readf_u4(&cf->fields[i].attributes[j].attribute_length, file, 1);
-            cf->fields[i].attributes[j].info =
-                (u1 *)malloc(sizeof(u1) * cf->attributes_count);
-        }
+    for (u1 i = 0; i < cf->attributes_count; i++) {
+        read_attribute(file, &cf->attributes[i]);
     }
-    // Read info
-    // Implementar read_info
 }
