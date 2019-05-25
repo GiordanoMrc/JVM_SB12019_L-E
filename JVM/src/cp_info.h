@@ -13,11 +13,13 @@ enum {
     CONSTANT_Long = 5,
     CONSTANT_Double = 6,
     CONSTANT_NameAndType = 12,
-    CONSTANT_Utf8 = 1
+    CONSTANT_Utf8 = 1,
+    CONSTANT_MethodHandle = 15,
+    CONSTANT_MethodType = 16,
+    CONSTANT_InvokeDynamic = 18
 };
 }
 typedef struct CONSTANT_Class_info {
-    u1 tag;
     u2 name_index;
 } CONSTANT_Class_info;
 

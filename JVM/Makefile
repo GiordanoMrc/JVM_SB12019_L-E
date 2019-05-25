@@ -11,11 +11,9 @@ OBJ = $(patsubst %,$(DIR_OBJ)%,$(_OBJ))
 all : clean compile exec
 
 exec :
-	@echo "Running main..."
 	@echo "\n"
 	@build/./main
 	@echo "\n"
-	@echo "Done running!"
 
 $(DIR_OBJ)%.o: $(DIR_SRC)%.cpp
 	@$(CC) $(CFLAGS) -c -o $@ $< -Iincludes
