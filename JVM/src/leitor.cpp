@@ -31,9 +31,10 @@ ClassFile Reader::getClassFile(std::string name) {
         read_cpool_count(input, &cf);
         read_constant_pool(input, &cf);
         read_access_flags(input, &cf);
-        // read_this_class(input, &cf);
-        // read_interfaces(input, &cf);
-        // read_fields(input, &cf);
+        read_this_class(input, &cf);
+        read_super_class(input, &cf);
+        read_interfaces(input, &cf);
+        read_fields(input, &cf);
         input.close();
         return cf;
     } else {
