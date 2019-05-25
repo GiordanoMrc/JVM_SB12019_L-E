@@ -5,9 +5,9 @@ void Printer::showClassFile(ClassFile cf) {
     print_major_version(cf);
     print_cpool_count(cf);
     // print_cpool(cf);
-    print_access_flags(cf);
-    print_this_class(cf);
-    print_super_class(cf);
+    // print_access_flags(cf);
+    // print_this_class(cf);
+    // print_super_class(cf);
     // print_interfaces(cf);
     // print_fields(cf);
     // print_methods(cf);
