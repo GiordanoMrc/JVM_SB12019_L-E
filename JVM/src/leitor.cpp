@@ -35,6 +35,8 @@ ClassFile Reader::getClassFile(std::string name) {
         read_super_class(input, &cf);
         read_interfaces(input, &cf);
         read_fields(input, &cf);
+        read_methods(input, &cf);
+        // read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -229,8 +231,19 @@ void Reader::read_fields(ifstream &file, ClassFile *cf) {
             readf_u4(&cf->fields[i].attributes[j].attribute_length, file, 1);
             cf->fields[i].attributes[j].info =
                 (u1 *)malloc(sizeof(u1) * cf->attributes_count);
+            for (u1 k = 0; k < cf->attributes_count; k++) {
+                readf_u1(&cf->fields[i].attributes[j].info[k], file, 1);
+            }
         }
     }
     // Read info
     // Implementar read_info
+}
+
+void Reader::read_methods(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->methods_count, file, 1);
+}
+
+void Reader::read_attributes(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->attributes_count, file, 1);
 }
