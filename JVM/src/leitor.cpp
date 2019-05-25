@@ -30,6 +30,8 @@ ClassFile Reader::getClassFile(std::string name) {
         read_major_version(input, &cf);
         read_cpool_count(input, &cf);
         read_constant_pool(input, &cf);
+        read_access_flags(input, &cf);
+        // read_this_class(input, &cf);
         input.close();
         return cf;
     } else {
@@ -43,17 +45,14 @@ void Reader::read_magic(ifstream &file, ClassFile *cf) {
 }
 
 void Reader::read_minor_version(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->minor_version, sizeof(u2));
-    cf->minor_version = CorrectEndian::t_u2(cf->minor_version);
+    readf_u2(&cf->minor_version, file, 1);
 }
 void Reader::read_major_version(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->major_version, sizeof(u2));
-    cf->major_version = CorrectEndian::t_u2(cf->major_version);
+    readf_u2(&cf->major_version, file, 1);
 }
 
 void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->cp_count, sizeof(u2));
-    cf->cp_count = CorrectEndian::t_u2(cf->cp_count);
+    readf_u2(&cf->cp_count, file, 1);
 }
 
 CONSTANT_Class_info getConstantClassInfo(ifstream &file) {
@@ -166,7 +165,6 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 cf->constant_pool[i].info.string_info =
                     getConstantStringInfo(file);
                 break;
-
             case ConstantPoolTags::CONSTANT_Integer:
                 cf->constant_pool[i].info.integer_info =
                     getConstantIntegerInfo(file);
@@ -175,7 +173,6 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 cf->constant_pool[i].info.float_info =
                     getConstantFloatInfo(file);
                 break;
-
             case ConstantPoolTags::CONSTANT_Long:
                 cf->constant_pool[i].info.long_info = getConstantLongInfo(file);
                 break;
@@ -190,13 +187,11 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
 }
 
 void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->access_flags, sizeof(u2));
-    cf->access_flags = CorrectEndian::t_u2(cf->access_flags);
+    readf_u2(&cf->access_flags, file, 1);
 }
 
 void Reader::read_this_class(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->this_class, sizeof(u2));
-    cf->this_class = CorrectEndian::t_u2(cf->this_class);
+    readf_u2(&cf->this_class, file, 1);
 }
 
 void Reader::read_super_class(ifstream &file, ClassFile *cf) {

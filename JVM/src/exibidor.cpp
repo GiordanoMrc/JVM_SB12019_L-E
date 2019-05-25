@@ -4,8 +4,7 @@ void Printer::showClassFile(ClassFile cf) {
     print_minor_version(cf);
     print_major_version(cf);
     print_cpool_count(cf);
-    // print_cpool(cf);
-    // print_access_flags(cf);
+    print_access_flags(cf);
     // print_this_class(cf);
     // print_super_class(cf);
     // print_interfaces(cf);
@@ -15,8 +14,8 @@ void Printer::showClassFile(ClassFile cf) {
 }
 
 void Printer::print_magic(ClassFile cf) {
-    std::cout << "Magic: \t0x";
-    std::cout << std::hex << cf.magic << std::endl;
+    std::cout << "Magic: \t";
+    std::cout << std::hex << std::showbase << cf.magic << std::endl;
 }
 
 void Printer::print_minor_version(ClassFile cf) {
@@ -36,8 +35,8 @@ void Printer::print_cpool_count(ClassFile cf) {
 
 void Printer::print_access_flags(ClassFile cf) {
     std::cout << "Access Flags: \t";
-    std::cout << std::hex << cf.cp_count << " ";
-    switch (cf.cp_count) {
+    std::cout << std::hex << std::showbase << cf.access_flags << " ";
+    switch (cf.access_flags) {
         case AccessFlags::ACC_PUBLIC:
             std::cout << "[public]";
             break;
@@ -79,8 +78,8 @@ void Printer::print_this_class(ClassFile cf) {
     char *thisName = (char *)cf.constant_pool[name_index].info.utf8_info.bytes;
     std::cout << "This class: \t";
     std::cout << "cp_info #";
-    std::cout << std::dec << cp_info_index;
-    std::cout << "<" << thisName << ">>" << std::endl;
+    std::cout << std::dec << cp_info_index << std::endl;
+    std::cout << "<" << thisName << ">" << std::endl;
 }
 
 void Printer::print_super_class(ClassFile cf) {
