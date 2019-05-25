@@ -34,8 +34,6 @@ void Printer::print_cpool_count(ClassFile cf) {
     std::cout << std::dec << cf.cp_count << std::endl;
 }
 
-void Printer::print_cpool(ClassFile cf) {}
-
 void Printer::print_access_flags(ClassFile cf) {
     std::cout << "Access Flags: \t";
     std::cout << std::hex << cf.cp_count << " ";
