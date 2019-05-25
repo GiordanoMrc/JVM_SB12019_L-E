@@ -25,6 +25,7 @@ class ClassFile {
     attribute_info *attributes;
 
     ClassFile() {}
+
 };
 
 #endif

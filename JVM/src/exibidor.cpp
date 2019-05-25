@@ -4,15 +4,14 @@ void Printer::showClassFile(ClassFile cf) {
     print_minor_version(cf);
     print_major_version(cf);
     print_cpool_count(cf);
-    /*
-    print_cpool(cf);
-    print_access_flags(cf);
-    print_this_class(cf);
-    print_super_class(cf);
-    print_interfaces(cf);
-    print_fields(cf);
-    print_methods(cf);
-    print_attributes(cf);*/
+    // print_cpool(cf);
+    // print_access_flags(cf);
+    // print_this_class(cf);
+    // print_super_class(cf);
+    // print_interfaces(cf);
+    // print_fields(cf);
+    // print_methods(cf);
+    // print_attributes(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -78,8 +77,7 @@ void Printer::print_access_flags(ClassFile cf) {
 
 void Printer::print_this_class(ClassFile cf) {
     int cp_info_index = cf.this_class;
-    int name_index =
-        cf.constant_pool[cp_info_index].info.CONSTANT_Class_info.name_index;
+    int name_index = cf.constant_pool[cp_info_index].info.class_info.name_index;
     char *thisName =
         (char *)cf.constant_pool[name_index].info.CONSTANT_Utf8_info.bytes;
     std::cout << "This class: \t";
@@ -96,8 +94,7 @@ void Printer::print_super_class(ClassFile cf) {
         std::cout << "<Object>" << std::endl;
         return;
     }
-    int name_index =
-        cf.constant_pool[cp_info_index].info.CONSTANT_Class_info.name_index;
+    int name_index = cf.constant_pool[cp_info_index].info.class_info.name_index;
     char *thisName =
         (char *)cf.constant_pool[name_index].info.CONSTANT_Utf8_info.bytes;
     std::cout << "Super class: \t";
