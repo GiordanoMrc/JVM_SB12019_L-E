@@ -1,0 +1,577 @@
+Opa, agora vou te mostrar todo meu ByteCode :)
+Vamos embarcar nessa aventura? Diga: Vamoos!
+
+
+####### Aqui vao as informacoes gerais, ta ok?
+
+Numero magico:		0xCAFEBABE
+Minor version:			0
+Major version:			46	[1.2]
+Constant pool count:			66
+Access flags:			0x0020	[super ]
+Vc me mandou a classe:			cp_info #26	<Hello>
+Super class:				cp_info #27	<java/lang/Object>
+Interfaces count:			0
+Fields count:				0
+Methods count:				2
+Attributes count:			1
+
+
+
+####### Proxima parada.... Constant pool!
+
+[1] CONSTANT_Methodref_info		Class name:	cp_info #27	<java/lang/Object>	Name and type:	cp_info #36	<<init>()V>
+[2] CONSTANT_Fieldref_info		Class name:	cp_info #37	<java/lang/System>	Name and type:	cp_info #38	<outLjava/io/PrintStream;>
+[3] CONSTANT_String_info		String:		cp_info #39	<Hello World!>
+[4] CONSTANT_Methodref_info		Class name:	cp_info #40	<java/io/PrintStream>	Name and type:	cp_info #41	<println(Ljava/lang/String;)V>
+[5] CONSTANT_Double_info
+	High bytes:		0xbff00000
+	Low bytes:		0x00000000
+	Double:		-1.000000
+[6]	(large numeric continued)
+[7] CONSTANT_Long_info		High bytes	 0xffffffff	Low bytes:	0xffffffff	Long:  -1
+[8]	(large numeric continued)
+[9] CONSTANT_Float_info		Bytes:	0xbfa66666	Float:	-1.300000
+[10] CONSTANT_String_info		String:		cp_info #42	<Double TEST>
+[11] CONSTANT_String_info		String:		cp_info #43	<Passou <>
+[12] CONSTANT_String_info		String:		cp_info #44	<DEU MERDA <>
+[13] CONSTANT_String_info		String:		cp_info #45	<Passou <=>
+[14] CONSTANT_String_info		String:		cp_info #46	<Passou ==>
+[15] CONSTANT_String_info		String:		cp_info #47	<Passou >= para d = 0>
+[16] CONSTANT_String_info		String:		cp_info #48	<Passou >= para d = 1>
+[17] CONSTANT_String_info		String:		cp_info #49	<FLOAT TEST>
+[18] CONSTANT_String_info		String:		cp_info #50	<Passou >= para f = 0>
+[19] CONSTANT_String_info		String:		cp_info #51	<Passou >= para f = 1>
+[20] CONSTANT_String_info		String:		cp_info #52	<LONG TEST>
+[21] CONSTANT_String_info		String:		cp_info #53	<Passou >= para l = 0>
+[22] CONSTANT_String_info		String:		cp_info #54	<Passou >= para l = 1>
+[23] CONSTANT_String_info		String:		cp_info #55	<Integer TEST>
+[24] CONSTANT_String_info		String:		cp_info #56	<Passou >= para i = 0>
+[25] CONSTANT_String_info		String:		cp_info #57	<Passou >= para i = 1>
+[26] CONSTANT_Class_info		Class name:	cp_info #58	<Hello>
+[27] CONSTANT_Class_info		Class name:	cp_info #59	<java/lang/Object>
+[28] CONSTANT_Utf8_info			Tam do byte array:	6	Tam da string:	6	String:	<init>
+[29] CONSTANT_Utf8_info			Tam do byte array:	3	Tam da string:	3	String:	()V
+[30] CONSTANT_Utf8_info			Tam do byte array:	4	Tam da string:	4	String:	Code
+[31] CONSTANT_Utf8_info			Tam do byte array:	15	Tam da string:	15	String:	LineNumberTable
+[32] CONSTANT_Utf8_info			Tam do byte array:	4	Tam da string:	4	String:	main
+[33] CONSTANT_Utf8_info			Tam do byte array:	22	Tam da string:	22	String:	([Ljava/lang/String;)V
+[34] CONSTANT_Utf8_info			Tam do byte array:	10	Tam da string:	10	String:	SourceFile
+[35] CONSTANT_Utf8_info			Tam do byte array:	14	Tam da string:	14	String:	testeComp.java
+[36] CONSTANT_NameAndType_info		Name:		tcp_info #28	<<init>	Descriptor:	cp_info #29	<()V>
+[37] CONSTANT_Class_info		Class name:	cp_info #60	<java/lang/System>
+[38] CONSTANT_NameAndType_info		Name:		tcp_info #61	<out	Descriptor:	cp_info #62	<Ljava/io/PrintStream;>
+[39] CONSTANT_Utf8_info			Tam do byte array:	12	Tam da string:	12	String:	Hello World!
+[40] CONSTANT_Class_info		Class name:	cp_info #63	<java/io/PrintStream>
+[41] CONSTANT_NameAndType_info		Name:		tcp_info #64	<println	Descriptor:	cp_info #65	<(Ljava/lang/String;)V>
+[42] CONSTANT_Utf8_info			Tam do byte array:	11	Tam da string:	11	String:	Double TEST
+[43] CONSTANT_Utf8_info			Tam do byte array:	8	Tam da string:	8	String:	Passou <
+[44] CONSTANT_Utf8_info			Tam do byte array:	11	Tam da string:	11	String:	DEU MERDA <
+[45] CONSTANT_Utf8_info			Tam do byte array:	9	Tam da string:	9	String:	Passou <=
+[46] CONSTANT_Utf8_info			Tam do byte array:	9	Tam da string:	9	String:	Passou ==
+[47] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para d = 0
+[48] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para d = 1
+[49] CONSTANT_Utf8_info			Tam do byte array:	10	Tam da string:	10	String:	FLOAT TEST
+[50] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para f = 0
+[51] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para f = 1
+[52] CONSTANT_Utf8_info			Tam do byte array:	9	Tam da string:	9	String:	LONG TEST
+[53] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para l = 0
+[54] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para l = 1
+[55] CONSTANT_Utf8_info			Tam do byte array:	12	Tam da string:	12	String:	Integer TEST
+[56] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para i = 0
+[57] CONSTANT_Utf8_info			Tam do byte array:	20	Tam da string:	20	String:	Passou >= para i = 1
+[58] CONSTANT_Utf8_info			Tam do byte array:	5	Tam da string:	5	String:	Hello
+[59] CONSTANT_Utf8_info			Tam do byte array:	16	Tam da string:	16	String:	java/lang/Object
+[60] CONSTANT_Utf8_info			Tam do byte array:	16	Tam da string:	16	String:	java/lang/System
+[61] CONSTANT_Utf8_info			Tam do byte array:	3	Tam da string:	3	String:	out
+[62] CONSTANT_Utf8_info			Tam do byte array:	21	Tam da string:	21	String:	Ljava/io/PrintStream;
+[63] CONSTANT_Utf8_info			Tam do byte array:	19	Tam da string:	19	String:	java/io/PrintStream
+[64] CONSTANT_Utf8_info			Tam do byte array:	7	Tam da string:	7	String:	println
+[65] CONSTANT_Utf8_info			Tam do byte array:	21	Tam da string:	21	String:	(Ljava/lang/String;)V
+
+Saindo da constantPool :)
+
+
+####### #Partiu! Interfaces
+
+#Fields de prontera
+Member count:	0
+
+
+#Methods de payon
+Member count:	2
+
+[0]	<init>
+Name:		cp_info #28	<<init>>
+Descriptor:	cp_info #29	<()V>
+Access flags:	0x0000		[]
+
+Quantidade de atributos dos metodos:	1
+
+
+	>>Methods Attributes<<
+
+[0]	Code
+		Generic info:
+			Attribute name index:	cp_info #30	Code
+			Attribute lenght:	29
+		Specific info:
+		Bytecode:
+			line	offset
+			1	0	aload_0
+			2	1	invokespecial	#1	<java/lang/Object.<init>>
+			3	4	return
+
+			Tamanho da tabela de excecao:		0
+
+		Miscellaneous:
+			Max Stack:	1
+			Max locals:	1
+			Code length:	5
+
+		Code attributes count:	1
+
+
+	>>Attribute's Code Attributes<<
+
+[0]	LineNumberTable
+		Generic info:
+			Attribute name index:	cp_info #31	LineNumberTable
+			Attribute lenght:	6
+		Specific info:
+				Line Number Table length:	1
+				Line Number Table:
+				Nr.	start_pc	line_number
+				0	0	1
+
+[1]	main
+Name:		cp_info #32	<main>
+Descriptor:	cp_info #33	<([Ljava/lang/String;)V>
+Access flags:	0x0009		[static public]
+
+Quantidade de atributos dos metodos:	1
+
+
+	>>Methods Attributes<<
+
+[0]	Code
+		Generic info:
+			Attribute name index:	cp_info #30	Code
+			Attribute lenght:	1056
+		Specific info:
+		Bytecode:
+			line	offset
+			1	0	getstatic	#2	<java/lang/System.out>
+			2	3	ldc	#3	<Hello World!>
+			3	5	invokevirtual	#4	<java/io/PrintStream.println>
+			4	8	ldc2_w	#5	<-1.000000>
+			5	11	dstore_1
+			6	12	ldc2_w	#7	<-1>
+			7	15	lstore_3
+			8	16	ldc	#9	<-1.300000>
+			9	18	fstore	5
+			10	20	iconst_m1
+			11	21	istore	6
+			12	23	getstatic	#2	<java/lang/System.out>
+			13	26	ldc	#10	<Double TEST>
+			14	28	invokevirtual	#4	<java/io/PrintStream.println>
+			15	31	dload_1
+			16	32	dconst_0
+			17	33	dcmpg
+			18	34	ifge	50	(+16)
+			19	37	getstatic	#2	<java/lang/System.out>
+			20	40	ldc	#11	<Passou <>
+			21	42	invokevirtual	#4	<java/io/PrintStream.println>
+			22	45	dconst_0
+			23	46	dstore_1
+			24	47	goto	58	(+11)
+			25	50	getstatic	#2	<java/lang/System.out>
+			26	53	ldc	#12	<DEU MERDA <>
+			27	55	invokevirtual	#4	<java/io/PrintStream.println>
+			28	58	dload_1
+			29	59	dconst_0
+			30	60	dcmpg
+			31	61	ifgt	75	(+14)
+			32	64	getstatic	#2	<java/lang/System.out>
+			33	67	ldc	#13	<Passou <=>
+			34	69	invokevirtual	#4	<java/io/PrintStream.println>
+			35	72	goto	83	(+11)
+			36	75	getstatic	#2	<java/lang/System.out>
+			37	78	ldc	#12	<DEU MERDA <>
+			38	80	invokevirtual	#4	<java/io/PrintStream.println>
+			39	83	dload_1
+			40	84	dconst_0
+			41	85	dcmpl
+			42	86	ifne	100	(+14)
+			43	89	getstatic	#2	<java/lang/System.out>
+			44	92	ldc	#14	<Passou ==>
+			45	94	invokevirtual	#4	<java/io/PrintStream.println>
+			46	97	goto	108	(+11)
+			47	100	getstatic	#2	<java/lang/System.out>
+			48	103	ldc	#12	<DEU MERDA <>
+			49	105	invokevirtual	#4	<java/io/PrintStream.println>
+			50	108	dload_1
+			51	109	dconst_0
+			52	110	dcmpl
+			53	111	iflt	127	(+16)
+			54	114	getstatic	#2	<java/lang/System.out>
+			55	117	ldc	#15	<Passou >= para d = 0>
+			56	119	invokevirtual	#4	<java/io/PrintStream.println>
+			57	122	dconst_1
+			58	123	dstore_1
+			59	124	goto	135	(+11)
+			60	127	getstatic	#2	<java/lang/System.out>
+			61	130	ldc	#12	<DEU MERDA <>
+			62	132	invokevirtual	#4	<java/io/PrintStream.println>
+			63	135	dload_1
+			64	136	dconst_0
+			65	137	dcmpl
+			66	138	iflt	152	(+14)
+			67	141	getstatic	#2	<java/lang/System.out>
+			68	144	ldc	#16	<Passou >= para d = 1>
+			69	146	invokevirtual	#4	<java/io/PrintStream.println>
+			70	149	goto	160	(+11)
+			71	152	getstatic	#2	<java/lang/System.out>
+			72	155	ldc	#12	<DEU MERDA <>
+			73	157	invokevirtual	#4	<java/io/PrintStream.println>
+			74	160	dload_1
+			75	161	dconst_0
+			76	162	dcmpl
+			77	163	ifle	177	(+14)
+			78	166	getstatic	#2	<java/lang/System.out>
+			79	169	ldc	#16	<Passou >= para d = 1>
+			80	171	invokevirtual	#4	<java/io/PrintStream.println>
+			81	174	goto	185	(+11)
+			82	177	getstatic	#2	<java/lang/System.out>
+			83	180	ldc	#12	<DEU MERDA <>
+			84	182	invokevirtual	#4	<java/io/PrintStream.println>
+			85	185	getstatic	#2	<java/lang/System.out>
+			86	188	ldc	#17	<FLOAT TEST>
+			87	190	invokevirtual	#4	<java/io/PrintStream.println>
+			88	193	fload	5
+			89	195	fconst_0
+			90	196	fcmpg
+			91	197	ifge	214	(+17)
+			92	200	getstatic	#2	<java/lang/System.out>
+			93	203	ldc	#11	<Passou <>
+			94	205	invokevirtual	#4	<java/io/PrintStream.println>
+			95	208	fconst_0
+			96	209	fstore	5
+			97	211	goto	222	(+11)
+			98	214	getstatic	#2	<java/lang/System.out>
+			99	217	ldc	#12	<DEU MERDA <>
+			100	219	invokevirtual	#4	<java/io/PrintStream.println>
+			101	222	fload	5
+			102	224	fconst_0
+			103	225	fcmpg
+			104	226	ifgt	240	(+14)
+			105	229	getstatic	#2	<java/lang/System.out>
+			106	232	ldc	#13	<Passou <=>
+			107	234	invokevirtual	#4	<java/io/PrintStream.println>
+			108	237	goto	248	(+11)
+			109	240	getstatic	#2	<java/lang/System.out>
+			110	243	ldc	#12	<DEU MERDA <>
+			111	245	invokevirtual	#4	<java/io/PrintStream.println>
+			112	248	fload	5
+			113	250	fconst_0
+			114	251	fcmpl
+			115	252	ifne	266	(+14)
+			116	255	getstatic	#2	<java/lang/System.out>
+			117	258	ldc	#14	<Passou ==>
+			118	260	invokevirtual	#4	<java/io/PrintStream.println>
+			119	263	goto	274	(+11)
+			120	266	getstatic	#2	<java/lang/System.out>
+			121	269	ldc	#12	<DEU MERDA <>
+			122	271	invokevirtual	#4	<java/io/PrintStream.println>
+			123	274	fload	5
+			124	276	fconst_0
+			125	277	fcmpl
+			126	278	iflt	295	(+17)
+			127	281	getstatic	#2	<java/lang/System.out>
+			128	284	ldc	#18	<Passou >= para f = 0>
+			129	286	invokevirtual	#4	<java/io/PrintStream.println>
+			130	289	fconst_1
+			131	290	fstore	5
+			132	292	goto	303	(+11)
+			133	295	getstatic	#2	<java/lang/System.out>
+			134	298	ldc	#12	<DEU MERDA <>
+			135	300	invokevirtual	#4	<java/io/PrintStream.println>
+			136	303	fload	5
+			137	305	fconst_0
+			138	306	fcmpl
+			139	307	iflt	321	(+14)
+			140	310	getstatic	#2	<java/lang/System.out>
+			141	313	ldc	#19	<Passou >= para f = 1>
+			142	315	invokevirtual	#4	<java/io/PrintStream.println>
+			143	318	goto	329	(+11)
+			144	321	getstatic	#2	<java/lang/System.out>
+			145	324	ldc	#12	<DEU MERDA <>
+			146	326	invokevirtual	#4	<java/io/PrintStream.println>
+			147	329	fload	5
+			148	331	fconst_0
+			149	332	fcmpl
+			150	333	ifle	347	(+14)
+			151	336	getstatic	#2	<java/lang/System.out>
+			152	339	ldc	#19	<Passou >= para f = 1>
+			153	341	invokevirtual	#4	<java/io/PrintStream.println>
+			154	344	goto	355	(+11)
+			155	347	getstatic	#2	<java/lang/System.out>
+			156	350	ldc	#12	<DEU MERDA <>
+			157	352	invokevirtual	#4	<java/io/PrintStream.println>
+			158	355	getstatic	#2	<java/lang/System.out>
+			159	358	ldc	#20	<LONG TEST>
+			160	360	invokevirtual	#4	<java/io/PrintStream.println>
+			161	363	lload_3
+			162	364	lconst_0
+			163	365	lcmp
+			164	366	ifge	382	(+16)
+			165	369	getstatic	#2	<java/lang/System.out>
+			166	372	ldc	#11	<Passou <>
+			167	374	invokevirtual	#4	<java/io/PrintStream.println>
+			168	377	lconst_0
+			169	378	lstore_3
+			170	379	goto	390	(+11)
+			171	382	getstatic	#2	<java/lang/System.out>
+			172	385	ldc	#12	<DEU MERDA <>
+			173	387	invokevirtual	#4	<java/io/PrintStream.println>
+			174	390	lload_3
+			175	391	lconst_0
+			176	392	lcmp
+			177	393	ifgt	407	(+14)
+			178	396	getstatic	#2	<java/lang/System.out>
+			179	399	ldc	#13	<Passou <=>
+			180	401	invokevirtual	#4	<java/io/PrintStream.println>
+			181	404	goto	415	(+11)
+			182	407	getstatic	#2	<java/lang/System.out>
+			183	410	ldc	#12	<DEU MERDA <>
+			184	412	invokevirtual	#4	<java/io/PrintStream.println>
+			185	415	lload_3
+			186	416	lconst_0
+			187	417	lcmp
+			188	418	ifne	432	(+14)
+			189	421	getstatic	#2	<java/lang/System.out>
+			190	424	ldc	#14	<Passou ==>
+			191	426	invokevirtual	#4	<java/io/PrintStream.println>
+			192	429	goto	440	(+11)
+			193	432	getstatic	#2	<java/lang/System.out>
+			194	435	ldc	#12	<DEU MERDA <>
+			195	437	invokevirtual	#4	<java/io/PrintStream.println>
+			196	440	lload_3
+			197	441	lconst_0
+			198	442	lcmp
+			199	443	iflt	459	(+16)
+			200	446	getstatic	#2	<java/lang/System.out>
+			201	449	ldc	#21	<Passou >= para l = 0>
+			202	451	invokevirtual	#4	<java/io/PrintStream.println>
+			203	454	lconst_1
+			204	455	lstore_3
+			205	456	goto	467	(+11)
+			206	459	getstatic	#2	<java/lang/System.out>
+			207	462	ldc	#12	<DEU MERDA <>
+			208	464	invokevirtual	#4	<java/io/PrintStream.println>
+			209	467	lload_3
+			210	468	lconst_0
+			211	469	lcmp
+			212	470	iflt	484	(+14)
+			213	473	getstatic	#2	<java/lang/System.out>
+			214	476	ldc	#22	<Passou >= para l = 1>
+			215	478	invokevirtual	#4	<java/io/PrintStream.println>
+			216	481	goto	492	(+11)
+			217	484	getstatic	#2	<java/lang/System.out>
+			218	487	ldc	#12	<DEU MERDA <>
+			219	489	invokevirtual	#4	<java/io/PrintStream.println>
+			220	492	lload_3
+			221	493	lconst_0
+			222	494	lcmp
+			223	495	ifle	509	(+14)
+			224	498	getstatic	#2	<java/lang/System.out>
+			225	501	ldc	#22	<Passou >= para l = 1>
+			226	503	invokevirtual	#4	<java/io/PrintStream.println>
+			227	506	goto	517	(+11)
+			228	509	getstatic	#2	<java/lang/System.out>
+			229	512	ldc	#12	<DEU MERDA <>
+			230	514	invokevirtual	#4	<java/io/PrintStream.println>
+			231	517	getstatic	#2	<java/lang/System.out>
+			232	520	ldc	#23	<Integer TEST>
+			233	522	invokevirtual	#4	<java/io/PrintStream.println>
+			234	525	iload	6
+			235	527	ifge	544	(+17)
+			236	530	getstatic	#2	<java/lang/System.out>
+			237	533	ldc	#11	<Passou <>
+			238	535	invokevirtual	#4	<java/io/PrintStream.println>
+			239	538	iconst_0
+			240	539	istore	6
+			241	541	goto	552	(+11)
+			242	544	getstatic	#2	<java/lang/System.out>
+			243	547	ldc	#12	<DEU MERDA <>
+			244	549	invokevirtual	#4	<java/io/PrintStream.println>
+			245	552	iload	6
+			246	554	ifgt	568	(+14)
+			247	557	getstatic	#2	<java/lang/System.out>
+			248	560	ldc	#13	<Passou <=>
+			249	562	invokevirtual	#4	<java/io/PrintStream.println>
+			250	565	goto	576	(+11)
+			251	568	getstatic	#2	<java/lang/System.out>
+			252	571	ldc	#12	<DEU MERDA <>
+			253	573	invokevirtual	#4	<java/io/PrintStream.println>
+			254	576	iload	6
+			255	578	ifne	592	(+14)
+			256	581	getstatic	#2	<java/lang/System.out>
+			257	584	ldc	#14	<Passou ==>
+			258	586	invokevirtual	#4	<java/io/PrintStream.println>
+			259	589	goto	600	(+11)
+			260	592	getstatic	#2	<java/lang/System.out>
+			261	595	ldc	#12	<DEU MERDA <>
+			262	597	invokevirtual	#4	<java/io/PrintStream.println>
+			263	600	iload	6
+			264	602	iflt	619	(+17)
+			265	605	getstatic	#2	<java/lang/System.out>
+			266	608	ldc	#24	<Passou >= para i = 0>
+			267	610	invokevirtual	#4	<java/io/PrintStream.println>
+			268	613	iconst_1
+			269	614	istore	6
+			270	616	goto	627	(+11)
+			271	619	getstatic	#2	<java/lang/System.out>
+			272	622	ldc	#12	<DEU MERDA <>
+			273	624	invokevirtual	#4	<java/io/PrintStream.println>
+			274	627	iload	6
+			275	629	iflt	643	(+14)
+			276	632	getstatic	#2	<java/lang/System.out>
+			277	635	ldc	#25	<Passou >= para i = 1>
+			278	637	invokevirtual	#4	<java/io/PrintStream.println>
+			279	640	goto	651	(+11)
+			280	643	getstatic	#2	<java/lang/System.out>
+			281	646	ldc	#12	<DEU MERDA <>
+			282	648	invokevirtual	#4	<java/io/PrintStream.println>
+			283	651	iload	6
+			284	653	ifle	667	(+14)
+			285	656	getstatic	#2	<java/lang/System.out>
+			286	659	ldc	#25	<Passou >= para i = 1>
+			287	661	invokevirtual	#4	<java/io/PrintStream.println>
+			288	664	goto	675	(+11)
+			289	667	getstatic	#2	<java/lang/System.out>
+			290	670	ldc	#12	<DEU MERDA <>
+			291	672	invokevirtual	#4	<java/io/PrintStream.println>
+			292	675	return
+
+			Tamanho da tabela de excecao:		0
+
+		Miscellaneous:
+			Max Stack:	4
+			Max locals:	7
+			Code length:	676
+
+		Code attributes count:	1
+
+
+	>>Attribute's Code Attributes<<
+
+[0]	LineNumberTable
+		Generic info:
+			Attribute name index:	cp_info #31	LineNumberTable
+			Attribute lenght:	362
+		Specific info:
+				Line Number Table length:	90
+				Line Number Table:
+				Nr.	start_pc	line_number
+				0	0	3
+				1	8	4
+				2	12	5
+				3	16	6
+				4	20	7
+				5	23	9
+				6	31	10
+				7	37	11
+				8	45	12
+				9	50	14
+				10	58	17
+				11	64	18
+				12	75	20
+				13	83	23
+				14	89	24
+				15	100	26
+				16	108	28
+				17	114	29
+				18	122	30
+				19	127	32
+				20	135	35
+				21	141	36
+				22	152	38
+				23	160	40
+				24	166	41
+				25	177	43
+				26	185	46
+				27	193	47
+				28	200	48
+				29	208	49
+				30	214	51
+				31	222	54
+				32	229	55
+				33	240	57
+				34	248	60
+				35	255	61
+				36	266	63
+				37	274	65
+				38	281	66
+				39	289	67
+				40	295	69
+				41	303	72
+				42	310	73
+				43	321	75
+				44	329	77
+				45	336	78
+				46	347	80
+				47	355	83
+				48	363	84
+				49	369	85
+				50	377	86
+				51	382	88
+				52	390	91
+				53	396	92
+				54	407	94
+				55	415	97
+				56	421	98
+				57	432	100
+				58	440	102
+				59	446	103
+				60	454	104
+				61	459	106
+				62	467	109
+				63	473	110
+				64	484	112
+				65	492	114
+				66	498	115
+				67	509	117
+				68	517	120
+				69	525	121
+				70	530	122
+				71	538	123
+				72	544	125
+				73	552	128
+				74	557	129
+				75	568	131
+				76	576	134
+				77	581	135
+				78	592	137
+				79	600	139
+				80	605	140
+				81	613	141
+				82	619	143
+				83	627	146
+				84	632	147
+				85	643	149
+				86	651	151
+				87	656	152
+				88	667	154
+				89	675	156
+
+#Attributes
+
+Class Attributes Count:			1
+
+[0]	SourceFile
+	Generic info:
+		Attribute name index:	cp_info #34	SourceFile
+		Attribute lenght:	2
+	Specific info:
+		Source file index:	cp_info #35	testeComp.java
