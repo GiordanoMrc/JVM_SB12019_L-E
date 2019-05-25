@@ -1,9 +1,5 @@
 #include "leitor.hpp"
 
-long int getSizeofConstant(int tag);
-
-#define readFile(type, tam)
-
 u1 readf_u1(u1 *pointer, ifstream &file, int n_count) {
     file.read((char *)pointer, n_count);
     return *pointer;
@@ -58,61 +54,113 @@ void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->cp_count, sizeof(u2));
     cf->cp_count = CorrectEndian::t_u2(cf->cp_count);
 }
+
+CONSTANT_Class_info getConstantClassInfo(ifstream &file) {
+    CONSTANT_Class_info aux;
+    readf_u2(&aux.name_index, file, 1);
+    return aux;
+}
+
+CONSTANT_Fieldref_info getConstantFieldRef(ifstream &file) {
+    CONSTANT_Fieldref_info aux;
+    readf_u2(&aux.class_index, file, 1);
+    readf_u2(&aux.name_and_type_index, file, 1);
+    return aux;
+}
+
+CONSTANT_NameAndType_info getConstantNameAndTypeInfo(ifstream &file) {
+    CONSTANT_NameAndType_info aux;
+    readf_u2(&aux.name_index, file, 1);
+    readf_u2(&aux.descriptor_index, file, 1);
+    return aux;
+}
+
+CONSTANT_Utf8_info getConstantUtf8Info(ifstream &file) {
+    CONSTANT_Utf8_info aux;
+    readf_u2(&aux.length, file, 1);
+    aux.bytes = (u1 *)malloc(sizeof(u1) * aux.length);
+    readf_u1(aux.bytes, file, aux.length);
+    return aux;
+}
+
+CONSTANT_Methodref_info getConstantMethodRefInfo(ifstream &file) {
+    CONSTANT_Methodref_info aux;
+    readf_u2(&aux.class_index, file, 1);
+    readf_u2(&aux.name_and_type_index, file, 1);
+    return aux;
+}
+
+CONSTANT_InterfaceMethodref_info getConstantInterfaceMethodRefInfo(
+    ifstream &file) {
+    CONSTANT_InterfaceMethodref_info aux;
+    readf_u2(&aux.class_index, file, 1);
+    readf_u2(&aux.name_and_type_index, file, 1);
+    return aux;
+}
+
+CONSTANT_String_info getConstantStringInfo(ifstream &file) {
+    CONSTANT_String_info aux;
+    readf_u2(&aux.string_index, file, 1);
+    return aux;
+}
+
+CONSTANT_Integer_info getConstantIntegerInfo(ifstream &file) {
+    CONSTANT_Integer_info aux;
+    readf_u4(&aux.bytes, file, 1);
+    return aux;
+}
+
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     u2 cp_size = cf->cp_count - 1;
     cf->constant_pool = (cp_info *)malloc(sizeof(cp_info) * cp_size);
-    CONSTANT_Class_info aux;
     for (u2 i = 0; i < cp_size; i++) {
+        // Read tag
         readf_u1(&cf->constant_pool[i].tag, file, 1);
-        // std::cout << tag;
-
+        // Read info
         switch (cf->constant_pool[i].tag) {
             case ConstantPoolTags::CONSTANT_Class:
-                readf_u2(&aux.name_index, file, 1);
-                cf->constant_pool[i].info.class_info = aux;
+                cf->constant_pool[i].info.class_info =
+                    getConstantClassInfo(file);
                 break;
-            /*case CONSTANT_Fieldref:
-                constant_pool[i].info.fieldref_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_Fieldref:
+                cf->constant_pool[i].info.fieldref_info =
+                    getConstantFieldRef(file);
                 break;
-            case CONSTANT_Methodref:
-                constant_pool[i].info.class_methodref_info =
-            getConstantClassInfo(); break; case CONSTANT_String:
-                constant_pool[i].info.class_string_info =
-            getConstantClassInfo(); break; case CONSTANT_Utf8:
-                constant_pool[i].info.class_uft8_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_NameAndType:
+                cf->constant_pool[i].info.nameandtype_info =
+                    getConstantNameAndTypeInfo(file);
                 break;
-            case CONSTANT_NameAndType:
-                constant_pool[i].info.class_nameAndType_info =
-            getConstantClassInfo(); break; case CONSTANT_InterfaceMethodref:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_Utf8:
+                cf->constant_pool[i].info.utf8_info = getConstantUtf8Info(file);
                 break;
-            case CONSTANT_Integer:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_Methodref:
+                cf->constant_pool[i].info.methodref_info =
+                    getConstantMethodRefInfo(file);
                 break;
-            case CONSTANT_Float:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_InterfaceMethodref:
+                cf->constant_pool[i].info.interfacemethodref_info =
+                    getConstantInterfaceMethodRefInfo(file);
                 break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_String:
+                cf->constant_pool[i].info.string_info =
+                    getConstantStringInfo(file);
                 break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+
+            case ConstantPoolTags::CONSTANT_Integer:
+                cf->constant_pool[i].info.integer_info =
+                    getConstantIntegerInfo(file);
                 break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+                /*
+            case ConstantPoolTags::CONSTANT_Float:
+                cf->constant_pool[i].info.class_info = getConstantClassInfo();
                 break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_Long:
+                cf->constant_pool[i].info.class_info = getConstantClassInfo();
                 break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
+            case ConstantPoolTags::CONSTANT_Double:
+                /cf->constant_pool[i].info.class_info = getConstantClassInfo();
                 break;
-                case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
-                break;
-            case CONSTANT_Long:
-                //constant_pool[i].info.class_info = getConstantClassInfo();
-                break;*/
+                */
             default:
                 exit(1);
         }
@@ -134,13 +182,34 @@ void Reader::read_super_class(ifstream &file, ClassFile *cf) {
     cf->super_class = CorrectEndian::t_u2(cf->super_class);
 }
 
-long int getSizeofConstant(int tag) {
-    switch (tag) {
-        case ConstantPoolTags::CONSTANT_Methodref:
-            return sizeof(CONSTANT_Methodref_info);
-            break;
-        default:
-            exit(EXIT_FAILURE);
-            break;
+void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->interfaces_count, file, 1);
+    cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
+    readf_u2(cf->interfaces, file, cf->interfaces_count);
+}
+
+void Reader::read_fields(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->fields_count, file, 1);
+    // Read Fields
+    cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
+    for (u1 i = 0; i < cf->fields_count - 1; i++) {
+        readf_u2(&cf->fields[i].access_flags, file, 1);
+        readf_u2(&cf->fields[i].name_index, file, 1);
+        readf_u2(&cf->fields[i].descriptor_index, file, 1);
+        readf_u2(&cf->fields[i].attributes_count, file, 1);
     }
+    // Read attributes
+    cf->attributes =
+        (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
+    for (u1 i = 0; i < cf->fields_count - 1; i++) {
+        for (u1 j = 0; j < cf->attributes_count; i++) {
+            readf_u2(&cf->fields[i].attributes[j].attribute_name_index, file,
+                     1);
+            readf_u4(&cf->fields[i].attributes[j].attribute_length, file, 1);
+            cf->fields[i].attributes[j].info =
+                (u1 *)malloc(sizeof(u1) * cf->attributes_count);
+        }
+    }
+    // Read info
+    // Implementar read_info
 }
