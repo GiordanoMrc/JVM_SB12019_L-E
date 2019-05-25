@@ -187,3 +187,29 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
+
+void Reader::read_fields(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->fields_count, file, 1);
+    // Read Fields
+    cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
+    for (u1 i = 0; i < cf->fields_count - 1; i++) {
+        readf_u2(&cf->fields[i].access_flags, file, 1);
+        readf_u2(&cf->fields[i].name_index, file, 1);
+        readf_u2(&cf->fields[i].descriptor_index, file, 1);
+        readf_u2(&cf->fields[i].attributes_count, file, 1);
+    }
+    // Read attributes
+    cf->attributes =
+        (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
+    for (u1 i = 0; i < cf->fields_count - 1; i++) {
+        for (u1 j = 0; j < cf->attributes_count; i++) {
+            readf_u2(&cf->fields[i].attributes[j].attribute_name_index, file,
+                     1);
+            readf_u4(&cf->fields[i].attributes[j].attribute_length, file, 1);
+            cf->fields[i].attributes[j].info =
+                (u1 *)malloc(sizeof(u1) * cf->attributes_count);
+        }
+    }
+    // Read info
+    // Implementar read_info
+}
