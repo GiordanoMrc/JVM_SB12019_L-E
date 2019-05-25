@@ -218,7 +218,7 @@ void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
     cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
-    for (u1 i = 0; i < cf->fields_count - 1; i++) {
+    for (u1 i = 0; i < cf->fields_count; i++) {
         read_field(file, &cf->fields[i]);
     }
 }
@@ -246,6 +246,7 @@ void read_attribute(ifstream &file, attribute_info *attribute) {
 
 void Reader::read_methods(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->methods_count, file, 1);
+    // Read methods
 }
 
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
