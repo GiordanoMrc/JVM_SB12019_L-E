@@ -1,9 +1,5 @@
 #include "leitor.hpp"
 
-long int getSizeofConstant(int tag);
-
-#define readFile(type, tam)
-
 u1 readf_u1(u1 *pointer, ifstream &file, int n_count) {
     file.read((char *)pointer, n_count);
     return *pointer;
@@ -184,15 +180,4 @@ void Reader::read_this_class(ifstream &file, ClassFile *cf) {
 void Reader::read_super_class(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->super_class, sizeof(u2));
     cf->super_class = CorrectEndian::t_u2(cf->super_class);
-}
-
-long int getSizeofConstant(int tag) {
-    switch (tag) {
-        case ConstantPoolTags::CONSTANT_Methodref:
-            return sizeof(CONSTANT_Methodref_info);
-            break;
-        default:
-            exit(EXIT_FAILURE);
-            break;
-    }
 }
