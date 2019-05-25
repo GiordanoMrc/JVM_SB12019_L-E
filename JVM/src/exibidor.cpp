@@ -7,8 +7,8 @@ void Printer::showClassFile(ClassFile cf) {
     print_access_flags(cf);
     // print_this_class(cf);
     // print_super_class(cf);
-    // print_interfaces(cf);
-    // print_fields(cf);
+    print_interfaces(cf);
+    print_fields(cf);
     // print_methods(cf);
     // print_attributes(cf);
 }
@@ -96,4 +96,14 @@ void Printer::print_super_class(ClassFile cf) {
     std::cout << "cp_info #";
     std::cout << std::dec << cp_info_index;
     std::cout << "<" << thisName << ">>" << std::endl;
+}
+
+void Printer::print_interfaces(ClassFile cf) {
+    std::cout << "Interfaces: \t";
+    std::cout << std::dec << cf.interfaces_count << std::endl;
+}
+
+void Printer::print_fields(ClassFile cf) {
+    std::cout << "Fields: \t";
+    std::cout << std::dec << cf.fields_count << std::endl;
 }
