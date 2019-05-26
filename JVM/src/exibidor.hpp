@@ -14,12 +14,12 @@
 #include "field_info.h"
 #include "method_info.h"
 
+using namespace std;
+
 class Printer {
    public:
     static void showClassFile(ClassFile);
 
-
-   private:
     static void getIndex_Utf8_Ref(cp_info*, u2);
     static void print_magic(ClassFile);
     static void print_minor_version(ClassFile);
