@@ -155,40 +155,40 @@ void Printer::getIndex_Utf8_Ref(cp_info *constant_pool, u2 index) {
         std::cout << cp->info.utf8_info.bytes;
     } else {
         switch (cp->tag) {
-            case (4):
+            case (ConstantPoolTags::CONSTANT_Float):
                 memcpy(&aux, &(cp->info.float_info.bytes), sizeof(float));
                 std::cout << aux;
                 break;
-            case (7):
+            case (ConstantPoolTags::CONSTANT_Class):
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.class_info.name_index);
                 break;
-            case (9):
+            case (ConstantPoolTags::CONSTANT_Fieldref):
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.fieldref_info.class_index);
                 std::cout << ".";
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.fieldref_info.name_and_type_index);
                 break;
-            case (10):
+            case (ConstantPoolTags::CONSTANT_Methodref):
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.methodref_info.class_index);
                 std::cout << ".";
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.methodref_info.name_and_type_index);
                 break;
-            case (12):
+            case (ConstantPoolTags::CONSTANT_NameAndType):
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.nameandtype_info.name_index);
                 std::cout << ".";
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.nameandtype_info.descriptor_index);
                 break;
-            case (8):
+            case (ConstantPoolTags::CONSTANT_String):
                 getIndex_Utf8_Ref(constant_pool,
                                   (u2)cp->info.string_info.string_index);
                 break;
-            case (11):
+            case (ConstantPoolTags::CONSTANT_InterfaceMethodref):
                 getIndex_Utf8_Ref(constant_pool,
                                   cp->info.interfacemethodref_info.class_index);
                 std::cout << ".";
@@ -335,6 +335,8 @@ void print_attribute_info(ClassFile cf, u1 index_cp) {
                                        cp.info.class_info.name_index);
             break;
         case ConstantPoolTags::CONSTANT_Fieldref:
+            Printer::getIndex_Utf8_Ref(cf.constant_pool,
+                                       cp.info.nameandtype_info.name_index);
             break;
         case ConstantPoolTags::CONSTANT_NameAndType:
             Printer::getIndex_Utf8_Ref(cf.constant_pool,
