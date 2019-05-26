@@ -326,6 +326,34 @@ void Printer::print_constant_pool(ClassFile cf) {
     }
 }
 
+void print_attribute(ClassFile, attribute_info, int);
+void print_attribute_info(ClassFile, u1);
+
+void Printer::print_attributes(ClassFile cf) {
+    std::cout << "########################\n### Class Attributes "
+                 "###|\n########################"
+              << std::endl;
+    std::cout << "Count: " << std::dec << cf.attributes_count << std::endl;
+    for (int i = 0; i < cf.attributes_count; i++) {
+        print_attribute(cf, cf.attributes[i], i);
+    }
+}
+
+void print_attribute(ClassFile cf, attribute_info attr, int index) {
+    int name_index = attr.attribute_name_index;
+    int length = attr.attribute_length;
+
+    std::cout << "[" << std::dec << index << "]" << endl;
+    std::cout << "\tAttribute name index:\t"
+              << "cp_info#" << std::dec << name_index << " "
+              << cf.constant_pool[name_index].info.utf8_info.bytes << endl;
+    std::cout << "\tAttribute length:\t" << length << endl;
+    std::cout << "\tAttribute Info..:" << endl;
+    for (u1 i = 0; i < attr.attribute_length; i++) {
+        print_attribute_info(cf, attr.info[i]);
+    }
+}
+
 void print_attribute_info(ClassFile cf, u1 index_cp) {
     cp_info cp = cf.constant_pool[index_cp];
     cout << "\t\tcp_info#" << std::dec << (u4)cp.tag << " ";
@@ -360,29 +388,4 @@ void print_attribute_info(ClassFile cf, u1 index_cp) {
             break;
     }
     std::cout << std::endl;
-}
-
-void print_attribute(ClassFile cf, attribute_info attr, int index) {
-    int name_index = attr.attribute_name_index;
-    int length = attr.attribute_length;
-
-    std::cout << "[" << std::dec << index << "]" << endl;
-    std::cout << "\tAttribute name index:\t"
-              << "cp_info#" << std::dec << name_index << " "
-              << cf.constant_pool[name_index].info.utf8_info.bytes << endl;
-    std::cout << "\tAttribute length:\t" << length << endl;
-    std::cout << "\tAttribute Info..:" << endl;
-    for (u1 i = 0; i < attr.attribute_length; i++) {
-        print_attribute_info(cf, attr.info[i]);
-    }
-}
-
-void Printer::print_attributes(ClassFile cf) {
-    std::cout << "########################\n### Class Attributes "
-                 "###|\n########################"
-              << std::endl;
-    std::cout << "Count: " << std::dec << cf.attributes_count << std::endl;
-    for (int i = 0; i < cf.attributes_count; i++) {
-        print_attribute(cf, cf.attributes[i], i);
-    }
 }
