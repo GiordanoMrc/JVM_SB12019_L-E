@@ -1,14 +1,16 @@
 #include "exibidor.hpp"
+
 void Printer::showClassFile(ClassFile cf) {
     print_magic(cf);
     print_minor_version(cf);
     print_major_version(cf);
     print_cpool_count(cf);
-    print_constant_pool(cf);
+    // print_constant_pool(cf);
     print_access_flags(cf);
     print_this_class(cf);
     print_super_class(cf);
     print_interfaces_count(cf);
+    print_interfaces(cf);
     print_fields_count(cf);
     print_methods_count(cf);
     print_methods(cf);
@@ -100,7 +102,16 @@ void Printer::print_interfaces_count(ClassFile cf) {
     std::cout << std::dec << cf.interfaces_count << std::endl;
 }
 
-void Printer::print_interfaces(ClassFile cf) {}
+void Printer::print_interfaces(ClassFile cf) {
+    if(cf.interfaces_count > 0)
+    {
+        for(int i = 0; i < cf.interfaces_count; i++)
+        {
+            std::cout << "Interface " << i << ":"<< std::endl;
+            std::cout << cf.interfaces[i] << std::endl;
+        }
+    }
+}
 
 void Printer::print_fields_count(ClassFile cf) {
     std::cout << "Fields: \t";
@@ -114,7 +125,29 @@ void Printer::print_methods_count(ClassFile cf) {
     std::cout << std::dec << cf.methods_count << std::endl;
 }
 
-void Printer::print_methods(ClassFile cf) {}
+void Printer::print_methods(ClassFile cf) 
+{
+    std::cout<<cf.methods_count<<std::endl;
+    if(cf.methods_count > 0)
+    {
+        for(int i = 0; i < cf.methods_count; i++)
+        {
+            // struct method_info {
+            //     u2 access_flags;
+            //     u2 name_index;
+            //     u2 descriptor_index;
+            //     u2 attributes_count;
+            //     attribute_info *attributes;
+            // };
+
+            std::cout << "Method " << i << ":"<< std::endl;
+            std::cout << cf.methods[i].access_flags << std::endl;
+            std::cout << cf.methods[i].name_index << std::endl;
+            std::cout << cf.methods[i].descriptor_index << std::endl;
+            std::cout << cf.methods[i].attributes_count << std::endl;
+        }
+    }
+}
 
 void Printer::print_attributes_count(ClassFile cf) {
     std::cout << "Attributes: \t";
