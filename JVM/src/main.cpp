@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     // if (mode == "-le") {
     //     cout << mode << "\n" << name;
     // }
-    string fileName = std::string("./examples/MainOnly.class");
+    string fileName = std::string("./examples/a.class");
     ClassFile cf = Reader::getClassFile(fileName);
     Printer::showClassFile(cf);
     return EXIT_SUCCESS;
