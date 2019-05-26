@@ -21,7 +21,7 @@ readf_(u8, 8);
 
 ClassFile Reader::getClassFile(std::string name) {
     ifstream input(name, ios::binary);
-    std::cout << name << std::endl;
+    std::cout << "Nome do Arquivo:" << name << std::endl;
 
     if (input.is_open()) {
         ClassFile cf = ClassFile();
