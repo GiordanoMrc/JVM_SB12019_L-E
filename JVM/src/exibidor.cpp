@@ -347,8 +347,14 @@ void print_attribute_info(ClassFile cf, u1 index_cp) {
                 cf.constant_pool, cp.info.methodref_info.name_and_type_index);
             break;
         case ConstantPoolTags::CONSTANT_InterfaceMethodref:
+            Printer::getIndex_Utf8_Ref(
+                cf.constant_pool,
+                cp.info.interfacemethodref_info.name_and_type_index);
             break;
         case ConstantPoolTags::CONSTANT_String:
+            Printer::getIndex_Utf8_Ref(
+                cf.constant_pool,
+                cp.info.interfacemethodref_info.name_and_type_index);
             break;
         case ConstantPoolTags::CONSTANT_Integer:
             break;
@@ -372,7 +378,8 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
 }
 
 void Printer::print_attributes(ClassFile cf) {
-    std::cout << "###################\n### Attributes ###|\n###################"
+    std::cout << "########################\n### Class Attributes "
+                 "###|\n########################"
               << std::endl;
     std::cout << "Count: " << std::dec << cf.attributes_count << std::endl;
     for (int i = 0; i < cf.attributes_count; i++) {
