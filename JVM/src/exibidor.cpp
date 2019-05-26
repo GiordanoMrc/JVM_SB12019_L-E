@@ -246,7 +246,7 @@ void Printer::print_constant_pool(ClassFile cf) {
                 memcpy(&auxd, &(cf.constant_pool[i].info.double_info.value), sizeof(double));
                 std::cout << "Double\t\t\t" << auxd << std::endl;
                 break;
-            case(12):
+            case ConstantPoolTags::Constant:
                 u2 high = cf.constant_pool[i].info.nameAndType_info.name_index;
                 u2 low = cf.constant_pool[i].info.nameAndType_info.descriptor_index;
                 std::cout <<"NameAndType\t\t#" << high << ".#" << low;
@@ -266,7 +266,7 @@ void Printer::print_constant_pool(ClassFile cf) {
                 break;
             case(18):
                 std::cout << "InvokeDynamic\t\t" << cp->info.invokeDynamic_info.name_and_type_index<<cp->info.invokeDynamic_info.bootstrap_method_attr_index<< std::endl;
-                break;
+                break;*/
             default:
                 break;
         }
