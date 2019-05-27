@@ -287,16 +287,16 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
 CONSTANT_Methodref_info ClassFile::getConstantMethodRefInfo() {
         CONSTANT_Methodref_info result;
 
-        readu2FromFile(&result.class_index, 1, arquivo);
-        readu2FromFile(&result.name_and_type_index, 1, arquivo);
+        readf_u2(&result.class_index, 1, arquivo);
+        readf_u2(&result.name_and_type_index, 1, arquivo);
         return result;
 
 }
 CONSTANT_MethodHandle_info ClassFile::getConstantMethodHandleInfo()
     {
         CONSTANT_MethodHandle_info result;
-        readu1FromFile(&result.reference_kind, 1, arquivo);
-        readu2FromFile(&result.reference_index, 1, arquivo);
+        readf_u1(&result.reference_kind, 1, arquivo);
+        readf_u2(&result.reference_index, 1, arquivo);
         return result;
     }
 
@@ -304,15 +304,15 @@ CONSTANT_MethodType_info ClassFile::getConstantMethodTypeInfo()
     {
         CONSTANT_MethodType_info result;
 
-        readu2FromFile(&result.descriptor_index, 1, arquivo);
+        readf_u2(&result.descriptor_index, 1, arquivo);
         return result;
 }
 
 CONSTANT_InvokeDynamic_info ClassFile::getConstantInvokeDynamicInfo(){
         CONSTANT_InvokeDynamic_info result;
 
-        readu2FromFile(&result.bootstrap_method_attr_index, 1, arquivo);
-        readu2FromFile(&result.name_and_type_index, 1, arquivo);
+        readf_u2(&result.bootstrap_method_attr_index, 1, arquivo);
+        readf_u2(&result.name_and_type_index, 1, arquivo);
 
         return result;
     }
