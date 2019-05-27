@@ -186,6 +186,18 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 cf->constant_pool[i].info.double_info =
                     getConstantDoubleInfo(file);
                 break;
+            case ConstantPoolTags:: CONSTANT_MethodHandle:
+                cf->constant_pool[i].info. =
+                        getConstantMethodHandleInfo();
+                break;
+            case ConstantPoolTags:: CONSTANT_MethodType:
+                cf->constant_pool[i].info.methodType_info =
+                        getConstantMethodTypeInfo();
+                break;
+            case ConstantPoolTags:: CONSTANT_InvokeDynamic:
+                cf->constant_pool[i].info.invokeDynamic_info =
+                        getConstantInvokeDynamicInfo();
+                break;
             default:
                 exit(EXIT_FAILURE);
         }
@@ -269,5 +281,39 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
         (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
     for (u1 i = 0; i < cf->attributes_count; i++) {
         read_attribute(file, &cf->attributes[i]);
+    }
+
+
+CONSTANT_Methodref_info ClassFile::getConstantMethodRefInfo() {
+        CONSTANT_Methodref_info result;
+
+        readu2FromFile(&result.class_index, 1, arquivo);
+        readu2FromFile(&result.name_and_type_index, 1, arquivo);
+        return result;
+
+}
+CONSTANT_MethodHandle_info ClassFile::getConstantMethodHandleInfo()
+    {
+        CONSTANT_MethodHandle_info result;
+        readu1FromFile(&result.reference_kind, 1, arquivo);
+        readu2FromFile(&result.reference_index, 1, arquivo);
+        return result;
+    }
+
+CONSTANT_MethodType_info ClassFile::getConstantMethodTypeInfo()
+    {
+        CONSTANT_MethodType_info result;
+
+        readu2FromFile(&result.descriptor_index, 1, arquivo);
+        return result;
+}
+
+CONSTANT_InvokeDynamic_info ClassFile::getConstantInvokeDynamicInfo(){
+        CONSTANT_InvokeDynamic_info result;
+
+        readu2FromFile(&result.bootstrap_method_attr_index, 1, arquivo);
+        readu2FromFile(&result.name_and_type_index, 1, arquivo);
+
+        return result;
     }
 }

@@ -196,6 +196,19 @@ void Printer::getIndex_Utf8_Ref(cp_info *constant_pool, u2 index) {
                     constant_pool,
                     cp->info.interfacemethodref_info.name_and_type_index);
                 break;
+            /*case (ConstantPoolTags::CONSTANT_MethodHandle):
+                    getIndex_Utf8_Ref(constant_pool, cp->info.MethodHandle.reference_index);
+                    break;
+            case (ConstantPoolTags::CONSTANT_MethodType):
+                    getIndex_Utf8_Ref(constant_pool,
+                                  cp->info.MethodType.descriptor_index);
+                    break;
+            case (ConstantPoolTags::CONSTANT_InvokeDynamic):
+                    getIndex_Utf8_Ref(constant_pool,
+                                      cp->info.InvokeDynamic.bootstrap_method_attr_index);
+                    getIndex_Utf8_Ref(constant_pool,
+                                      cp->info.InvokeDynamic.name_and_type_index);
+                    break;*/
             default:
                 break;
         }
@@ -246,7 +259,7 @@ void Printer::print_constant_pool(ClassFile cf) {
                 std::cout << "{"<< i+1 <<"}" << "CONSTANT_Double:\t" << auxd << std::endl;
                 break;*/
             case ConstantPoolTags::CONSTANT_NameAndType:
-                std::cout << "{"<< i+1 <<"}" <<"CONSTANT_NameAndType\t" <<"name_index: "<< cf.constant_pool[i].info.nameandtype_info.name_index <<"\tdescriptor_index:" << cf.constant_pool[i].info.nameandtype_info.descriptor_index;
+                std::cout << "{"<< i+1 <<"}" <<"CONSTANT_NameAndType\t" <<"name_index: #"<< cf.constant_pool[i].info.nameandtype_info.name_index <<"\tdescriptor_index:#" << cf.constant_pool[i].info.nameandtype_info.descriptor_index;
                 getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.nameandtype_info.name_index);
                 getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.nameandtype_info.descriptor_index);
                 std::cout << std::endl;
