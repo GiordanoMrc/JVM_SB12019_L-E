@@ -15,7 +15,7 @@ void Printer::showClassFile(ClassFile cf) {
     print_constant_pool(cf);
     print_interfaces(cf);
     print_methods(cf);
-    //print_attributes(cf);
+    print_attributes(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -209,55 +209,119 @@ void Printer::print_constant_pool(ClassFile cf) {
         tag = cf.constant_pool[i].tag;
         switch (tag) {
             case ConstantPoolTags::CONSTANT_Class:
-                std::cout << "{"<<i+1<<"}" << "CONSTANT_Class\t" <<"name_index: #"<< cf.constant_pool[i].info.class_info.name_index << "->";
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.class_info.name_index);
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_Class\t"
+                          << "name_index: #"
+                          << cf.constant_pool[i].info.class_info.name_index
+                          << "->";
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.class_info.name_index);
                 break;
             case ConstantPoolTags::CONSTANT_Fieldref:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Fieldref\t" <<"class_index: #"<< cf.constant_pool[i].info.fieldref_info.class_index << "\tname_and_type_index: #"<< cf.constant_pool[i].info.fieldref_info.name_and_type_index<< " ->";
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.fieldref_info.class_index);
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.fieldref_info.name_and_type_index);
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_Fieldref\t"
+                          << "class_index: #"
+                          << cf.constant_pool[i].info.fieldref_info.class_index
+                          << "\tname_and_type_index: #"
+                          << cf.constant_pool[i]
+                                 .info.fieldref_info.name_and_type_index
+                          << " ->";
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.fieldref_info.class_index);
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.fieldref_info.name_and_type_index);
                 break;
             case ConstantPoolTags::CONSTANT_Methodref:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Methodref_info\t" <<"class_index: #"<< cf.constant_pool[i].info.methodref_info.class_index << "\tname_and_type_index: #"<< cf.constant_pool[i].info.methodref_info.name_and_type_index<< " ->";
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.methodref_info.class_index);
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.methodref_info.name_and_type_index);
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_Methodref_info\t"
+                          << "class_index: #"
+                          << cf.constant_pool[i].info.methodref_info.class_index
+                          << "\tname_and_type_index: #"
+                          << cf.constant_pool[i]
+                                 .info.methodref_info.name_and_type_index
+                          << " ->";
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.methodref_info.class_index);
+                getIndex_Utf8_Ref(cf.constant_pool,
+                                  cf.constant_pool[i]
+                                      .info.methodref_info.name_and_type_index);
                 break;
             case ConstantPoolTags::CONSTANT_InterfaceMethodref:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_InterfaceMethodref_info\t" <<"class_index: #"<< cf.constant_pool[i].info.interfacemethodref_info.class_index << "\tname_and_type_index: #"<< cf.constant_pool[i].info.interfacemethodref_info.name_and_type_index<< " ->";
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.interfacemethodref_info.class_index);
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.interfacemethodref_info.name_and_type_index);
+                std::cout
+                    << "{" << i + 1 << "}"
+                    << "CONSTANT_InterfaceMethodref_info\t"
+                    << "class_index: #"
+                    << cf.constant_pool[i]
+                           .info.interfacemethodref_info.class_index
+                    << "\tname_and_type_index: #"
+                    << cf.constant_pool[i]
+                           .info.interfacemethodref_info.name_and_type_index
+                    << " ->";
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i]
+                        .info.interfacemethodref_info.class_index);
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i]
+                        .info.interfacemethodref_info.name_and_type_index);
                 break;
 
             case ConstantPoolTags::CONSTANT_String:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_String_info\t" <<"string_index: #"<< cf.constant_pool[i].info.string_info.string_index << " ->";
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.string_info.string_index);
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_String_info\t"
+                          << "string_index: #"
+                          << cf.constant_pool[i].info.string_info.string_index
+                          << " ->";
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.string_info.string_index);
                 break;
             case ConstantPoolTags::CONSTANT_Integer:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Integer_info\t" <<"bytes: "<< (u4)cf.constant_pool[i].info.integer_info.bytes;
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_Integer_info\t"
+                          << "bytes: "
+                          << (u4)cf.constant_pool[i].info.integer_info.bytes;
                 break;
             /*case ConstantPoolTags::CONSTANT_Float:
                 float aux;
-                memcpy(&aux, &(cf.constant_pool[i].info.float_info.bytes), sizeof(float));
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Float:\t" << aux << std::endl;
-                break;
-            case ConstantPoolTags::CONSTANT_Double:
+                memcpy(&aux, &(cf.constant_pool[i].info.float_info.bytes),
+            sizeof(float)); std::cout << "{"<< i+1 <<"}" << "CONSTANT_Float:\t"
+            << aux << std::endl; break; case ConstantPoolTags::CONSTANT_Double:
                 double auxd;
-                memcpy(&auxd, &(cf.constant_pool[i].info.double_info.bytes), sizeof(double));
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Double:\t" << auxd << std::endl;
-                break;*/
+                memcpy(&auxd, &(cf.constant_pool[i].info.double_info.bytes),
+            sizeof(double)); std::cout << "{"<< i+1 <<"}" <<
+            "CONSTANT_Double:\t" << auxd << std::endl; break;*/
             case ConstantPoolTags::CONSTANT_NameAndType:
-                std::cout << "{"<< i+1 <<"}" <<"CONSTANT_NameAndType\t" <<"name_index: "<< cf.constant_pool[i].info.nameandtype_info.name_index <<"\tdescriptor_index:" << cf.constant_pool[i].info.nameandtype_info.descriptor_index;
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.nameandtype_info.name_index);
-                getIndex_Utf8_Ref(cf.constant_pool, cf.constant_pool[i].info.nameandtype_info.descriptor_index);
+                std::cout
+                    << "{" << i + 1 << "}"
+                    << "CONSTANT_NameAndType\t"
+                    << "name_index: "
+                    << cf.constant_pool[i].info.nameandtype_info.name_index
+                    << "\tdescriptor_index:"
+                    << cf.constant_pool[i]
+                           .info.nameandtype_info.descriptor_index;
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.nameandtype_info.name_index);
+                getIndex_Utf8_Ref(
+                    cf.constant_pool,
+                    cf.constant_pool[i].info.nameandtype_info.descriptor_index);
                 std::cout << std::endl;
                 break;
             case ConstantPoolTags::CONSTANT_Utf8:
-                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Utf8\t" << cf.constant_pool[i].info.utf8_info.bytes;
+                std::cout << "{" << i + 1 << "}"
+                          << "CONSTANT_Utf8\t"
+                          << cf.constant_pool[i].info.utf8_info.bytes;
                 break;
-            default:break;
+            default:
+                break;
         }
         std::cout << std::endl;
-
     }
     printf("--------------------++>>CONSTANT POOL\n");
 }
@@ -267,9 +331,10 @@ void print_attribute_info(ClassFile, u1);
 
 void Printer::print_attributes(ClassFile cf) {
     std::cout << "########################\n### Class Attributes "
-                 "###|\n########################"
+                 "###\n########################"
               << std::endl;
-    std::cout << "Count: " << std::dec << cf.attributes_count << std::endl;
+    std::cout << "Count: " << std::dec << cf.attributes_count << std::endl
+              << std::endl;
     for (int i = 0; i < cf.attributes_count; i++) {
         print_attribute(cf, cf.attributes[i], i);
     }
@@ -279,15 +344,19 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
     int name_index = attr.attribute_name_index;
     int length = attr.attribute_length;
 
-    std::cout << "[" << std::dec << index << "]" << endl;
+    std::cout << "{" << std::dec << index << "}" << endl;
+    std::cout << "Generic Info:" << endl;
     std::cout << "\tAttribute name index:\t"
-              << "cp_info#" << std::dec << name_index << " "
-              << cf.constant_pool[name_index].info.utf8_info.bytes << endl;
+              << "cp_info#" << std::dec << name_index << endl;
     std::cout << "\tAttribute length:\t" << length << endl;
-    std::cout << "\tAttribute Info..:" << endl;
-    for (u1 i = 0; i < attr.attribute_length; i++) {
-        print_attribute_info(cf, attr.info[i]);
-    }
+    std::cout << "Specific Info:" << endl;
+    std::cout << "\tSource file name index:\t"
+              << "cp_info#" << std::dec << name_index + 1 << " "
+              << "<" << cf.constant_pool[name_index].info.utf8_info.bytes << ">"
+              << endl;
+    // for (u1 i = 1; i < attr.attribute_length; i++) {
+    //     print_attribute_info(cf, attr.info[i]);
+    // }
 }
 
 void print_attribute_info(ClassFile cf, u1 index_cp) {
