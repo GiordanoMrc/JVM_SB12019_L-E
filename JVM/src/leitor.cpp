@@ -262,7 +262,7 @@ void read_field(ifstream &file, ClassFile *cf, field_info *field) {
     field->attributes = (attribute_info *)malloc(sizeof(attribute_info) *
                                                  field->attributes_count);
     for (u1 j = 0; j < field->attributes_count; j++) {
-        read_attribute(file, *cf, &field->attributes[j]);
+        read_attribute(file, cf, &field->attributes[j]);
     }
 }
 
@@ -279,7 +279,7 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
         cf->methods[i].attributes = (attribute_info *)malloc(
             sizeof(attribute_info) * cf->methods[i].attributes_count);
         for (u1 j = 0; j < cf->methods[i].attributes_count; j++) {
-            read_attribute(file, *cf, &cf->methods[i].attributes[j]);
+            read_attribute(file, cf, &cf->methods[i].attributes[j]);
         }
     }
 }
@@ -292,10 +292,10 @@ int get_info_attribute_type1(CONSTANT_Utf8_info info) {
     return InfoAttributeType::NotReconized;
 }
 
-void read_info_attribute(ifstream &file, ClassFile cf, info_attribute *info) {
+void read_info_attribute(ifstream &file, ClassFile *cf, info_attribute *info) {
     readf_u2(&info->attribute_name_index, file, 1);
     readf_u4(&info->attribute_length, file, 1);
-    cp_info cp = cf.constant_pool[info->attribute_name_index];
+    cp_info cp = cf->constant_pool[info->attribute_name_index];
     int jump;
     switch (get_info_attribute_type1(cp.info.utf8_info)) {
         case InfoAttributeType::SourceFile:
@@ -309,7 +309,7 @@ void read_info_attribute(ifstream &file, ClassFile cf, info_attribute *info) {
     }
 }
 
-void read_attribute(ifstream &file, ClassFile cf, attribute_info *attribute) {
+void read_attribute(ifstream &file, ClassFile *cf, attribute_info *attribute) {
     readf_u2(&attribute->attribute_name_index, file, 1);
     readf_u4(&attribute->attribute_length, file, 1);
     attribute->info = (info_attribute *)malloc(sizeof(info_attribute) *
@@ -324,7 +324,7 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     cf->attributes =
         (attribute_info *)malloc(sizeof(attribute_info) * cf->attributes_count);
     for (u1 i = 0; i < cf->attributes_count; i++) {
-        read_attribute(file, *cf, &cf->attributes[i]);
+        read_attribute(file, cf, &cf->attributes[i]);
     }
 }
 
