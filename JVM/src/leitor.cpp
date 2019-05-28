@@ -34,9 +34,9 @@ ClassFile Reader::getClassFile(std::string name) {
         read_this_class(input, &cf);
         read_super_class(input, &cf);
         read_interfaces(input, &cf);
-        read_fields(input, &cf);
-        read_methods(input, &cf);
-        read_attributes(input, &cf);
+        //read_fields(input, &cf);
+        //read_methods(input, &cf);
+        //read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -243,7 +243,7 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
-
+/*
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
@@ -253,7 +253,7 @@ void Reader::read_fields(ifstream &file, ClassFile *cf) {
     }
 }
 
-/*void read_field(ifstream &file, field_info *field) {
+void read_field(ifstream &file, field_info *field) {
     readf_u2(&field->access_flags, file, 1);
     readf_u2(&field->name_index, file, 1);
     readf_u2(&field->descriptor_index, file, 1);

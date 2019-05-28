@@ -12,8 +12,8 @@ void Printer::showClassFile(ClassFile cf) {
     print_methods_count(cf);
     print_interfaces_count(cf);
     //print_attributes_count(cf);
-    // print_constant_pool(cf);
-    // print_interfaces(cf);
+    print_constant_pool(cf);
+    print_interfaces(cf);
     // print_methods(cf);
     // print_attributes(cf);
 }
@@ -538,7 +538,7 @@ void Printer::print_constant_pool(ClassFile cf) {
     }
     printf("--------------------++>>CONSTANT POOL\n");
 }
-
+/*
 void Printer::print_attributes(ClassFile cf) {
     std::cout << "########################\n### Class Attributes "
                  "###\n########################"
@@ -590,4 +590,4 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
                 break;
         }
     }
-}
+}*/
