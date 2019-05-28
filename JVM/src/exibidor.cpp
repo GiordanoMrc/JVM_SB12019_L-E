@@ -125,27 +125,191 @@ void Printer::print_methods_count(ClassFile cf) {
     std::cout << std::dec << cf.methods_count << std::endl;
 }
 
+void print_attibutes(attribute_info* ai, cp_info *cp) {
+	char type[100];
+	strcpy(type, (char*)cp[ai->attribute_name_index - 1].info.utf8_info.bytes);
+    std::cout << type << ":\t//Attribute length: " << ai->attribute_length << std::endl;
+	
+// #define printype(name,function) if(strcmp(name,type)==0) { function; }
+// 	screen_print_functionS(printype)
+// #undef printype
+}
+
+
+void Screen_Print_Access_Flag_Method1(u2 flag){
+    bool imprimiu = false;
+
+
+    if(flag&1){
+        std::cout << "ACC_PUBLIC";
+        imprimiu = true;
+    }
+
+    if((flag>>1)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PRIVATE";
+        imprimiu = true;
+    }
+
+    if((flag>>2)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PROTECTED";
+        imprimiu = true;
+    }
+
+    if((flag>>3)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_STATIC";
+        imprimiu = true;
+    }
+
+    if((flag>>4)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_FINAL";
+        imprimiu = true;
+    }
+
+    if((flag>>5)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_SYNCHRONIZED";
+        imprimiu = true;
+    }
+
+    if((flag>>6)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_BRIDGE";
+        imprimiu = true;
+    }
+
+    if((flag>>7)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_VARARGS";
+        imprimiu = true;
+    }
+
+    if((flag>>8)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_NATIVE";
+        imprimiu = true;
+    }
+
+    if((flag>>9)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_ABSTRACT";
+        imprimiu = true;
+    }
+
+    if((flag>>10)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_STRICT";
+        imprimiu = true;
+    }
+
+    if((flag>>11)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_SYNTHETIC";
+        imprimiu = true;
+    }
+}
+
+void Screen_Print_Access_Flag_Method2(u2 flag){
+
+    if(flag&1){
+        std::cout << "public ";
+    }
+
+    if((flag>>1)&0x0001){
+        std::cout << "private ";
+    }
+
+    if((flag>>2)&0x0001){
+        std::cout << "protected ";
+    }
+
+    if((flag>>3)&0x0001){
+        std::cout << "static ";
+    }
+
+    if((flag>>4)&0x0001){
+        std::cout << "final ";
+    }
+
+    if((flag>>5)&0x0001){
+        std::cout << "synchronized ";
+    }
+
+    if((flag>>6)&0x0001){
+        std::cout << "bridge ";
+    }
+
+    if((flag>>7)&0x0001){
+        std::cout << "varargs ";
+    }
+
+    if((flag>>8)&0x0001){
+        std::cout << "native ";
+    }
+
+    if((flag>>9)&0x0001){
+        std::cout << "abstract ";
+    }
+
+    if((flag>>10)&0x0001){
+        std::cout << "strict ";
+    }
+
+    if((flag>>11)&0x0001){
+        std::cout << "synthetic ";
+    }
+}
+
+
 void Printer::print_methods(ClassFile cf) 
 {
-    std::cout<<cf.methods_count<<std::endl;
-    if(cf.methods_count > 0)
-    {
-        for(int i = 0; i < cf.methods_count; i++)
-        {
-            // struct method_info {
-            //     u2 access_flags;
-            //     u2 name_index;
-            //     u2 descriptor_index;
-            //     u2 attributes_count;
-            //     attribute_info *attributes;
-            // };
+        //Loop para printar os m�todos
+    for(u2 i = 0; i < cf.methods_count; i++){
+        method_info method = (cf.methods[i]);
 
-            std::cout << "Method " << i << ":"<< std::endl;
-            std::cout << cf.methods[i].access_flags << std::endl;
-            std::cout << cf.methods[i].name_index << std::endl;
-            std::cout << cf.methods[i].descriptor_index << std::endl;
-            std::cout << cf.methods[i].attributes_count << std::endl;
-        }
+        getIndex_Utf8_Ref(cf.constant_pool, method.name_index);
+        std::cout << std::endl;
+        
+        std::cout << "     descriptor: ";
+        
+        getIndex_Utf8_Ref(cf.constant_pool, method.descriptor_index);
+        std::cout << std::endl;
+        
+
+        std::cout << "     flags: ";
+        
+        // Screen_Print_Access_Flag_Method1(method.access_flags);
+        std::cout << std::endl;
+        
+
+		for (int i = 0; i < method.attributes_count; i++) {
+			print_attibutes(method.attributes + i, cf.constant_pool);
+		}
     }
 }
 
