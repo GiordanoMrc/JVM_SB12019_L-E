@@ -33,7 +33,7 @@ ClassFile Reader::getClassFile(std::string name) {
         read_access_flags(input, &cf);
         read_this_class(input, &cf);
         read_super_class(input, &cf);
-        //read_interfaces(input, &cf);
+        read_interfaces(input, &cf);
         //read_fields(input, &cf);
         //read_methods(input, &cf);
         //read_attributes(input, &cf);
@@ -96,8 +96,7 @@ CONSTANT_Methodref_info getConstantMethodRefInfo(ifstream &file) {
     return aux;
 }
 
-CONSTANT_InterfaceMethodref_info getConstantInterfaceMethodRefInfo(
-    ifstream &file) {
+CONSTANT_InterfaceMethodref_info getConstantInterfaceMethodRefInfo(ifstream &file) {
     CONSTANT_InterfaceMethodref_info aux;
     readf_u2(&aux.class_index, file, 1);
     readf_u2(&aux.name_and_type_index, file, 1);
@@ -249,10 +248,10 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
-/*
+
 void read_field(ifstream &, field_info *);
 void read_attribute(ifstream &, attribute_info *);
-
+/*
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
@@ -261,6 +260,7 @@ void Reader::read_fields(ifstream &file, ClassFile *cf) {
         read_field(file, &cf->fields[i]);
     }
 }
+
 void read_field(ifstream &file, field_info *field) {
     readf_u2(&field->access_flags, file, 1);
     readf_u2(&field->name_index, file, 1);
@@ -298,9 +298,9 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
             read_attribute(file, &cf->methods[i].attributes[j]);
         }
     }
-}
+}*/
 
-
+/*
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->attributes_count, file, 1);
     // Read attributes
@@ -312,3 +312,16 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
 
 }
 */
+int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo) {
+    if (utf8_struct.length != nomeAttributo.size()){
+        return false;
+    }
+    for (u2 i = 0 ; i < utf8_struct.length ; i++ )
+    {
+
+        if (utf8_struct.bytes[i] != nomeAttributo[i]){
+            return false;
+        }
+    }
+    return true;
+}

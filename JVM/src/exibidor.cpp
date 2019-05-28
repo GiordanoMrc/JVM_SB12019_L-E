@@ -8,12 +8,12 @@ void Printer::showClassFile(ClassFile cf) {
     print_access_flags(cf);
     print_this_class(cf);
     print_super_class(cf);
-    //print_fields_count(cf);
-    //print_methods_count(cf);
-    //print_interfaces_count(cf);
+    print_fields_count(cf);
+    print_methods_count(cf);
+    print_interfaces_count(cf);
     //print_attributes_count(cf);
     print_constant_pool(cf);
-    //print_interfaces(cf);
+    print_interfaces(cf);
     //print_methods(cf);
     //print_attributes(cf);
 }
