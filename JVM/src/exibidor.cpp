@@ -5,8 +5,8 @@ void Printer::showClassFile(ClassFile cf) {
     print_minor_version(cf);
     print_major_version(cf);
     print_cpool_count(cf);
-    //print_access_flags(cf);
-    //print_this_class(cf);
+    print_access_flags(cf);
+    print_this_class(cf);
     print_super_class(cf);
     //print_fields_count(cf);
     //print_methods_count(cf);
@@ -37,7 +37,7 @@ void Printer::print_cpool_count(ClassFile cf) {
     std::cout << "Constant Pool Count: \t";
     std::cout << std::dec << cf.cp_count << std::endl;
 }
-/*
+
 void Printer::print_access_flags(ClassFile cf) {
     std::cout << "Access Flags: \t";
     std::cout << std::hex << std::showbase << cf.access_flags << " ";
@@ -80,7 +80,7 @@ void Printer::print_this_class(ClassFile cf) {
     std::cout << std::dec << cp_info_index;
     std::cout << "<" << thisName << ">" << std::endl;
 }
-*/
+
 void Printer::print_super_class(ClassFile cf) {
     int cp_info_index = cf.super_class;
     if (cp_info_index == 0) {
@@ -309,12 +309,12 @@ void Printer::print_methods(ClassFile cf)
 		}
     }
 }
-
+*/
 void Printer::print_attributes_count(ClassFile cf) {
     std::cout << "Attributes: \t";
     std::cout << std::dec << cf.attributes_count << std::endl;
 }
-*/
+
 void Printer::getIndex_Utf8_Ref(cp_info *constant_pool, u2 index) {
     cp_info *cp = constant_pool + index - 1;
     float aux = 0;
@@ -354,7 +354,7 @@ void Printer::getIndex_Utf8_Ref(cp_info *constant_pool, u2 index) {
                 break;
             case (ConstantPoolTags::CONSTANT_String):
                 getIndex_Utf8_Ref(constant_pool,
-                                  cp->info.string_info.string_index);
+                                  (u2)cp->info.string_info.string_index);
                 break;
             case (ConstantPoolTags::CONSTANT_InterfaceMethodref):
                 getIndex_Utf8_Ref(constant_pool,

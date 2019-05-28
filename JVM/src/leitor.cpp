@@ -30,8 +30,8 @@ ClassFile Reader::getClassFile(std::string name) {
         read_major_version(input, &cf);
         read_cpool_count(input, &cf);
         read_constant_pool(input, &cf);
-        //read_access_flags(input, &cf);
-        //read_this_class(input, &cf);
+        read_access_flags(input, &cf);
+        read_this_class(input, &cf);
         read_super_class(input, &cf);
         //read_interfaces(input, &cf);
         //read_fields(input, &cf);
@@ -234,12 +234,11 @@ void Reader::read_this_class(ifstream &file, ClassFile *cf) {
 }
 
 void Reader::read_super_class(ifstream &file, ClassFile *cf) {
-    file.read((char *)&cf->super_class, sizeof(u2));
-    cf->super_class = CorrectEndian::t_u2(cf->super_class);
+    readf_u2(&cf->super_class,file,1);
 }
 
-/*
-void read_access_flags(ifstream &file, ClassFile *cf) {
+
+void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->access_flags, file, 1);
 }
 
@@ -250,7 +249,7 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
-
+/*
 void read_field(ifstream &, field_info *);
 void read_attribute(ifstream &, attribute_info *);
 
