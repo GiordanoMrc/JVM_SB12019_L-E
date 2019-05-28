@@ -561,17 +561,19 @@ int get_info_attribute_type(ClassFile cf, info_attribute info) {
 
 void print_attribute(ClassFile cf, attribute_info attr, int index) {
     info_attribute info;
-    u1 type;
+    u1 info_attribute_type;
     cp_info cp;
-    int test;
     for (u1 i = 0; i < attr.attribute_length; i++) {
         info = attr.info[i];
-        type = get_info_attribute_type(cf, info);
+        info_attribute_type = get_info_attribute_type(cf, info);
         // Index
-        std::cout << "{" << std::dec << index << "} \t";
+        std::cout << "{" << std::dec << (u4)i << "} \t";
         // Info
-        switch (type) {
+        switch (info_attribute_type) {
             case InfoAttributeType::SourceFile:
+                cp = cf.constant_pool[info.sourceFile_attribute
+                                          .sourcefile_index];
+                cp = cf.constant_pool[12];
                 std::cout << "SourceFile" << endl;
                 std::cout << "Generic Info:" << endl;
                 std::cout << "\tAttribute name index:\t"
@@ -580,10 +582,9 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
                 std::cout << "\tAttribute length:\t" << attr.attribute_length
                           << endl;
                 std::cout << "Specific Info:" << endl;
-                cp = cf.constant_pool[info.sourceFile_attribute
-                                          .sourcefile_index];
-                test = info.sourceFile_attribute.sourcefile_index;
-                std::cout << std::dec << test << endl;
+                std::cout << "\tSource File name index: " << std::dec
+                          << info.sourceFile_attribute.sourcefile_index;
+                std::cout << "<" << cp.info.utf8_info.bytes << ">" << endl;
                 break;
             default:
                 cout << "Not Reconized" << endl;
