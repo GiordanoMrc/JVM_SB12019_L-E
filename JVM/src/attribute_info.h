@@ -1,4 +1,4 @@
-#ifndef ATTRIBUTE_INFO_H
+/*#ifndef ATTRIBUTE_INFO_H
 #define ATTRIBUTE_INFO_H
 #include "data_types.h"
 
@@ -8,4 +8,4 @@ struct attribute_info {
     u1 *info;
 };
 
-#endif
+#endif*/
