@@ -14,7 +14,7 @@ enum {
     CONSTANT_Double = 6,
     CONSTANT_NameAndType = 12,
     CONSTANT_Utf8 = 1,
-    CONSTANT_NULL =0,
+    CONSTANT_NULL = 0,
     CONSTANT_MethodHandle = 15,
     CONSTANT_MethodType = 16,
     CONSTANT_InvokeDynamic = 18
@@ -22,7 +22,7 @@ enum {
 
 typedef struct field_info fieldInfo;
 typedef struct attribute_info attribute_info;
-//attributes
+// attributes
 typedef struct ConstantValue_attribute ConstantValue_attribute;
 typedef struct Exception_table_info Exception_table_info;
 typedef struct Code_attributes Code_attributes;
@@ -35,11 +35,10 @@ typedef struct lineNumberTable lineNumberTable;
 typedef struct LocalVariableTable_attribute LocalVariableTable_attribute;
 typedef struct local_variable_table local_variable_table;
 typedef struct Deprecated_attribute Deprecated_attribute;
-//methods
+// methods
 typedef struct MethodInfo MethodInfo;
 
-
-}
+}  // namespace ConstantPoolTags
 typedef struct CONSTANT_Class_info {
     u2 name_index;
 } CONSTANT_Class_info;
@@ -56,7 +55,7 @@ typedef struct CONSTANT_NameAndType_info {
 
 typedef struct CONSTANT_Utf8_info {
     u2 length;
-    u1 *bytes;
+    u1* bytes;
 } CONSTANT_Utf8_info;
 
 typedef struct CONSTANT_Methodref_info {
@@ -91,39 +90,36 @@ typedef struct CONSTANT_Double_info {
     u4 low_bytes;
 } CONSTANT_Double_info;
 
-
 typedef struct CONSTANT_MethodHandle_info {
     u1 tag;
     u1 reference_kind;
     u2 reference_index;
 } CONSTANT_MethodHandle;
 
-typedef struct CONSTANT_MethodType_info
-{
+typedef struct CONSTANT_MethodType_info {
     u1 tag;
     u2 descriptor_index;
 } CONSTANT_MethodType;
 
-struct CONSTANT_InvokeDynamic_info
-{
+struct CONSTANT_InvokeDynamic_info {
     u1 tag;
     u2 bootstrap_method_attr_index;
     u2 name_and_type_index;
 } CONSTANT_InvokeDynamic_info;
 
-struct SourceFile_attribute{
+struct SourceFile_attribute {
     u2 sourcefile_index;
 };
 
-struct lineNumberTable{
+struct lineNumberTable {
     u2 start_pc;
     u2 line_number;
 };
-struct LineNumberTable_attributes{
+struct LineNumberTable_attributes {
     u2 line_number_table_length;
     lineNumberTable* lineTable;
 };
-struct local_variable_table{
+struct local_variable_table {
     u2 start_pc;
     u2 length;
     u2 name_index;
@@ -131,32 +127,28 @@ struct local_variable_table{
     u2 index;
 };
 
-
-struct LocalVariableTable_attribute{
+struct LocalVariableTable_attribute {
     u2 local_variable_table_length;
     local_variable_table* local_table;
 };
 
-struct Deprecated_attribute{
-    //vazio
+struct Deprecated_attribute {
+    // vazio
 };
-//teste!
+// teste!
 
-struct ConstantValue_attribute{
+struct ConstantValue_attribute {
     u2 attribute_name_index;
     u4 attribute_length;
     u2 constantvalue_index;
-
 };
 
-struct Exception_table_info{
+struct Exception_table_info {
     u2 start_pc;
     u2 end_pc;
     u2 handler_pc;
     u2 catch_type;
-
 };
-
 
 struct Code_attributes {
     u2 attribute_name_index;
@@ -168,37 +160,34 @@ struct Code_attributes {
     u2 exception_table_length;
     Exception_table_info* exception_table;
     u2 attributes_count;
-    attribute_info* attributes;
+    struct attribute_info* attributes;
 };
 
-struct classes_info{
+struct classes_info {
     u2 inner_class_info_index;
     u2 outer_class_info_index;
     u2 inner_name_index;
     u2 inner_class_access_flags;
 };
 
-struct InnerClasses_attribute{
+struct InnerClasses_attribute {
     u2 number_of_classes;
     classes_info* classes;
 };
 
-
-struct Exceptions_attribute{
+struct Exceptions_attribute {
     u2 number_of_exceptions;
     u2* exceptions_index_table;
 };
 
-
-struct Syntethic_attribute{
+struct Syntethic_attribute {
     // ela nao possui nenhum atributo principal.
 };
 
-
-struct attribute_info{
+struct attribute_info {
     u2 attribute_name_index;
     u4 attribute_length;
-    union{
+    union {
         InnerClasses_attribute innerClasses_attribute_info;
         Code_attributes code_info;
         ConstantValue_attribute constantValue_Info;
@@ -208,8 +197,7 @@ struct attribute_info{
         LineNumberTable_attributes lineNumberTable_info;
         LocalVariableTable_attribute localVariableTable_info;
         Deprecated_attribute Deprecated_attribute_info;
-    }info;
-
+    } info;
 };
 struct MethodInfo {
     u2 access_flags;
@@ -217,7 +205,6 @@ struct MethodInfo {
     u2 descriptor_index;
     u2 attributes_count;
     attribute_info* attributes;
-
 };
 
 struct field_info {
@@ -227,8 +214,7 @@ struct field_info {
     u2 attributes_count;
     attribute_info* attributes;
 };
-//acabou teste
-
+// acabou teste
 
 struct cp_info {
     u1 tag;
