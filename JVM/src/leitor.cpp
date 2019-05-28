@@ -34,9 +34,9 @@ ClassFile Reader::getClassFile(std::string name) {
         read_this_class(input, &cf);
         read_super_class(input, &cf);
         read_interfaces(input, &cf);
-        //read_fields(input, &cf);
-        //read_methods(input, &cf);
-        //read_attributes(input, &cf);
+        read_fields(input, &cf);
+        read_methods(input, &cf);
+        read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -96,7 +96,8 @@ CONSTANT_Methodref_info getConstantMethodRefInfo(ifstream &file) {
     return aux;
 }
 
-CONSTANT_InterfaceMethodref_info getConstantInterfaceMethodRefInfo(ifstream &file) {
+CONSTANT_InterfaceMethodref_info getConstantInterfaceMethodRefInfo(
+    ifstream &file) {
     CONSTANT_InterfaceMethodref_info aux;
     readf_u2(&aux.class_index, file, 1);
     readf_u2(&aux.name_and_type_index, file, 1);
@@ -135,29 +136,27 @@ CONSTANT_Double_info getConstantDoubleInfo(ifstream &file) {
     return aux;
 }
 
-CONSTANT_MethodHandle_info getConstantMethodHandleInfo(ifstream &file)
-    {
-        CONSTANT_MethodHandle_info aux;
-        readf_u1(&aux.reference_kind, file , 1);
-        readf_u2(&aux.reference_index, file , 1);
-        return aux;
-    }
-
-CONSTANT_MethodType_info getConstantMethodTypeInfo(ifstream &file)
-    {
-        CONSTANT_MethodType_info aux;
-
-        readf_u2(&aux.descriptor_index, file , 1);
-        return aux;
+CONSTANT_MethodHandle_info getConstantMethodHandleInfo(ifstream &file) {
+    CONSTANT_MethodHandle_info aux;
+    readf_u1(&aux.reference_kind, file, 1);
+    readf_u2(&aux.reference_index, file, 1);
+    return aux;
 }
 
-CONSTANT_InvokeDynamic_info getConstantInvokeDynamicInfo(ifstream &file){
-        CONSTANT_InvokeDynamic_info aux;
+CONSTANT_MethodType_info getConstantMethodTypeInfo(ifstream &file) {
+    CONSTANT_MethodType_info aux;
 
-        readf_u2(&aux.bootstrap_method_attr_index, file , 1);
-        readf_u2(&aux.name_and_type_index, file , 1);
+    readf_u2(&aux.descriptor_index, file, 1);
+    return aux;
+}
 
-        return aux;
+CONSTANT_InvokeDynamic_info getConstantInvokeDynamicInfo(ifstream &file) {
+    CONSTANT_InvokeDynamic_info aux;
+
+    readf_u2(&aux.bootstrap_method_attr_index, file, 1);
+    readf_u2(&aux.name_and_type_index, file, 1);
+
+    return aux;
 }
 
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
@@ -210,17 +209,17 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 cf->constant_pool[i].info.double_info =
                     getConstantDoubleInfo(file);
                 break;
-            case ConstantPoolTags:: CONSTANT_MethodHandle:
+            case ConstantPoolTags::CONSTANT_MethodHandle:
                 cf->constant_pool[i].info.methodhandle_info =
-                        getConstantMethodHandleInfo(file);
+                    getConstantMethodHandleInfo(file);
                 break;
-            case ConstantPoolTags:: CONSTANT_MethodType:
+            case ConstantPoolTags::CONSTANT_MethodType:
                 cf->constant_pool[i].info.methodtype_info =
-                        getConstantMethodTypeInfo(file);
+                    getConstantMethodTypeInfo(file);
                 break;
-            case ConstantPoolTags:: CONSTANT_InvokeDynamic:
+            case ConstantPoolTags::CONSTANT_InvokeDynamic:
                 cf->constant_pool[i].info.invokedynamic_info =
-                        getConstantInvokeDynamicInfo(file);
+                    getConstantInvokeDynamicInfo(file);
                 break;
             default:
                 exit(100);
@@ -233,15 +232,12 @@ void Reader::read_this_class(ifstream &file, ClassFile *cf) {
 }
 
 void Reader::read_super_class(ifstream &file, ClassFile *cf) {
-    readf_u2(&cf->super_class,file,1);
+    readf_u2(&cf->super_class, file, 1);
 }
-
 
 void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->access_flags, file, 1);
 }
-
-
 
 void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->interfaces_count, file, 1);
@@ -249,9 +245,6 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
 
-void read_field(ifstream &, field_info *);
-void read_attribute(ifstream &, attribute_info *);
-/*
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
@@ -273,15 +266,6 @@ void read_field(ifstream &file, field_info *field) {
     }
 }
 
-void read_attribute(ifstream &file, attribute_info *attribute) {
-    readf_u2(&attribute->attribute_name_index, file, 1);
-    readf_u4(&attribute->attribute_length, file, 1);
-    attribute->info = (u1 *)malloc(sizeof(u1) * attribute->attribute_length);
-    for (u1 k = 0; k < attribute->attribute_length; k++) {
-        readf_u1(&attribute->info[k], file, 1);
-    }
-}
-
 void Reader::read_methods(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->methods_count, file, 1);
     // Read methods
@@ -298,9 +282,17 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
             read_attribute(file, &cf->methods[i].attributes[j]);
         }
     }
-}*/
+}
 
-/*
+void read_attribute(ifstream &file, attribute_info *attribute) {
+    readf_u2(&attribute->attribute_name_index, file, 1);
+    readf_u4(&attribute->attribute_length, file, 1);
+    attribute->info = (info_attribute *)malloc(sizeof(info_attribute) *
+                                               attribute->attribute_length);
+    for (u1 k = 0; k < attribute->attribute_length; k++) {
+        readf_u1((u1 *)&attribute->info[k], file, 1);
+    }
+}
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->attributes_count, file, 1);
     // Read attributes
@@ -309,17 +301,14 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     for (u1 i = 0; i < cf->attributes_count; i++) {
         read_attribute(file, &cf->attributes[i]);
     }
-
 }
-*/
+
 int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo) {
-    if (utf8_struct.length != nomeAttributo.size()){
+    if (utf8_struct.length != nomeAttributo.size()) {
         return false;
     }
-    for (u2 i = 0 ; i < utf8_struct.length ; i++ )
-    {
-
-        if (utf8_struct.bytes[i] != nomeAttributo[i]){
+    for (u2 i = 0; i < utf8_struct.length; i++) {
+        if (utf8_struct.bytes[i] != nomeAttributo[i]) {
             return false;
         }
     }
