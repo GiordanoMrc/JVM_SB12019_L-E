@@ -15,7 +15,7 @@ void Printer::showClassFile(ClassFile cf) {
     // print_constant_pool(cf);
     // print_interfaces(cf);
     // print_methods(cf);
-    // print_attributes(cf);
+    print_attributes(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {

@@ -36,7 +36,7 @@ class Reader {
     static void read_attributes(ifstream &, ClassFile *);
 };
 
-void read_field(ifstream &, field_info *);
-void read_attribute(ifstream &, attribute_info *);
+void read_field(ifstream &, ClassFile *, field_info *);
+void read_attribute(ifstream &, ClassFile, attribute_info *);
 
 #endif
