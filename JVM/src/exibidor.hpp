@@ -39,4 +39,8 @@ class Printer {
     static void print_attributes(ClassFile);
 };
 
+void print_attribute(ClassFile, attribute_info, int);
+void print_attribute_info(ClassFile, int, attribute_info, info_attribute info);
+int get_info_attribute_type(ClassFile, info_attribute);
+
 #endif

@@ -3,7 +3,7 @@
 #include "data_types.h"
 
 typedef struct attribute_info attribute_info;
-typedef union info_attribute info_attribute;
+typedef struct info_attribute info_attribute;
 
 typedef struct ConstantValue_attribute ConstantValue_attribute;
 typedef struct Exception_table_info Exception_table_info;
@@ -43,14 +43,9 @@ struct LocalVariableTable_attribute {
     local_variable_table* local_table;
 };
 
-struct Deprecated_attribute {
-    // vazio
-};
-// teste!
+struct Deprecated_attribute {};
 
 struct ConstantValue_attribute {
-    u2 attribute_name_index;
-    u4 attribute_length;
     u2 constantvalue_index;
 };
 
@@ -62,8 +57,6 @@ struct Exception_table_info {
 };
 
 struct Code_attributes {
-    u2 attribute_name_index;
-    u4 attribute_length;
     u2 max_stack;
     u2 max_locals;
     u4 code_length;
@@ -101,16 +94,24 @@ struct attribute_info {
     info_attribute* info;
 };
 
-union info_attribute {
-    InnerClasses_attribute innerClasses_attribute_info;
-    Code_attributes code_info;
-    ConstantValue_attribute constantValue_Info;
-    Exceptions_attribute exceptions_info;
-    Syntethic_attribute syntethic_attribute;
-    SourceFile_attribute sourceFile_attribute;
-    LineNumberTable_attributes lineNumberTable_info;
-    LocalVariableTable_attribute localVariableTable_info;
-    Deprecated_attribute Deprecated_attribute_info;
+struct info_attribute {
+    // Common properties between all attributes
+    u2 attribute_name_index;
+    u4 attribute_length;
+    union {
+        InnerClasses_attribute innerClasses_attribute_info;
+        Code_attributes code_info;
+        ConstantValue_attribute constantValue_Info;
+        Exceptions_attribute exceptions_info;
+        Syntethic_attribute syntethic_attribute;
+        SourceFile_attribute sourceFile_attribute;
+        LineNumberTable_attributes lineNumberTable_info;
+        LocalVariableTable_attribute localVariableTable_info;
+        Deprecated_attribute Deprecated_attribute_info;
+    };
+};
+namespace InfoAttributeType {
+enum { NotReconized = 0, SourceFile = 4 };
 };
 
 #endif

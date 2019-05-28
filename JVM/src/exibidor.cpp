@@ -12,10 +12,10 @@ void Printer::showClassFile(ClassFile cf) {
     print_methods_count(cf);
     print_interfaces_count(cf);
     print_attributes_count(cf);
-    print_constant_pool(cf);
-    print_interfaces(cf);
+    // print_constant_pool(cf);
+    // print_interfaces(cf);
     // print_methods(cf);
-    // print_attributes(cf);
+    print_attributes(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -539,9 +539,6 @@ void Printer::print_constant_pool(ClassFile cf) {
     printf("--------------------++>>CONSTANT POOL\n");
 }
 
-void print_attribute(ClassFile, attribute_info, int);
-void print_attribute_info(ClassFile, u1);
-/*
 void Printer::print_attributes(ClassFile cf) {
     std::cout << "########################\n### Class Attributes "
                  "###\n########################"
@@ -553,58 +550,44 @@ void Printer::print_attributes(ClassFile cf) {
     }
 }
 
+int get_info_attribute_type(ClassFile cf, info_attribute info) {
+    cp_info cp = cf.constant_pool[12];
+    string name = string((char *)cp.info.utf8_info.bytes);
+    if (name == "SourceFile") {
+        return InfoAttributeType::SourceFile;
+    };
+    return InfoAttributeType::NotReconized;
+}
+
 void print_attribute(ClassFile cf, attribute_info attr, int index) {
-    int name_index = attr.attribute_name_index;
-    int length = attr.attribute_length;
-
-    std::cout << "{" << std::dec << index << "}" << endl;
-    std::cout << "Generic Info:" << endl;
-    std::cout << "\tAttribute name index:\t"
-              << "cp_info#" << std::dec << name_index << endl;
-    std::cout << "\tAttribute length:\t" << length << endl;
-    std::cout << "Specific Info:" << endl;
-    std::cout << "\tSource file name index:\t"
-              << "cp_info#" << std::dec << name_index + 1 << " "
-              << "<" << cf.constant_pool[name_index].info.utf8_info.bytes << ">"
-              << endl;
-    // for (u1 i = 1; i < attr.attribute_length; i++) {
-    //     print_attribute_info(cf, attr.info[i]);
-    // }
-}
-
-void print_attribute_info(ClassFile cf, u1 index_cp) {
-    cp_info cp = cf.constant_pool[index_cp];
-    cout << "\t\tcp_info#" << std::dec << (u4)cp.tag << " ";
-    switch (cp.tag) {
-        case ConstantPoolTags::CONSTANT_Class:
-            Printer::getIndex_Utf8_Ref(cf.constant_pool,
-                                       cp.info.class_info.name_index);
-            break;
-        case ConstantPoolTags::CONSTANT_Fieldref:
-            Printer::getIndex_Utf8_Ref(cf.constant_pool,
-                                       cp.info.nameandtype_info.name_index);
-            break;
-        case ConstantPoolTags::CONSTANT_NameAndType:
-            Printer::getIndex_Utf8_Ref(cf.constant_pool,
-                                       cp.info.nameandtype_info.name_index);
-            break;
-        case ConstantPoolTags::CONSTANT_Methodref:
-            Printer::getIndex_Utf8_Ref(
-                cf.constant_pool, cp.info.methodref_info.name_and_type_index);
-            break;
-        case ConstantPoolTags::CONSTANT_InterfaceMethodref:
-            Printer::getIndex_Utf8_Ref(
-                cf.constant_pool,
-                cp.info.interfacemethodref_info.name_and_type_index);
-            break;
-        case ConstantPoolTags::CONSTANT_String:
-            Printer::getIndex_Utf8_Ref(
-                cf.constant_pool,
-                cp.info.interfacemethodref_info.name_and_type_index);
-            break;
-        case ConstantPoolTags::CONSTANT_Integer:
-            break;
+    info_attribute info;
+    u1 type;
+    cp_info cp;
+    int test;
+    for (u1 i = 0; i < attr.attribute_length; i++) {
+        info = attr.info[i];
+        type = get_info_attribute_type(cf, info);
+        // Index
+        std::cout << "{" << std::dec << index << "} \t";
+        // Info
+        switch (type) {
+            case InfoAttributeType::SourceFile:
+                std::cout << "SourceFile" << endl;
+                std::cout << "Generic Info:" << endl;
+                std::cout << "\tAttribute name index:\t"
+                          << "cp_info#" << std::dec << attr.attribute_name_index
+                          << endl;
+                std::cout << "\tAttribute length:\t" << attr.attribute_length
+                          << endl;
+                std::cout << "Specific Info:" << endl;
+                cp = cf.constant_pool[info.sourceFile_attribute
+                                          .sourcefile_index];
+                test = info.sourceFile_attribute.sourcefile_index;
+                std::cout << std::dec << test << endl;
+                break;
+            default:
+                cout << "Not Reconized" << endl;
+                break;
+        }
     }
-    std::cout << std::endl;
 }
-*/
