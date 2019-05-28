@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -std=c++11 -g
+CFLAGS=-Wall -std=c++11 -g -o0
 C_SRCS := $(wildcard *.cpp)
 
 DIR_SRC=src/

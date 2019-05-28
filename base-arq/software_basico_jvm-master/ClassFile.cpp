@@ -34,7 +34,7 @@ readFromFile(u8, 8);
 
 void ClassFile::leClasse() {
     this->arquivo.open(nome, std::ifstream::in | std::ifstream::binary);
-    
+
     if (!this->arquivo.is_open())
     {
     	Debug(nome << ": file class not found.\n");
@@ -50,7 +50,7 @@ void ClassFile::leClasse() {
     readu2FromFile(&this->minor_version, 1, arquivo);
     readu2FromFile(&this->major_version, 1, arquivo);
     readu2FromFile(&this->cp_size, 1, arquivo);
-    
+
     readConstantPool();
     readAcessFlag();
     readThisClass();
@@ -91,7 +91,7 @@ void ClassFile::readMethodInfo() {
         readu2FromFile(&this->methods[i].name_index, 1, arquivo);
         readu2FromFile(&this->methods[i].descriptor_index, 1, arquivo);
         readu2FromFile(&this->methods[i].attributes_count, 1, arquivo);
-        
+
         this->methods[i].attributes = (attribute_info*)malloc(sizeof(attribute_info)*this->methods[i].attributes_count);
         for (u2 j = 0 ; j < this->methods[i].attributes_count;j++){
             this->methods[i].attributes[j] = carregarAtributos();
@@ -114,7 +114,7 @@ void ClassFile::readFields() {
         this->fields[i].attributes = (attribute_info*)malloc(sizeof(attribute_info)*this->fields[i].attributes_count);
         for (u2 j = 0 ; j < this->fields[i].attributes_count; j++)
         {
-            this->fields[i].attributes[j] = carregarAtributos(); 
+            this->fields[i].attributes[j] = carregarAtributos();
         }
     }
 }
@@ -130,7 +130,7 @@ attribute_info ClassFile::carregarAtributos() {
     attribute_info result;
     readu2FromFile(&result.attribute_name_index, 1, arquivo);
     readu4FromFile(&result.attribute_length, 1, arquivo);
-    
+
     if (comparaIgual(this->constant_pool[result.attribute_name_index-1].info.utf8_info,"ConstantValue")){
         result.info.constantValue_Info = loadConstantValueAttribute();
     } else if (comparaIgual(this->constant_pool[result.attribute_name_index-1].info.utf8_info,"Code")) {
@@ -241,13 +241,13 @@ Code_attributes ClassFile::loadCodeAttribute() {
     readu2FromFile(&result.max_locals, 1, arquivo);
     readu4FromFile(&result.code_length, 1, arquivo);
     result.code = (u1*) malloc(sizeof(u1)*result.code_length);
-    
+
     readu1FromFile(result.code, result.code_length, arquivo);
-    
+
     readu2FromFile(&result.exception_table_length, 1, arquivo);
-    
+
     result.exception_table = (Exception_table_info*) malloc(sizeof(Exception_table_info) * result.exception_table_length);
-    
+
     for(u2 i = 0 ; i < result.exception_table_length;i++){
         readu2FromFile(&result.exception_table[i].start_pc, 1, arquivo);
         readu2FromFile(&result.exception_table[i].end_pc, 1, arquivo);
@@ -314,50 +314,50 @@ void ClassFile::readConstantPool() {
         switch(constant_pool[i].tag)
         {
             case CONSTANT_Class:
-                
+
                 constant_pool[i].info.class_info = getConstantClassInfo();
                 break;
             case CONSTANT_Fieldref:
-                
+
                 constant_pool[i].info.fieldref_info = getConstantFieldRefInfo();
                 break;
             case CONSTANT_Methodref:
-                
+
                 constant_pool[i].info.methodref_info = getConstantMethodRefInfo();
                 break;
             case CONSTANT_String:
-                
+
                 constant_pool[i].info.string_info = getConstantStringInfo();
                 break;
             case CONSTANT_Utf8:
-                
+
                 constant_pool[i].info.utf8_info =  getConstantUtf8Info();
                 break;
             case CONSTANT_NameAndType:
-                
+
                 constant_pool[i].info.nameAndType_info = getConstantNameAndType_info();
                 break;
             case CONSTANT_InterfaceMethodref:
-                
+
                 constant_pool[i].info.interfaceMethodref_info = getConstantInterfaceMethodRefInfo();
                 break;
             case CONSTANT_Integer:
-                
+
                 constant_pool[i].info.integer_info = getConstantIntegerInfo();
                 break;
             case CONSTANT_Float:
-                
+
                 constant_pool[i].info.float_info = getConstantFloatInfo();
                 break;
             case CONSTANT_Long:
-                
+
                 constant_pool[i].info.long_info = getConstantLongInfo();
-		        i++;                
+		        i++;
 		        break;
             case CONSTANT_Double:
-                
+
                 constant_pool[i].info.double_info = getConstantDoubleInfo();
-		        i++;                
+		        i++;
 		        break;
             case CONSTANT_MethodHandle:
                 constant_pool[i].info.methodHandle_info = getConstantMethodHandleInfo();
@@ -369,7 +369,7 @@ void ClassFile::readConstantPool() {
                 constant_pool[i].info.invokeDynamic_info = getConstantInvokeDynamicInfo();
                 break;
             default:
-                
+
                 exit(5);
         }
     }

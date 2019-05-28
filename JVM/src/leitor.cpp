@@ -30,13 +30,13 @@ ClassFile Reader::getClassFile(std::string name) {
         read_major_version(input, &cf);
         read_cpool_count(input, &cf);
         read_constant_pool(input, &cf);
-        read_access_flags(input, &cf);
-        read_this_class(input, &cf);
+        //read_access_flags(input, &cf);
+        //read_this_class(input, &cf);
         read_super_class(input, &cf);
-        read_interfaces(input, &cf);
-        read_fields(input, &cf);
-        read_methods(input, &cf);
-        read_attributes(input, &cf);
+        //read_interfaces(input, &cf);
+        //read_fields(input, &cf);
+        //read_methods(input, &cf);
+        //read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -159,7 +159,7 @@ CONSTANT_InvokeDynamic_info getConstantInvokeDynamicInfo(ifstream &file){
         readf_u2(&aux.name_and_type_index, file , 1);
 
         return aux;
-    }
+}
 
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     u2 cp_size = cf->cp_count - 1;
@@ -224,13 +224,9 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                         getConstantInvokeDynamicInfo(file);
                 break;
             default:
-                exit(EXIT_FAILURE);
+                exit(100);
         }
     }
-}
-
-void read_access_flags(ifstream &file, ClassFile *cf) {
-    readf_u2(&cf->access_flags, file, 1);
 }
 
 void Reader::read_this_class(ifstream &file, ClassFile *cf) {
@@ -241,6 +237,13 @@ void Reader::read_super_class(ifstream &file, ClassFile *cf) {
     file.read((char *)&cf->super_class, sizeof(u2));
     cf->super_class = CorrectEndian::t_u2(cf->super_class);
 }
+
+/*
+void read_access_flags(ifstream &file, ClassFile *cf) {
+    readf_u2(&cf->access_flags, file, 1);
+}
+
+
 
 void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->interfaces_count, file, 1);
@@ -259,7 +262,6 @@ void Reader::read_fields(ifstream &file, ClassFile *cf) {
         read_field(file, &cf->fields[i]);
     }
 }
-
 void read_field(ifstream &file, field_info *field) {
     readf_u2(&field->access_flags, file, 1);
     readf_u2(&field->name_index, file, 1);
@@ -299,6 +301,7 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
     }
 }
 
+
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->attributes_count, file, 1);
     // Read attributes
@@ -309,3 +312,4 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     }
 
 }
+*/
