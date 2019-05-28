@@ -22,7 +22,7 @@ class ClassFile {
     u2 methods_count = 0;
     method_info *methods = NULL;
     u2 attributes_count = 0;
-    attribute_info *attributes = NULL;
+    attribute_info* attributes = NULL;
 
     ClassFile() {}
 };

@@ -11,7 +11,7 @@ void Printer::showClassFile(ClassFile cf) {
     print_fields_count(cf);
     print_methods_count(cf);
     print_interfaces_count(cf);
-    print_attributes_count(cf);
+    //print_attributes_count(cf);
     // print_constant_pool(cf);
     // print_interfaces(cf);
     // print_methods(cf);
@@ -559,7 +559,7 @@ int get_info_attribute_type(CONSTANT_Utf8_info info) {
 }
 
 void print_attribute(ClassFile cf, attribute_info attr, int index) {
-    info_attribute info;
+    attribute_info info;
     u1 info_attribute_type;
     cp_info cp;
     for (u1 i = 0; i < attr.attribute_length; i++) {

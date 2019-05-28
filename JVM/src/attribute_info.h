@@ -46,7 +46,9 @@ struct LocalVariableTable_attribute {
 struct Deprecated_attribute {};
 
 struct ConstantValue_attribute {
-    u2 constantvalue_index;
+  u2 attribute_name_index;
+  u4 attribute_length;
+  u2 constantvalue_index;
 };
 
 struct Exception_table_info {
@@ -87,14 +89,14 @@ struct Exceptions_attribute {
 struct Syntethic_attribute {
     // ela nao possui nenhum atributo principal.
 };
-
+/*
 struct attribute_info {
     u2 attribute_name_index;
     u4 attribute_length;
     info_attribute* info;
-};
+};*/
 
-struct info_attribute {
+struct attribute_info {
     // Common properties between all attributes
     u2 attribute_name_index;
     u4 attribute_length;
@@ -108,7 +110,7 @@ struct info_attribute {
         LineNumberTable_attributes lineNumberTable_info;
         LocalVariableTable_attribute localVariableTable_info;
         Deprecated_attribute Deprecated_attribute_info;
-    };
+    }info;
 };
 namespace InfoAttributeType {
 enum { NotReconized = 0, SourceFile = 4 };
