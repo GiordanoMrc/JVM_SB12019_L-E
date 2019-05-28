@@ -15,7 +15,7 @@ void Printer::showClassFile(ClassFile cf) {
     // print_constant_pool(cf);
     // print_interfaces(cf);
     // print_methods(cf);
-    print_attributes(cf);
+    // print_attributes(cf);
 }
 
 void Printer::print_magic(ClassFile cf) {
@@ -551,7 +551,8 @@ void Printer::print_attributes(ClassFile cf) {
 }
 
 int get_info_attribute_type(ClassFile cf, info_attribute info) {
-    cp_info cp = cf.constant_pool[12];
+    cp_info cp = cf.constant_pool[info.attribute_name_index];
+    cout << "get_type = " << std::dec << info.attribute_length;
     string name = string((char *)cp.info.utf8_info.bytes);
     if (name == "SourceFile") {
         return InfoAttributeType::SourceFile;
@@ -573,7 +574,6 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
             case InfoAttributeType::SourceFile:
                 cp = cf.constant_pool[info.sourceFile_attribute
                                           .sourcefile_index];
-                cp = cf.constant_pool[12];
                 std::cout << "SourceFile" << endl;
                 std::cout << "Generic Info:" << endl;
                 std::cout << "\tAttribute name index:\t"
