@@ -1,4 +1,4 @@
-#ifndef FIELD_INFO_H
+/*#ifndef FIELD_INFO_H
 #define FIELD_INFO_H
 
 #include "attribute_info.h"
@@ -24,4 +24,4 @@ struct field_info {
     attribute_info *attributes;
 };
 
-#endif
+#endif*/

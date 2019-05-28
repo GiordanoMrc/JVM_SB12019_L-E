@@ -21,7 +21,7 @@ readf_(u8, 8);
 
 ClassFile Reader::getClassFile(std::string name) {
     ifstream input(name, ios::binary);
-    std::cout << name << std::endl;
+    std::cout << "Nome do Arquivo:" << name << std::endl;
 
     if (input.is_open()) {
         ClassFile cf = ClassFile();
@@ -136,6 +136,31 @@ CONSTANT_Double_info getConstantDoubleInfo(ifstream &file) {
     return aux;
 }
 
+CONSTANT_MethodHandle_info getConstantMethodHandleInfo(ifstream &file)
+    {
+        CONSTANT_MethodHandle_info aux;
+        readf_u1(&aux.reference_kind, file , 1);
+        readf_u2(&aux.reference_index, file , 1);
+        return aux;
+    }
+
+CONSTANT_MethodType_info getConstantMethodTypeInfo(ifstream &file)
+    {
+        CONSTANT_MethodType_info aux;
+
+        readf_u2(&aux.descriptor_index, file , 1);
+        return aux;
+}
+
+CONSTANT_InvokeDynamic_info getConstantInvokeDynamicInfo(ifstream &file){
+        CONSTANT_InvokeDynamic_info aux;
+
+        readf_u2(&aux.bootstrap_method_attr_index, file , 1);
+        readf_u2(&aux.name_and_type_index, file , 1);
+
+        return aux;
+    }
+
 void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     u2 cp_size = cf->cp_count - 1;
     cf->constant_pool = (cp_info *)malloc(sizeof(cp_info) * cp_size);
@@ -186,13 +211,25 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 cf->constant_pool[i].info.double_info =
                     getConstantDoubleInfo(file);
                 break;
+            case ConstantPoolTags:: CONSTANT_MethodHandle:
+                cf->constant_pool[i].info.methodhandle_info =
+                        getConstantMethodHandleInfo(file);
+                break;
+            case ConstantPoolTags:: CONSTANT_MethodType:
+                cf->constant_pool[i].info.methodtype_info =
+                        getConstantMethodTypeInfo(file);
+                break;
+            case ConstantPoolTags:: CONSTANT_InvokeDynamic:
+                cf->constant_pool[i].info.invokedynamic_info =
+                        getConstantInvokeDynamicInfo(file);
+                break;
             default:
                 exit(EXIT_FAILURE);
         }
     }
 }
 
-void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
+void read_access_flags(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->access_flags, file, 1);
 }
 
@@ -270,4 +307,5 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     for (u1 i = 0; i < cf->attributes_count; i++) {
         read_attribute(file, &cf->attributes[i]);
     }
+
 }
