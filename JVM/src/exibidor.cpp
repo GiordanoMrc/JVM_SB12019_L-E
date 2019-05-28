@@ -300,15 +300,17 @@ void Printer::print_constant_pool(ClassFile cf) {
                           << "bytes: "
                           << (u4)cf.constant_pool[i].info.integer_info.bytes;
                 break;
-            /*case ConstantPoolTags::CONSTANT_Float:
-                float aux;
-                memcpy(&aux, &(cf.constant_pool[i].info.float_info.bytes),
-            sizeof(float)); std::cout << "{"<< i+1 <<"}" << "CONSTANT_Float:\t"
-            << aux << std::endl; break; case ConstantPoolTags::CONSTANT_Double:
-                double auxd;
-                memcpy(&auxd, &(cf.constant_pool[i].info.double_info.bytes),
-            sizeof(double)); std::cout << "{"<< i+1 <<"}" <<
-            "CONSTANT_Double:\t" << auxd << std::endl; break;*/
+            case ConstantPoolTags::CONSTANT_Float:
+                std::cout << "{"<< i+1 <<"}" << "CONSTANT_Float:\t";
+                printf("\tbytes: 0x%08x\n", cf->constant_pool[i].info.float_info.bytes);
+                printf("\tfloat: %.2f", *(float *)&cf->constant_pool[i].info.float_info.bytes);
+
+
+            case ConstantPoolTags::CONSTANT_Double:
+                std::cout << "{"<< i+1 <<"}" <<
+                "CONSTANT_Double:\t" << auxd << std::endl;
+                break;
+
             case ConstantPoolTags::CONSTANT_NameAndType:
                 std::cout
                     << "{" << i + 1 << "}"
