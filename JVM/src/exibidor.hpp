@@ -6,11 +6,13 @@
 #include <cstdint>
 #include <cstring>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include "access_flags.hpp"
 #include "class_file.hpp"
 #include "cp_info.h"
+#include "exibidor_helper.hpp"
 #include "field_info.h"
 #include "method_info.h"
 

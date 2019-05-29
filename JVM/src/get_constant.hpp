@@ -1,5 +1,5 @@
-#ifndef GET_CONTANT__H
-#define GET_CONTANT__H
+#ifndef GET_CONSTANT_H
+#define GET_CONSTANT_H
 #include <fstream>
 
 #include "cp_info.h"

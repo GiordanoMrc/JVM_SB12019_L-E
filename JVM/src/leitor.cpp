@@ -89,7 +89,7 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
             case ConstantPoolTags::CONSTANT_InvokeDynamic:
                 break;
             default:
-                cout << "Not reconized" << endl;
+                cout << "Not reconized tag" << endl;
                 cout << "tag = " << dec << cf->constant_pool[i].tag << endl;
                 exit(100);
                 break;
