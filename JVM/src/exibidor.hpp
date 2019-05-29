@@ -24,7 +24,7 @@ class Printer {
     static void print_magic(ClassFile);
     static void print_minor_version(ClassFile);
     static void print_major_version(ClassFile);
-    static void print_cpool_count(ClassFile);
+    static void print_constant_pool_count(ClassFile);
     static void print_constant_pool(ClassFile);
     static void print_access_flags(ClassFile);
     static void print_this_class(ClassFile);
