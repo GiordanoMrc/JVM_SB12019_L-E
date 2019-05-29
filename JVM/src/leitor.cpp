@@ -34,7 +34,7 @@ ClassFile Reader::getClassFile(std::string name) {
         read_this_class(input, &cf);
         read_super_class(input, &cf);
         read_interfaces(input, &cf);
-        //read_fields(input, &cf);
+        read_fields(input, &cf);
         //read_methods(input, &cf);
         //read_attributes(input, &cf);
         input.close();
@@ -243,27 +243,27 @@ void Reader::read_interfaces(ifstream &file, ClassFile *cf) {
     cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
     readf_u2(cf->interfaces, file, cf->interfaces_count);
 }
-/*
+
 void Reader::read_fields(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->fields_count, file, 1);
     // Read Fields
     cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
-    for (u1 i = 0; i < cf->fields_count; i++) {
-        read_field(file, &cf->fields[i]);
+
+    for (u2 i = 0 ; i < cf->fields_count ; i++)
+    {
+        readf_u2(&cf->fields[i].access_flags,file, 1);
+        readf_u2(&cf->fields[i].name_index,file, 1);
+        readf_u2(&cf->fields[i].descriptor_index,file, 1);
+        readf_u2(&cf->fields[i].attributes_count,file, 1);
+
+        cf->fields[i].attributes = (attribute_info*)malloc(sizeof(attribute_info)* cf->fields[i].attributes_count);
+        for (u2 j = 0 ; j < cf->fields[i].attributes_count; j++)
+        {
+            cf->fields[i].attributes[j] = read_attribute(file,cf);
+        }
     }
 }
 
-void read_field(ifstream &file, field_info *field) {
-    readf_u2(&field->access_flags, file, 1);
-    readf_u2(&field->name_index, file, 1);
-    readf_u2(&field->descriptor_index, file, 1);
-    readf_u2(&field->attributes_count, file, 1);
-    field->attributes = (attribute_info *)malloc(sizeof(attribute_info) *
-                                                 field->attributes_count);
-    for (u1 j = 0; j < field->attributes_count; j++) {
-        read_attribute(file, &field->attributes[j]);
-    }
-}
 void Reader::read_methods(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->methods_count, file, 1);
     // Read methods
@@ -277,10 +277,10 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
         cf->methods[i].attributes = (attribute_info *)malloc(
             sizeof(attribute_info) * cf->methods[i].attributes_count);
         for (u1 j = 0; j < cf->methods[i].attributes_count; j++) {
-            read_attribute(file, &cf->methods[i].attributes[j]);
+            read_attribute(file,cf);
         }
     }
-}*/
+}
 
 //___> LOADS
 
@@ -441,25 +441,6 @@ void Reader::read_attributes(ifstream &file, ClassFile *cf) {
         cf->attributes[i]= read_attribute(file, cf);
     }
 }
-
-/*void ClassFile::readFields() {
-    cf->fields = (field_info *)malloc(sizeof(field_info) * cf->field_count);
-
-    for (u2 i = 0 ; i < cf->field_count ; i++)
-    {
-        readf_u2(&cf->fields[i].access_flags, file,1);
-        readf_u2(&cf->fields[i].name_index, file,1);
-        readf_u2(&cf->fields[i].descriptor_index, file,1);
-        readf_u2(&cf->fields[i].attributes_count, file,1);
-
-        cf->fields[i].attributes = (attribute_info*)malloc(sizeof(attribute_info)*cf->fields[i].attributes_count);
-        for (u2 j = 0 ; j < cf->fields[i].attributes_count; j++)
-        {
-            cf->fields[i].attributes[j] = carregarAtributos();
-        }
-    }
-}*/
-
 
 
 int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo) {

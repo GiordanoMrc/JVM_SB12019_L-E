@@ -11,13 +11,160 @@ void Printer::showClassFile(ClassFile cf) {
     print_fields_count(cf);
     print_methods_count(cf);
     print_interfaces_count(cf);
-    //print_attributes_count(cf);
+
     print_constant_pool(cf);
     print_interfaces(cf);
+    print_fields(cf);
+
+
+    //print_attributes_count(cf);
     // print_methods(cf);
     // print_attributes(cf);
 }
 
+void get_Access_Flag_Field1(u2 flag){
+
+    if(flag&1){
+        std::cout << "public ";
+    }
+
+    if((flag>>1)&0x0001){
+        std::cout << "private ";
+    }
+
+    if((flag>>2)&0x0001){
+        std::cout << "protected ";
+    }
+
+    if((flag>>3)&0x0001){
+        std::cout << "static ";
+    }
+
+    if((flag>>4)&0x0001){
+        std::cout << "final ";
+    }
+
+    if((flag>>6)&0x0001){
+        std::cout << "volatile ";
+    }
+
+    if((flag>>7)&0x0001){
+        std::cout << "transient ";
+    }
+
+    if((flag>>13)&0x0001){
+        std::cout << "synthetic ";
+    }
+
+    if((flag>>14)&0x0001){
+        std::cout << "enum ";
+    }
+}
+
+void get_Access_Flag_Field2(u2 flag){
+    bool imprimiu = false;
+
+
+    if(flag&1){
+        std::cout << "ACC_PUBLIC";
+        imprimiu = true;
+    }
+
+    if((flag>>1)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PRIVATE";
+        imprimiu = true;
+    }
+
+    if((flag>>2)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PROTECTED";
+        imprimiu = true;
+    }
+
+    if((flag>>3)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_STATIC";
+        imprimiu = true;
+    }
+
+    if((flag>>4)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_FINAL";
+        imprimiu = true;
+    }
+
+    if((flag>>6)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_VOLATILE";
+        imprimiu = true;
+    }
+
+    if((flag>>7)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_TRANSIENT";
+        imprimiu = true;
+    }
+
+    if((flag>>13)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_sYNTHETIC";
+        imprimiu = true;
+    }
+
+    if((flag>>14)&0x0001){
+        if(imprimiu){
+            std::cout << ", ";
+        }
+        std::cout << "ACC_ENUM";
+        imprimiu = true;
+    }
+}
+
+void Printer::print_fields(ClassFile cf){
+    printf("\n--------------------++>>Fields\n");
+    for(int i=0; i<cf.fields_count; i++){
+        field_info field = (cf.fields[i]);
+
+        get_Access_Flag_Field1(field.access_flags);
+        getIndex_Utf8_Ref(cf.constant_pool, field.name_index);
+        std::cout << std::endl;
+
+        std::cout << "     descriptor: ";
+
+        getIndex_Utf8_Ref(cf.constant_pool, field.descriptor_index);
+        std::cout << std::endl;
+
+
+        std::cout << "     flags: ";
+
+        get_Access_Flag_Field2(field.access_flags);
+        std::cout << std::endl;
+
+
+        /*for (int i = 0; i < field.attributes_count; i++) {
+            std::cout << "Attribute " << i+1 << std::endl;
+
+			ScreenPrintAttributes(field.attributes + i, cf.constant_pool);
+		}*/
+		std::cout << std::endl;
+
+    }
+}
 void Printer::print_magic(ClassFile cf) {
     std::cout << "Magic: \t";
     std::cout << std::hex << std::showbase << cf.magic << std::endl;
@@ -104,9 +251,11 @@ void Printer::print_interfaces_count(ClassFile cf) {
 
 void Printer::print_interfaces(ClassFile cf) {
     if (cf.interfaces_count > 0) {
+        printf("\n--------------------++>>Interfaces:\n");
         for (int i = 0; i < cf.interfaces_count; i++) {
             std::cout << "Interface " << i << ":" << std::endl;
             std::cout << cf.interfaces[i] << std::endl;
+            getIndex_Utf8_Ref(cf.constant_pool, *(cf.interfaces+i));
         }
     }
 }
