@@ -228,6 +228,7 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 break;
             default:
                 exit(100);
+                break;
         }
     }return;
 }

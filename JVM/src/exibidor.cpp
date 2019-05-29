@@ -630,6 +630,7 @@ void Printer::print_constant_pool(ClassFile cf) {
                     ((u8)cf.constant_pool[i].info.long_info.high_bytes << 32) |
                     cf.constant_pool[i].info.long_info.low_bytes;
                 printf("long: %ld", (long)long_v);
+                break;
 
             case ConstantPoolTags::CONSTANT_Double:
                 std::cout << "{" << i + 1 << "}"
