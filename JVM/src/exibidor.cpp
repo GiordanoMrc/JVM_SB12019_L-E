@@ -72,8 +72,10 @@ void Printer::print_access_flags(ClassFile cf) {
 }
 
 void Printer::print_this_class(ClassFile cf) {
-    int cp_info_index = cf.this_class;
-    int name_index = cf.constant_pool[cp_info_index].info.class_info.name_index;
+    // The constant_pool table is indexed from 1 to constant_pool_count - 1.
+    int cp_info_index = correct_index(cf.this_class);
+    int name_index = correct_index(
+        cf.constant_pool[cp_info_index].info.class_info.name_index);
     u1 *thisName = cf.constant_pool[name_index].info.utf8_info.bytes;
     std::cout << "This class: \t";
     std::cout << "cp_info #";
@@ -83,16 +85,22 @@ void Printer::print_this_class(ClassFile cf) {
 
 void Printer::print_super_class(ClassFile cf) {
     int cp_info_index = cf.super_class;
+    // If the value of the super_class item is zero,
+    // then this class file must represent the class Object,
+    // the only class or interface without a direct superclass.
     if (cp_info_index == 0) {
         std::cout << "Super class: \t";
-        std::cout << "cp_info #-1";
-        std::cout << "<Object>" << std::endl;
+        std::cout << "cp_info ##";
+        std::cout << "<java/lang/Object>" << std::endl;
         return;
     }
-    int name_index = cf.constant_pool[cp_info_index].info.class_info.name_index;
+    // The constant_pool table is indexed from 1 to constant_pool_count - 1.
+    cp_info_index = correct_index(cf.super_class);
+    int name_index = correct_index(
+        cf.constant_pool[cp_info_index].info.class_info.name_index);
     u1 *superName = cf.constant_pool[name_index].info.utf8_info.bytes;
     std::cout << "Super class: \t";
     std::cout << "cp_info #";
     std::cout << std::dec << cp_info_index;
-    std::cout << "<" << superName << ">>" << std::endl;
+    std::cout << "<" << superName << ">" << std::endl;
 }

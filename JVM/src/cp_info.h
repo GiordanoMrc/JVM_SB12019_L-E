@@ -2,6 +2,10 @@
 #define CP_INFO_H
 #include "attribute_info.h"
 #include "data_type.hpp"
+
+// The constant_pool table is indexed from 1 to constant_pool_count - 1.
+#define correct_index(index) (index - 1)
+
 namespace ConstantPoolTags {
 enum {
     CONSTANT_Class = 7,
