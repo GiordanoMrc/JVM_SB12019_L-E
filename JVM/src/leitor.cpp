@@ -47,6 +47,10 @@ ClassFile Reader::getClassFile(std::string name) {
 
 void Reader::read_magic(ifstream &file, ClassFile *cf) {
     readf_u4(&cf->magic, file, 1);
+    if (cf->magic!=0xCAFEBABE){
+        printf("Numero mágico Desconhecido!");
+        exit(100);
+    }
 }
 
 void Reader::read_minor_version(ifstream &file, ClassFile *cf) {
@@ -203,10 +207,12 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 break;
             case ConstantPoolTags::CONSTANT_Long:
                 cf->constant_pool[i].info.long_info = getConstantLongInfo(file);
+                i++;
                 break;
             case ConstantPoolTags::CONSTANT_Double:
                 cf->constant_pool[i].info.double_info =
                     getConstantDoubleInfo(file);
+                i++;
                 break;
             case ConstantPoolTags::CONSTANT_MethodHandle:
                 cf->constant_pool[i].info.methodhandle_info =
@@ -223,7 +229,7 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
             default:
                 exit(100);
         }
-    }
+    }return;
 }
 
 void Reader::read_this_class(ifstream &file, ClassFile *cf) {

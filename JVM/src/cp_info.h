@@ -2,6 +2,7 @@
 #define CP_INFO_H
 #include "attribute_info.h"
 #include "data_types.h"
+#include "field_info.h"
 namespace ConstantPoolTags {
 enum {
     CONSTANT_Class = 7,
@@ -20,7 +21,7 @@ enum {
     CONSTANT_MethodType = 16,
     CONSTANT_InvokeDynamic = 18
 };
-typedef struct field_info fieldInfo;
+//typedef struct field_info fieldInfo;
 // methods
 typedef struct MethodInfo MethodInfo;
 
@@ -101,13 +102,6 @@ struct MethodInfo {
     attribute_info* attributes;
 };
 
-struct field_info {
-    u2 access_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    attribute_info* attributes;
-};
 // acabou teste
 
 struct cp_info {

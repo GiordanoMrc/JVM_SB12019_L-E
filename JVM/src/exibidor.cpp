@@ -122,7 +122,7 @@ void get_Access_Flag_Field2(u2 flag){
         if(imprimiu){
             std::cout << ", ";
         }
-        std::cout << "ACC_sYNTHETIC";
+        std::cout << "ACC_SYNTHETIC";
         imprimiu = true;
     }
 
@@ -156,11 +156,11 @@ void Printer::print_fields(ClassFile cf){
         std::cout << std::endl;
 
 
-        /*for (int i = 0; i < field.attributes_count; i++) {
+        for (int i = 0; i < field.attributes_count; i++) {
             std::cout << "Attribute " << i+1 << std::endl;
 
-			ScreenPrintAttributes(field.attributes + i, cf.constant_pool);
-		}*/
+			//print_attributes(field.attributes + i, cf.constant_pool);
+		}
 		std::cout << std::endl;
 
     }
@@ -269,20 +269,7 @@ void Printer::print_methods_count(ClassFile cf) {
     std::cout << "Methods: \t";
     std::cout << std::dec << cf.methods_count << std::endl;
 }
-/*
-void print_attibutes(attribute_info* ai, cp_info *cp) {
-        char type[100];
-        strcpy(type, (char*)cp[ai->attribute_name_index -
-1].info.utf8_info.bytes); std::cout << type << ":\t//Attribute length: " <<
-ai->attribute_length << std::endl;
-
-// #define printype(name,function) if(strcmp(name,type)==0) { function; }
-// 	screen_print_functionS(printype)
-// #undef printype
-}
-
-
-void Screen_Print_Access_Flag_Method1(u2 flag){
+/*void Screen_Print_Access_Flag_Method1(u2 flag){
     bool imprimiu = false;
 
 
@@ -626,7 +613,7 @@ void Printer::print_constant_pool(ClassFile cf) {
             case ConstantPoolTags::CONSTANT_Float:
                 std::cout << "{" << i + 1 << "}"
                           << "CONSTANT_Float:\t";
-                printf("\tbytes: 0x%08x\n",
+                printf("\tbytes: 0x%08x",
                        cf.constant_pool[i].info.float_info.bytes);
                 printf("\tfloat: %.2f",
                        *(float *)&cf.constant_pool[i].info.float_info.bytes);
@@ -635,26 +622,26 @@ void Printer::print_constant_pool(ClassFile cf) {
             case ConstantPoolTags::CONSTANT_Long:
                 std::cout << "{" << i + 1 << "}"
                           << "CONSTANT_Long:\t";
-                printf("\thigh_bytes: %u\n",
+                printf("\thigh_bytes: %u",
                        cf.constant_pool[i].info.long_info.high_bytes);
-                printf("\tlow_bytes: %u\n",
+                printf("\tlow_bytes: %u",
                        cf.constant_pool[i].info.long_info.low_bytes);
                 long_v =
                     ((u8)cf.constant_pool[i].info.long_info.high_bytes << 32) |
                     cf.constant_pool[i].info.long_info.low_bytes;
-                printf("\nlong: %ld", (long)long_v);
+                printf("long: %ld", (long)long_v);
 
             case ConstantPoolTags::CONSTANT_Double:
                 std::cout << "{" << i + 1 << "}"
                           << "CONSTANT_Double:\t";
-                printf("\thigh_bytes: %u\n",
+                printf("\thigh_bytes: %u",
                        cf.constant_pool[i].info.double_info.high_bytes);
-                printf("\tlow_bytes: %u\n",
+                printf("\tlow_bytes: %u",
                        cf.constant_pool[i].info.double_info.low_bytes);
                 double_v = ((u8)cf.constant_pool[i].info.double_info.high_bytes
                             << 32) |
                            cf.constant_pool[i].info.double_info.low_bytes;
-                printf("\ndouble: %.2f", *(double *)&double_v);
+                printf("double: %.2f", *(double *)&double_v);
 
                 break;
 
@@ -685,7 +672,7 @@ void Printer::print_constant_pool(ClassFile cf) {
         }
         std::cout << std::endl;
     }
-    printf("--------------------++>>CONSTANT POOL\n");
+    printf("\n--------------------++>>CONSTANT POOL\n");
 }
 /*
 void Printer::print_attributes(ClassFile cf) {
@@ -740,3 +727,13 @@ void print_attribute(ClassFile cf, attribute_info attr, int index) {
         }
     }
 }*/
+
+void print_attibutes(attribute_info* ai, cp_info* cp) {
+        char type[100];
+        strcpy(type, (char*)cp[ai->attribute_name_index -1].info.utf8_info.bytes);
+        std::cout << type << ":\t//Attribute length: " << ai->attribute_length << std::endl;
+
+//#define printype(name,function) if(strcmp(name,type)==0) { function; }
+//	screen_print_functionS(printype)
+//#undef printype
+}

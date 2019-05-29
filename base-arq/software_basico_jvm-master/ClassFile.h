@@ -125,7 +125,7 @@ struct CONSTANT_Long_info{
 };
 struct CONSTANT_Double_info{
     u1 tag;
-    u8 value;    
+    u8 value;
     u4 high_bytes;
     u4 low_bytes;
 };
@@ -364,7 +364,7 @@ private:
     void readMethodInfo();
     void readAttributesCount();
     void readAttributes();
-    
+
     /*compara utf8 string*/
 	int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo);
 
