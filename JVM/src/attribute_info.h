@@ -1,6 +1,6 @@
 #ifndef ATTRIBUTE_INFO_H
 #define ATTRIBUTE_INFO_H
-#include "data_types.h"
+#include "data_type.hpp"
 
 typedef struct attribute_info attribute_info;
 typedef struct info_attribute info_attribute;
@@ -46,9 +46,9 @@ struct LocalVariableTable_attribute {
 struct Deprecated_attribute {};
 
 struct ConstantValue_attribute {
-  u2 attribute_name_index;
-  u4 attribute_length;
-  u2 constantvalue_index;
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 constantvalue_index;
 };
 
 struct Exception_table_info {
@@ -110,7 +110,7 @@ struct attribute_info {
         LineNumberTable_attributes lineNumberTable_info;
         LocalVariableTable_attribute localVariableTable_info;
         Deprecated_attribute Deprecated_attribute_info;
-    }info;
+    } info;
 };
 namespace InfoAttributeType {
 enum { NotReconized = 0, SourceFile = 4 };

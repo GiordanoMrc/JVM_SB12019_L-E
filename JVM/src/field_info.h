@@ -2,7 +2,7 @@
 #define FIELD_INFO_H
 
 #include "attribute_info.h"
-#include "data_types.h"
+#include "data_type.hpp"
 
 namespace FieldAcessFlags {
 enum {

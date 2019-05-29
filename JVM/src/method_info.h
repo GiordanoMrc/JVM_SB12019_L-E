@@ -1,7 +1,8 @@
 #ifndef METHOD_INFO_H
 #define METHOD_INFO_H
 #include "attribute_info.h"
-#include "data_types.h"
+#include "data_type.hpp"
+
 namespace MethodAcessFlags {
 enum {
     PUBLIC = 0x0001,

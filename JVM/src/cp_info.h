@@ -1,7 +1,7 @@
 #ifndef CP_INFO_H
 #define CP_INFO_H
 #include "attribute_info.h"
-#include "data_types.h"
+#include "data_type.hpp"
 namespace ConstantPoolTags {
 enum {
     CONSTANT_Class = 7,
@@ -92,23 +92,6 @@ typedef struct CONSTANT_InvokeDynamic_info {
     u2 bootstrap_method_attr_index;
     u2 name_and_type_index;
 } CONSTANT_InvokeDynamic_info;
-
-struct MethodInfo {
-    u2 access_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    attribute_info* attributes;
-};
-
-struct field_info {
-    u2 access_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    attribute_info* attributes;
-};
-// acabou teste
 
 struct cp_info {
     u1 tag;
