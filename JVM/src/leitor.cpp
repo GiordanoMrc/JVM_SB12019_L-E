@@ -1,18 +1,20 @@
 #include "leitor.hpp"
 
 ClassFile Reader::getClassFile(std::string name) {
-    ifstream input(name, ios::binary);
+    ifstream file(name, ios::binary);
     std::cout << "Nome do Arquivo:" << name << std::endl;
 
-    if (input.is_open()) {
+    if (file.is_open()) {
         ClassFile cf = ClassFile();
-        read_magic(input, &cf);
-        read_minor_version(input, &cf);
-        read_major_version(input, &cf);
-        read_cpool_count(input, &cf);
-        read_constant_pool(input, &cf);
-        read_access_flags(input, &cf);
-        input.close();
+        read_magic(file, &cf);
+        read_minor_version(file, &cf);
+        read_major_version(file, &cf);
+        read_cpool_count(file, &cf);
+        read_constant_pool(file, &cf);
+        read_access_flags(file, &cf);
+        read_this_class(file, &cf);
+        read_super_class(file, &cf);
+        file.close();
         return cf;
     } else {
         std::cout << "Não foi possível abrir o arquivo" << std::endl;
@@ -97,4 +99,11 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
 
 void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
     readt_u2(&cf->access_flags, file, 1);
+}
+
+void Reader::read_this_class(ifstream &file, ClassFile *cf) {
+    readt_u2(&cf->this_class, file, 1);
+}
+void Reader::read_super_class(ifstream &file, ClassFile *cf) {
+    readt_u2(&cf->super_class, file, 1);
 }

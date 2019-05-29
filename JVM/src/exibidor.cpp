@@ -73,8 +73,7 @@ void Printer::print_access_flags(ClassFile cf) {
 
 void Printer::print_this_class(ClassFile cf) {
     int cp_info_index = cf.this_class;
-    int name_index =
-        cf.constant_pool[cp_info_index].info.class_info.name_index - 1;
+    int name_index = cf.constant_pool[cp_info_index].info.class_info.name_index;
     u1 *thisName = cf.constant_pool[name_index].info.utf8_info.bytes;
     std::cout << "This class: \t";
     std::cout << "cp_info #";
