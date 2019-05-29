@@ -677,7 +677,7 @@ void Screen_Print_Constant_Type(cp_info *constant_pool, u2 index, bool cem = fal
         break;
     case(15):
         std::cout << "MethodHandle\t\t" << cp->info.methodHandle_info.reference_kind<<cp->info.methodHandle_info.reference_index << std::endl;
-        
+
         break;
     case(16):
         std::cout << "MethodType\t\t" << cp->info.methodType_info.descriptor_index << std::endl;
@@ -730,7 +730,7 @@ void Screen_Initialize_screen_print_functions(){
 
 	screen_print_function[0xb9] = [](u1* code, int* index = 0){
                     std::cout << *index << ":   invokeinterface, ";
-					
+
 					int16_t indexa = 0;
 
 					(*index)++;
@@ -740,7 +740,7 @@ void Screen_Initialize_screen_print_functions(){
 					(*index)++;
 					u2 codeI = code[(*index)];
 					std::cout << indexa << ", " << codeI << std::endl;
-                    
+
                     (*index)++;
 				};
 	screen_print_function[0xab] = [](u1* code, int* index){
@@ -769,7 +769,7 @@ void Screen_Initialize_screen_print_functions(){
 				npairs+= (code[(*index)]);
 
 				std::cout <<  line_number << ": lookupswitch, " << default_byte << ", " << npairs << std::endl;
-				
+
 
 				for (u4 k = 0; k < npairs; k++) {
 					u4 key = 0;
@@ -793,12 +793,12 @@ void Screen_Initialize_screen_print_functions(){
 					value += (code[(*index)]);
 
                     std::cout << "(key: " << key << ", value: " << value << ")" << std::endl;
-					
+
 				}
 			};
     screen_print_function[0xc5] = [](u1* code, int* index){
                 std::cout << *index << ":   multinewarray ";
-				
+
 				u2 indexa = 0;
 				u2 codeI = 0;
 				(*index)++;
@@ -809,45 +809,45 @@ void Screen_Initialize_screen_print_functions(){
 
 				codeI = (code[(*index)]);
 				std::cout << indexa << " , " << codeI << std::endl;
-				
+
 	};
 	screen_print_function[0xbc] = [](u1* code, int* index){
                 std::cout << *index << ":	newarray ";
-				
+
 				(*index)++;
 				int8_t type = (code[(*index)]);
 				switch (type){
 				case 4:
 				    std::cout << "T_BOOLEAN" << std::endl;
-					
+
 					break;
 				case 5:
 				    std::cout << "T_CHAR" << std::endl;
-					
+
 					break;
 				case 6:
 				    std::cout << "T_FLOAT" << std::endl;
-					
+
 					break;
 				case 7:
 					std::cout << "T_DOUBLE" << std::endl;
-					
+
 					break;
 				case 8:
 				    std::cout << "T_BYTE" << std::endl;
-					
+
 					break;
 				case 9:
 				    std::cout << "T_SHORT" << std::endl;
-					
+
 					break;
 				case 10:
 				    std::cout << "T_INT" << std::endl;
-					
+
 					break;
 				case 11:
 				    std::cout << "T_LONG" << std::endl;
-					
+
 					break;
 				}
 	};
@@ -885,7 +885,7 @@ void Screen_Initialize_screen_print_functions(){
 				low += (code[(*index)]);
 
 				std::cout << line_number << ":	tableswitch " << default_byte << ", " << high << ", " << low << std::endl;
-				
+
 
 				for (int k = 0; k < high-low+1; k++) {
                     (*index)++;
@@ -898,13 +898,13 @@ void Screen_Initialize_screen_print_functions(){
 					offset += (code[(*index)]);
 
 					std::cout << "offset: " << offset << std::endl;
-					
+
 				}
 			};
 
 			screen_print_function[0xc4] = [](u1* code, int* index){
 			    std::cout << *index << ": wide ";
-				
+
 				(*index)++;
 				u1 op = (code[(*index)]);
 				if (op == 0x84) {
@@ -919,7 +919,7 @@ void Screen_Initialize_screen_print_functions(){
 					(*index)++;
 					arg2 += (code[(*index)]);
 					std::cout << "iinc " << arg1 << ", " << arg2 << std::endl;
-					
+
 				}
 				else {
 				    (*index)++;
@@ -927,7 +927,7 @@ void Screen_Initialize_screen_print_functions(){
 				    (*index)++;
                     arg1 += (code[++(*index)])  ;
 					std::cout << "opcode " << std::hex << op << std::dec << ", " << arg1 << std::endl;
-					
+
 				}
 			};
 
@@ -936,20 +936,20 @@ void Screen_Initialize_screen_print_functions(){
 void Screen_Print_Javap_Format(ClassFile &classFile){
     Screen_Initialize_screen_print_functions();
     std::cout << "class: ";
-    
+
     Screen_Print_Utf8_Ref(classFile.constant_pool, classFile.this_class);
     std::cout << std::endl;
     std::cout << "super class: ";
-    
+
     Screen_Print_Utf8_Ref(classFile.constant_pool, classFile.super_class);
     std::cout << std::endl;
-    
+
 
     std::cout << "  magic number: " << std::hex << classFile.magic_number << std::dec <<std::endl;
-    
+
 
     std::cout << "  minor version: " << classFile.minor_version << std::endl;
-    
+
 
 	switch(classFile.major_version){
 		case(0x2d): std::cout << "  major version: JDK 1.1"<< std::endl; break;
@@ -962,42 +962,42 @@ void Screen_Print_Javap_Format(ClassFile &classFile){
 		case(0x34): std::cout << "  major version: Java SE 8"<< std::endl; break;
 		case(0x35): std::cout << "  major version: Java SE 9"<< std::endl; break;
 	}
-    
+
 
     std::cout << "  flags: ";
-    
+
     Screen_Print_Access_Flag_Class(classFile.access_flags);
     std::cout << std::endl;
-    
+
 
     std::cout << "Constant pool:" << std::endl;
-    
+
 
     //Loop para printar toda a constant pool
     for(u2 i = 1; i <= classFile.cp_size -1; i++){
         if (i <= 9){
             std::cout << "   #" << i << " = ";
-            
+
             Screen_Print_Constant_Type(classFile.constant_pool, i);
         }else if(i <= 99){
             std::cout << "  #" << i << " = ";
-            
+
             Screen_Print_Constant_Type(classFile.constant_pool, i);
         }else{
             std::cout << " #" << i << " = ";
-            
+
             Screen_Print_Constant_Type(classFile.constant_pool, i, true);
         }
     }
     std::cout << std::endl;
-    
+
 
     for(int i = 0; i < classFile.interface_count ; i++){
         std::cout << "interface " << i << ": ";
-        
+
         Screen_Print_Utf8_Ref(classFile.constant_pool, *(classFile.interface_table+i));
         std::cout << std::endl;
-        
+
     }
 
     std::cout << std::endl << "{" << std::endl;
@@ -1009,24 +1009,24 @@ void Screen_Print_Javap_Format(ClassFile &classFile){
         std::cout << std::endl;
 
         std::cout << "     descriptor: ";
-        
+
         Screen_Print_Utf8_Ref(classFile.constant_pool, field.descriptor_index);
         std::cout << std::endl;
-        
+
 
         std::cout << "     flags: ";
-        
+
         Screen_Print_Access_Flag_Field2(field.access_flags);
         std::cout << std::endl;
-        
+
 
         for (int i = 0; i < field.attributes_count; i++) {
             std::cout << "Attribute " << i+1 << std::endl;
-            
+
 			ScreenPrintAttributes(field.attributes + i, classFile.constant_pool);
 		}
 		std::cout << std::endl;
-		
+
     }
     //Loop para printar os m�todos
     for(u2 i = 0; i < classFile.methods_count; i++){
@@ -1035,19 +1035,19 @@ void Screen_Print_Javap_Format(ClassFile &classFile){
         Screen_Print_Access_Flag_Method2(method.access_flags);
         Screen_Print_Utf8_Ref(classFile.constant_pool, method.name_index);
         std::cout << std::endl;
-        
+
 
         std::cout << "     descriptor: ";
-        
+
         Screen_Print_Utf8_Ref(classFile.constant_pool, method.descriptor_index);
         std::cout << std::endl;
-        
+
 
         std::cout << "     flags: ";
-        
+
         Screen_Print_Access_Flag_Method1(method.access_flags);
         std::cout << std::endl;
-        
+
 
 		for (int i = 0; i < method.attributes_count; i++) {
 			ScreenPrintAttributes(method.attributes + i, classFile.constant_pool);
@@ -1055,13 +1055,13 @@ void Screen_Print_Javap_Format(ClassFile &classFile){
     }
 
     std::cout << "}" << std::endl << std::endl;
-    
+
     for(int i = 0; i < classFile.attributes_count; i++){
         std::cout << "Atributo " << i+1;
-        
+
         ScreenPrintAttributes(classFile.attributes+i, classFile.constant_pool);
         std::cout << std::endl;
-        
+
     }
 
 }
@@ -1083,7 +1083,7 @@ void ScreenPrintCodeAttribute(attribute_info *ai, cp_info * cp){
 	}
 
     std::cout << "Attributes count " << ai->info.code_info.attributes_count << std::endl;
-	
+
 	for (int i = 0; i < ai->info.code_info.attributes_count; i++) {
 		ScreenPrintAttributes(ai->info.code_info.attributes + i, cp);
 	}
@@ -1118,7 +1118,7 @@ void ScreenPrintConstantAttribute(attribute_info* ai, cp_info* cp) {
 
 void ScreenPrintExceptionsAttibute(attribute_info* ai, cp_info* cp) {
     std::cout << "Number of Exceptions: " << ai->info.exceptions_info.number_of_exceptions << std::endl;
-	
+
     for (int i = 0; i < ai->info.exceptions_info.number_of_exceptions; i++)
     {
         std::cout << "	Index: " << ai->info.exceptions_info.exceptions_index_table[i] << std::endl;
@@ -1163,10 +1163,10 @@ void ScreenPrintInnerClassesAttribute(attribute_info* ai, cp_info* cp){
 
 void ScreenPrintSourceFileAttribute(attribute_info* ai, cp_info* cp){
     std::cout << "	SourceFile index: #" << ai->info.sourceFile_attribute.sourcefile_index << " ";
-	
+
     Screen_Print_Utf8_Ref(cp, ai->info.sourceFile_attribute.sourcefile_index);
     std::cout << std::endl;
-	
+
 }
 
 #define screen_print_functionS(printtype) \
@@ -1183,9 +1183,8 @@ void ScreenPrintAttributes(attribute_info* ai, cp_info *cp) {
 	char type[100];
 	strcpy(type, (char*)cp[ai->attribute_name_index - 1].info.utf8_info.bytes);
     std::cout << type << ":\t//Attribute length: " << ai->attribute_length << std::endl;
-	
+
 #define printype(name,function) if(strcmp(name,type)==0) { function; }
 	screen_print_functionS(printype)
 #undef printype
 }
-

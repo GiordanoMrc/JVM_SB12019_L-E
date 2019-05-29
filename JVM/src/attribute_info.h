@@ -97,7 +97,6 @@ struct attribute_info {
 };*/
 
 struct attribute_info {
-    // Common properties between all attributes
     u2 attribute_name_index;
     u4 attribute_length;
     union {

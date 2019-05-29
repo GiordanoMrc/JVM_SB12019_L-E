@@ -19,8 +19,6 @@ using namespace std;
 class Printer {
    public:
     static void showClassFile(ClassFile);
-
-    static void getIndex_Utf8_Ref(cp_info*, u2);
     static void print_magic(ClassFile);
     static void print_minor_version(ClassFile);
     static void print_major_version(ClassFile);
@@ -36,10 +34,11 @@ class Printer {
     static void print_methods(ClassFile);
     static void print_methods_count(ClassFile);
     static void print_attributes_count(ClassFile);
-    static void print_attributes(ClassFile);
+    static void Screen_Initialize_screen_print_functions();
 };
 
 void print_attribute(ClassFile, attribute_info, int);
 int get_info_attribute_type(ClassFile, info_attribute);
+void getIndex_Utf8_Ref(cp_info*, u2);
 
 #endif

@@ -39,15 +39,15 @@ int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo);
 void read_field(ifstream &, field_info *);
 attribute_info read_attribute(ifstream &, ClassFile *);
 //carregar os atributos nas funções abaixo....
-ConstantValue_attribute loadConstantValueAttribute();
-Code_attributes loadCodeAttribute();
-Exceptions_attribute loadExceptionAttribute();
-InnerClasses_attribute loadInnerClassAttribute();
-Syntethic_attribute loadSyntethicAttribute();
-SourceFile_attribute loadSourceFileAttribute();
-LineNumberTable_attributes loadNumberTableAttribute();
-LocalVariableTable_attribute loadLocalVariableTableInfo();
-Deprecated_attribute loadDeprecatedAttributeInfo();
+ConstantValue_attribute loadConstantValueAttribute(ifstream &);
+Code_attributes loadCodeAttribute(ifstream &,ClassFile *);
+Exceptions_attribute loadExceptionAttribute(ifstream &);
+InnerClasses_attribute loadInnerClassAttribute(ifstream &);
+Syntethic_attribute loadSyntethicAttribute(ifstream &);
+SourceFile_attribute loadSourceFileAttribute(ifstream &);
+LineNumberTable_attributes loadNumberTableAttribute(ifstream &);
+LocalVariableTable_attribute loadLocalVariableTableInfo(ifstream &);
+Deprecated_attribute loadDeprecatedAttributeInfo(ifstream &);
 
 
 

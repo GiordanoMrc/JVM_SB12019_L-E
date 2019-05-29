@@ -35,8 +35,8 @@ ClassFile Reader::getClassFile(std::string name) {
         read_super_class(input, &cf);
         read_interfaces(input, &cf);
         read_fields(input, &cf);
-        //read_methods(input, &cf);
-        //read_attributes(input, &cf);
+        read_methods(input, &cf);
+        read_attributes(input, &cf);
         input.close();
         return cf;
     } else {
@@ -230,7 +230,7 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
                 exit(100);
                 break;
         }
-    }return;
+    }
 }
 
 void Reader::read_this_class(ifstream &file, ClassFile *cf) {
@@ -283,8 +283,8 @@ void Reader::read_methods(ifstream &file, ClassFile *cf) {
         readf_u2(&cf->methods[i].attributes_count, file, 1);
         cf->methods[i].attributes = (attribute_info *)malloc(
             sizeof(attribute_info) * cf->methods[i].attributes_count);
-        for (u1 j = 0; j < cf->methods[i].attributes_count; j++) {
-            read_attribute(file,cf);
+        for (u2 j = 0; j < cf->methods[i].attributes_count; j++) {
+            cf->methods[i].attributes[j] =read_attribute(file,cf);
         }
     }
 }
@@ -329,7 +329,6 @@ LineNumberTable_attributes loadNumberTableAttribute(ifstream &file) {
     }
     return info;
 }
-
 
 
 SourceFile_attribute loadSourceFileAttribute(ifstream &file) {
@@ -399,7 +398,6 @@ Code_attributes loadCodeAttribute(ifstream &file, ClassFile *cf) {
 }
 
 
-
 ConstantValue_attribute loadConstantValueAttribute(ifstream &file) {
     ConstantValue_attribute result;
     readf_u2(&result.attribute_name_index, file , 1);
@@ -439,6 +437,8 @@ attribute_info read_attribute(ifstream &file, ClassFile *cf ) {
     }
     return result;
 }
+
+
 void Reader::read_attributes(ifstream &file, ClassFile *cf) {
     readf_u2(&cf->attributes_count, file, 1);
     // Read attributes
