@@ -35,20 +35,5 @@ class Reader {
     static void read_methods(ifstream &, ClassFile *);
     static void read_attributes(ifstream &, ClassFile *);
 };
-int comparaIgual(CONSTANT_Utf8_info utf8_struct, std::string nomeAttributo);
-void read_field(ifstream &, field_info *);
-attribute_info read_attribute(ifstream &, ClassFile *);
-//carregar os atributos nas funções abaixo....
-ConstantValue_attribute loadConstantValueAttribute();
-Code_attributes loadCodeAttribute();
-Exceptions_attribute loadExceptionAttribute();
-InnerClasses_attribute loadInnerClassAttribute();
-Syntethic_attribute loadSyntethicAttribute();
-SourceFile_attribute loadSourceFileAttribute();
-LineNumberTable_attributes loadNumberTableAttribute();
-LocalVariableTable_attribute loadLocalVariableTableInfo();
-Deprecated_attribute loadDeprecatedAttributeInfo();
-
-
 
 #endif

@@ -1,4 +1,13 @@
-#include "correct_endian.hpp"
+#include "data_type.hpp"
+
+u1 readf_u1(u1 *pointer, std::ifstream &file, int n_count) {
+    file.read((char *)pointer, n_count);
+    return *pointer;
+}
+
+readt_(u2, 2);
+readt_(u4, 4);
+readt_(u8, 8);
 
 u2 CorrectEndian::t_u2(u2 byte) { return (byte << 8) | (byte >> 8); }
 
