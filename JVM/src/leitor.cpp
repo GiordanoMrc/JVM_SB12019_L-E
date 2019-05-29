@@ -1,7 +1,7 @@
 #include "leitor.hpp"
 
 ClassFile Reader::getClassFile(std::string name) {
-    ifstream file(name, ios::binary);
+    std::ifstream file(name, ios::binary);
     std::cout << "Nome do Arquivo:" << name << std::endl;
 
     if (file.is_open()) {
@@ -14,6 +14,9 @@ ClassFile Reader::getClassFile(std::string name) {
         read_access_flags(file, &cf);
         read_this_class(file, &cf);
         read_super_class(file, &cf);
+        read_interfaces(file, &cf);
+        read_fields(file, &cf);
+        read_methods(file, &cf);
         file.close();
         return cf;
     } else {
@@ -22,20 +25,20 @@ ClassFile Reader::getClassFile(std::string name) {
     }
 }
 
-void Reader::read_magic(ifstream &file, ClassFile *cf) {
+void Reader::read_magic(std::ifstream &file, ClassFile *cf) {
     readt_u4(&cf->magic, file, 1);
 }
 
-void Reader::read_minor_version(ifstream &file, ClassFile *cf) {
+void Reader::read_minor_version(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->minor_version, file, 1);
 }
-void Reader::read_major_version(ifstream &file, ClassFile *cf) {
+void Reader::read_major_version(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->major_version, file, 1);
 }
-void Reader::read_cpool_count(ifstream &file, ClassFile *cf) {
+void Reader::read_cpool_count(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->cp_count, file, 1);
 }
-void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
+void Reader::read_constant_pool(std::ifstream &file, ClassFile *cf) {
     u2 cp_size = cf->cp_count - 1;
     cf->constant_pool = (cp_info *)malloc(sizeof(cp_info) * cp_size);
     for (u2 i = 0; i < cp_size; i++) {
@@ -97,13 +100,58 @@ void Reader::read_constant_pool(ifstream &file, ClassFile *cf) {
     }
 }
 
-void Reader::read_access_flags(ifstream &file, ClassFile *cf) {
+void Reader::read_access_flags(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->access_flags, file, 1);
 }
 
-void Reader::read_this_class(ifstream &file, ClassFile *cf) {
+void Reader::read_this_class(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->this_class, file, 1);
 }
-void Reader::read_super_class(ifstream &file, ClassFile *cf) {
+void Reader::read_super_class(std::ifstream &file, ClassFile *cf) {
     readt_u2(&cf->super_class, file, 1);
+}
+
+void Reader::read_interfaces(std::ifstream &file, ClassFile *cf) {
+    // Read count
+    readt_u2(&cf->interfaces_count, file, 1);
+    // Read interfaces bytes
+    cf->interfaces = (u2 *)malloc(sizeof(u2) * cf->interfaces_count);
+    readt_u2(cf->interfaces, file, cf->interfaces_count);
+}
+
+void Reader::read_fields(std::ifstream &file, ClassFile *cf) {
+    // Read count
+    readt_u2(&cf->fields_count, file, 1);
+    // Read interfaces bytes
+    cf->fields = (field_info *)malloc(sizeof(field_info) * cf->fields_count);
+    for (u2 i = 0; i < cf->fields_count; i++) {
+        readt_u2(&cf->fields[i].access_flags, file, 1);
+        readt_u2(&cf->fields[i].name_index, file, 1);
+        readt_u2(&cf->fields[i].descriptor_index, file, 1);
+        readt_u2(&cf->fields[i].attributes_count, file, 1);
+        // Read field attributes
+        cf->fields[i].attributes = (attribute_info *)malloc(
+            sizeof(attribute_info) * cf->fields[i].attributes_count);
+        for (u2 j = 0; j < cf->fields[i].attributes_count; j++) {
+            read_attribute(file, cf, &cf->fields[i].attributes[j]);
+        }
+    }
+}
+
+void Reader::read_methods(std::ifstream &file, ClassFile *cf) {
+    // Read count
+    readt_u2(&cf->methods_count, file, 1);
+    // Read methods bytes
+    for (u1 i = 0; i < cf->methods_count; i++) {
+        readt_u2(&cf->methods[i].access_flags, file, 1);
+        readt_u2(&cf->methods[i].name_index, file, 1);
+        readt_u2(&cf->methods[i].descriptor_index, file, 1);
+        readt_u2(&cf->methods[i].attributes_count, file, 1);
+        // Read method attributes
+        cf->methods[i].attributes = (attribute_info *)malloc(
+            sizeof(attribute_info) * cf->methods[i].attributes_count);
+        for (u2 j = 0; j < cf->methods[i].attributes_count; j++) {
+            read_attribute(file, cf, &cf->methods[i].attributes[j]);
+        }
+    }
 }

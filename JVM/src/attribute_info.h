@@ -89,27 +89,27 @@ struct Exceptions_attribute {
 struct Syntethic_attribute {
     // ela nao possui nenhum atributo principal.
 };
-/*
+
 struct attribute_info {
     u2 attribute_name_index;
     u4 attribute_length;
     info_attribute* info;
-};*/
+};
 
-struct attribute_info {
+struct info_attribute {
     // Common properties between all attributes
     u2 attribute_name_index;
     u4 attribute_length;
     union {
-        InnerClasses_attribute innerClasses_attribute_info;
-        Code_attributes code_info;
-        ConstantValue_attribute constantValue_Info;
-        Exceptions_attribute exceptions_info;
-        Syntethic_attribute syntethic_attribute;
-        SourceFile_attribute sourceFile_attribute;
-        LineNumberTable_attributes lineNumberTable_info;
-        LocalVariableTable_attribute localVariableTable_info;
-        Deprecated_attribute Deprecated_attribute_info;
+        InnerClasses_attribute innerClasses;
+        Code_attributes code;
+        ConstantValue_attribute constantValue;
+        Exceptions_attribute exceptions;
+        Syntethic_attribute syntethic;
+        SourceFile_attribute sourceFile;
+        LineNumberTable_attributes lineNumberTable;
+        LocalVariableTable_attribute localVariableTable;
+        Deprecated_attribute Deprecated;
     } info;
 };
 namespace InfoAttributeType {

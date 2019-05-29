@@ -13,6 +13,7 @@
 #include "data_type.hpp"
 #include "field_info.h"
 #include "get_constant.hpp"
+#include "leitor_helper.hpp"
 #include "method_info.h"
 
 using namespace std;

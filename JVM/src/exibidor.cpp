@@ -15,12 +15,18 @@ void Printer::showClassFile(ClassFile cf) {
     print_methods_count(cf);
     print_interfaces_count(cf);
     print_attributes_count(cf);
-    cout << "\n#################" << endl;
-    cout << "# Constant Pool #" << endl;
-    cout << "#################" << endl;
-    print_constant_pool(cf);
+    // cout << "\n#################" << endl;
+    // cout << "# Constant Pool #" << endl;
+    // cout << "#################" << endl;
+    // print_constant_pool(cf);
+    // cout << "\n##############" << endl;
+    // cout << "# Interfaces #" << endl;
+    // cout << "##############" << endl;
     // print_interfaces(cf);
-    // print_fields(cf);
+    cout << "\n##########" << endl;
+    cout << "# Fields #" << endl;
+    cout << "##########" << endl;
+    print_fields(cf);
     // print_methods(cf);
     // print_attributes(cf);
 }
@@ -137,6 +143,7 @@ void Printer::print_constant_pool(ClassFile cf) {
     for (int i = 0; i < cp_size; i++) {
         // Index
         std::cout << "[" << i + 1 << "] ";
+        // Info
         switch (cf.constant_pool[i].tag) {
             case ConstantPoolTags::CONSTANT_Class:
                 name_utf8 = get_end_index_utf8_bytes(
@@ -203,5 +210,59 @@ void Printer::print_constant_pool(ClassFile cf) {
                           << cf.constant_pool[i].info.utf8_info.bytes << endl;
                 break;
         }
+    }
+}
+
+void Printer::print_interfaces(ClassFile cf) {
+    // The constant_pool entry at each value of interfaces[i], where 0 ≤ i <
+    // interfaces_count
+    u1 *name;
+    if (cf.interfaces_count > 0) {
+        for (int i = 0; i < cf.interfaces_count; i++) {
+            name = get_end_index_utf8_bytes(cf.constant_pool,
+                                            *(cf.interfaces + i));
+            std::cout << "Interface " << i << std::endl;
+            std::cout << "\tInterface: cp_info#" << cf.interfaces[i] << " "
+                      << "<" << name << ">" << std::endl;
+        }
+    }
+}
+
+void Printer::print_fields(ClassFile cf) {
+    for (int i = 0; i < cf.fields_count; i++) {
+        field_info field = (cf.fields[i]);
+
+        get_Access_Flag_Field1(field.access_flags);
+        std::cout << get_end_index_utf8_bytes(cf.constant_pool,
+                                              field.name_index);
+        std::cout << std::endl;
+
+        std::cout << "\tdescriptor: ";
+
+        std::cout << get_end_index_utf8_bytes(cf.constant_pool,
+                                              field.descriptor_index);
+        std::cout << std::endl;
+
+        std::cout << "\tflags: ";
+
+        get_Access_Flag_Field2(field.access_flags);
+        std::cout << std::endl;
+
+        for (int i = 0; i < field.attributes_count; i++) {
+            std::cout << "Attribute " << i + 1 << std::endl;
+            print_attribute(cf, field.attributes[i], i);
+        }
+        std::cout << std::endl;
+    }
+}
+
+void Printer::print_attributes(ClassFile cf) {
+    std::cout << "########################\n### Class Attributes "
+                 "###\n########################"
+              << std::endl;
+    std::cout << "Count: " << std::dec << cf.attributes_count << std::endl
+              << std::endl;
+    for (int i = 0; i < cf.attributes_count; i++) {
+        print_attribute(cf, cf.attributes[i], i);
     }
 }

@@ -68,3 +68,147 @@ u1 *get_end_index_utf8_bytes(cp_info *constant_pool, u2 index) {
             break;
     }
 }
+
+void get_Access_Flag_Field1(u2 flag) {
+    if (flag & 1) {
+        std::cout << "public ";
+    }
+
+    if ((flag >> 1) & 0x0001) {
+        std::cout << "private ";
+    }
+
+    if ((flag >> 2) & 0x0001) {
+        std::cout << "protected ";
+    }
+
+    if ((flag >> 3) & 0x0001) {
+        std::cout << "static ";
+    }
+
+    if ((flag >> 4) & 0x0001) {
+        std::cout << "final ";
+    }
+
+    if ((flag >> 6) & 0x0001) {
+        std::cout << "volatile ";
+    }
+
+    if ((flag >> 7) & 0x0001) {
+        std::cout << "transient ";
+    }
+
+    if ((flag >> 13) & 0x0001) {
+        std::cout << "synthetic ";
+    }
+
+    if ((flag >> 14) & 0x0001) {
+        std::cout << "enum ";
+    }
+}
+
+void get_Access_Flag_Field2(u2 flag) {
+    bool imprimiu = false;
+
+    if (flag & 1) {
+        std::cout << "ACC_PUBLIC";
+        imprimiu = true;
+    }
+
+    if ((flag >> 1) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PRIVATE";
+        imprimiu = true;
+    }
+
+    if ((flag >> 2) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_PROTECTED";
+        imprimiu = true;
+    }
+
+    if ((flag >> 3) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_STATIC";
+        imprimiu = true;
+    }
+
+    if ((flag >> 4) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_FINAL";
+        imprimiu = true;
+    }
+
+    if ((flag >> 6) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_VOLATILE";
+        imprimiu = true;
+    }
+
+    if ((flag >> 7) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_TRANSIENT";
+        imprimiu = true;
+    }
+
+    if ((flag >> 13) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_SYNTHETIC";
+        imprimiu = true;
+    }
+
+    if ((flag >> 14) & 0x0001) {
+        if (imprimiu) {
+            std::cout << ", ";
+        }
+        std::cout << "ACC_ENUM";
+        imprimiu = true;
+    }
+}
+
+void print_attribute(ClassFile cf, attribute_info attr, int index) {
+    info_attribute info;
+    u1 info_attribute_type;
+    cp_info cp;
+    for (u1 i = 0; i < attr.attribute_length; i++) {
+        info = attr.info[i];
+        info_attribute_type = get_info_attribute_type(
+            cf.constant_pool[info.attribute_name_index].info.utf8_info);
+        // Index
+        std::cout << "{" << std::dec << (u4)i << "} \t";
+        // Info
+        switch (info_attribute_type) {
+            case InfoAttributeType::SourceFile:
+                cp = cf.constant_pool[info.info.sourceFile.sourcefile_index];
+                std::cout << "SourceFile" << std::endl;
+                std::cout << "Generic Info:" << std::endl;
+                std::cout << "\tAttribute name index:\t"
+                          << "cp_info#" << std::dec << attr.attribute_name_index
+                          << std::endl;
+                std::cout << "\tAttribute length:\t" << attr.attribute_length
+                          << std::endl;
+                std::cout << "Specific Info:" << std::endl;
+                std::cout << "\tSource File name index: " << std::dec
+                          << info.info.sourceFile.sourcefile_index;
+                std::cout << "<" << cp.info.utf8_info.bytes << ">" << std::endl;
+                break;
+            default:
+                std::cout << "Not Reconized" << std::endl;
+                break;
+        }
+    }
+}
