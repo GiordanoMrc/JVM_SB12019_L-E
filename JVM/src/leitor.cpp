@@ -147,7 +147,7 @@ void Reader::read_methods(std::ifstream &file, ClassFile *cf) {
         readt_u2(&cf->methods[i].name_index, file, 1);
         readt_u2(&cf->methods[i].descriptor_index, file, 1);
         readt_u2(&cf->methods[i].attributes_count, file, 1);
-        // Read method attributes
+        // Read methods attributes
         cf->methods[i].attributes = (attribute_info *)malloc(
             sizeof(attribute_info) * cf->methods[i].attributes_count);
         for (u2 j = 0; j < cf->methods[i].attributes_count; j++) {

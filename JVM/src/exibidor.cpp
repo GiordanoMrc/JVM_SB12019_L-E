@@ -23,10 +23,10 @@ void Printer::showClassFile(ClassFile cf) {
     // cout << "# Interfaces #" << endl;
     // cout << "##############" << endl;
     // print_interfaces(cf);
-    cout << "\n##########" << endl;
-    cout << "# Fields #" << endl;
-    cout << "##########" << endl;
-    print_fields(cf);
+    // cout << "\n##########" << endl;
+    // cout << "# Fields #" << endl;
+    // cout << "##########" << endl;
+    // print_fields(cf);
     // print_methods(cf);
     // print_attributes(cf);
 }
