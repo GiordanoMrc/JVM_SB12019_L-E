@@ -1,7 +1,7 @@
 #ifndef ACCESS_FLAGS_H
 #define ACCESS_FLAGS_H
 #include "attribute_info.h"
-#include "data_types.h"
+#include "data_type.hpp"
 namespace AccessFlags {
 enum {
     PUBLIC = 0x0001,

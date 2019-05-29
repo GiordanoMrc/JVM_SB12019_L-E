@@ -20,9 +20,6 @@ enum {
     CONSTANT_MethodType = 16,
     CONSTANT_InvokeDynamic = 18
 };
-typedef struct field_info fieldInfo;
-// methods
-typedef struct MethodInfo MethodInfo;
 
 }  // namespace ConstantPoolTags
 typedef struct CONSTANT_Class_info {

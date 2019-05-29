@@ -1,6 +1,7 @@
 #ifndef CLASS_FILE_H
 #define CLASS_FILE_H
 
+#include "attribute_info.h"
 #include "cp_info.h"
 #include "field_info.h"
 #include "method_info.h"
@@ -22,7 +23,7 @@ class ClassFile {
     u2 methods_count = 0;
     method_info *methods = NULL;
     u2 attributes_count = 0;
-    attribute_info* attributes = NULL;
+    attribute_info *attributes = NULL;
 
     ClassFile() {}
 };

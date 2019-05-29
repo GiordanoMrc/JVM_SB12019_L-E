@@ -4,6 +4,8 @@
 #include "attribute_info.h"
 #include "data_type.hpp"
 
+typedef struct field_info field_info;
+
 namespace FieldAcessFlags {
 enum {
     PUBLIC = 0x0001,

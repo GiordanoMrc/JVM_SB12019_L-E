@@ -28,4 +28,6 @@ struct method_info {
     attribute_info *attributes;
 };
 
+typedef struct method_info method_info;
+
 #endif

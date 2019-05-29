@@ -9,8 +9,8 @@
 #include <string>
 
 #include "class_file.hpp"
-#include "correct_endian.hpp"
 #include "cp_info.h"
+#include "data_type.hpp"
 #include "field_info.h"
 #include "method_info.h"
 

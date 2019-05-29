@@ -14,10 +14,11 @@ u4 t_u4(u4);
 u8 t_u8(u8);
 };  // namespace CorrectEndian
 
-u1 readf_u1(u1 *, std::ifstream &, int);
+u1 readt_u1(u1 *, std::ifstream &, int);
 
+#define readt_d(type, tam) type readt_##type(type *, std::ifstream &, int);
 #define readt_(type, tam)                                                \
-    type readf_##type(type *pointer, std::ifstream &file, int n_count) { \
+    type readt_##type(type *pointer, std::ifstream &file, int n_count) { \
         type aux;                                                        \
         for (int i = 0; i < n_count; i++) {                              \
             file.read((char *)&aux, tam);                                \
@@ -26,5 +27,8 @@ u1 readf_u1(u1 *, std::ifstream &, int);
         }                                                                \
         return (aux);                                                    \
     }
+readt_d(u2, 2);
+readt_d(u4, 4);
+readt_d(u8, 8);
 
 #endif
