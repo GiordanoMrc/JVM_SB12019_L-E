@@ -5,7 +5,7 @@ C_SRCS := $(wildcard *.cpp)
 DIR_SRC=src/
 DIR_OBJ=build/
 
-_OBJ= main.o leitor.o exibidor.o data_type.o
+_OBJ= main.o leitor.o exibidor.o data_type.o get_constant.o
 OBJ = $(patsubst %,$(DIR_OBJ)%,$(_OBJ))
 
 all : clean compile exec

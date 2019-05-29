@@ -12,6 +12,7 @@
 #include "cp_info.h"
 #include "data_type.hpp"
 #include "field_info.h"
+#include "get_constant.hpp"
 #include "method_info.h"
 
 using namespace std;
