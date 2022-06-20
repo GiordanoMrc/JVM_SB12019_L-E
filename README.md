@@ -2,7 +2,6 @@
 
 Projeto de JVM para a Matéria Software Básico.
 
-#Integrantes
+Leitor / Exibidor.
 
-Marcelo Oliveira
-
+Projeto completo em outro repositório!
